@@ -1,0 +1,58 @@
+{
+    "format_version": 2,
+    "header": {
+        "name": "20kJam",
+        "description": "20kJam",
+        "min_engine_version": [
+            1,
+            19,
+            60
+        ],
+        "uuid": "c42971c7-da39-4d31-ae26-0763cbe39981",
+        "version": [
+            0,
+            0,
+            1
+        ]
+    },
+    "modules": [
+        {
+            "type": "data",
+            "uuid": "7b86066f-d814-4694-9901-d096a309c8f8",
+            "version": [
+                0,
+                0,
+                1
+            ]
+        },
+        {
+            "type": "script",
+            "language": "javascript",
+            "uuid": "4477d450-844c-41a1-81e7-b9e08057fa43",
+            "entry": "scripts/main.js",
+            "version": [
+                1,
+                0,
+                0
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "uuid": "6b5316c5-7d2e-40f7-8f22-9931dca2da84",
+            "version": [
+                0,
+                0,
+                1
+            ]
+        },
+        {
+            "module_name": "@minecraft/server",
+            "version": "1.16.0"
+        },
+        {
+            "module_name": "@minecraft/server-ui",
+            "version": "1.3.0"
+        }
+    ]
+}

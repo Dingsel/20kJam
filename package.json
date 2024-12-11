@@ -1,0 +1,24 @@
+{
+    "name": "20kjam",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "cmca watch",
+        "export": "cmca run export"
+    },
+    "overrides": {
+        "@minecraft/server": "$@minecraft/server"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "@minecraft/math": "^1.5.1",
+        "@minecraft/server": "^1.16.0",
+        "@minecraft/server-ui": "^1.3.0",
+        "cmca-build": "^0.2.1",
+        "esbuild": "^0.24.0",
+        "typescript": "^5.7.2"
+    },
+    "type": "module"
+}

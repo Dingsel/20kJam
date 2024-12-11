@@ -1,0 +1,39 @@
+{
+    "format_version": 2,
+    "header": {
+        "name": "20kJam",
+        "description": "20kJam",
+        "min_engine_version": [
+            1,
+            19,
+            60
+        ],
+        "uuid": "6b5316c5-7d2e-40f7-8f22-9931dca2da84",
+        "version": [
+            0,
+            0,
+            1
+        ]
+    },
+    "modules": [
+        {
+            "type": "resources",
+            "uuid": "edae21db-6d6d-410f-9224-8b2d56ccbfac",
+            "version": [
+                0,
+                0,
+                1
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "uuid": "c42971c7-da39-4d31-ae26-0763cbe39981",
+            "version": [
+                0,
+                0,
+                1
+            ]
+        }
+    ]
+}
