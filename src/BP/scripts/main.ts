@@ -1,7 +1,6 @@
 
-import { ActionFormData } from "@minecraft/server-ui"
 import { GameMode, Player, system, Vector3, world } from "@minecraft/server"
-import BoxFightGameMode from "./gamemodes/boxfight"
+import BoxFightGameMode from "./gamemodes/boxfight/boxfight"
 import { GameEventData, GamemodeExport } from "./gamemodes/gamemodeTypes"
 import { anounceGamemode, shuffleArr } from "./utils"
 
@@ -59,6 +58,10 @@ export async function endRound(playersThatWon: Player[]) {
     await activeGamemode?.dispose?.()
     activeGamemode = null
 
+    playersThatWon.forEach(x => {
+        activeGamemode?.onPlayerWin?.(x)
+    })
+
     world.getAllPlayers().forEach((player) => {
         player.setGameMode(GameMode.spectator)
         player.playSound("mob.enderdragon.growl")
@@ -71,7 +74,6 @@ export async function endRound(playersThatWon: Player[]) {
         player.setGameMode(GameMode.survival)
         player.teleport(spawnLocation)
     })
-
 }
 
 //world.getAllPlayers().forEach(player => {

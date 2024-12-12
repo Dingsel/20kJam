@@ -13,6 +13,7 @@ export interface GamemodeExport {
     onceActive?: () => void | Promise<void>
     whileActive?: () => void | Promise<void>
     dispose?: () => void | Promise<void>
+    onPlayerWin?: (player: Player) => void
 }
 
 export type DeathSequenceType = "instantRespawn" | "timedRespawn" | "noRespawn"
