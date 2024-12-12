@@ -17,8 +17,8 @@
 
   "creators_wait": {
     "anim_type": "wait",
-    "duration": "(5 - $invistime)",
-    "next": "(5 - $invistime)"
+    "duration": "(10 - $invisTime)",
+    "next": "@forms_intro.creators_out"
   },
   "creators_out": {
     "anim_type": "alpha",
@@ -34,20 +34,62 @@
         "creators@creators": {}
       },
       {
+        "introsequenz@introsequenz": {}
+      },
+      {
         "exitable_screen@server_form.exitable_screen": {}
       }
     ]
   },
 
+  "text_panel_in": {
+    "anim_type": "wait",
+    "duration": 0.5,
+    "next": "@forms_intro.text_panel_increase"
+  },
+
+  "text_panel_increase": {
+    "anim_type": "size",
+    "from": [0, "100%c"],
+    "duration": 0.5,
+    "to": ["100%c", "100%c"],
+    "easing": "out_cubic"
+  },
+
+  "text_panel_out_wait": {
+    "anim_type": "wait",
+    "duration": 10.4,
+    "next": "@forms_intro.text_panel_out"
+  },
+  "text_panel_out": {
+    "anim_type": "alpha",
+    "from": 1,
+    "to": 0,
+    "duration": 0.4
+  },
+
   "creators@rt20k.p": {
     "size": ["100%cm", "100%c + 16px"],
+
     "controls": [
       {
-        "text@rt20k.l": {
+        "text_panel@rt20k.p": {
+          "size": [0, "100%c"],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
-          "font_scale_factor": 2,
-          "text": "Made with love by"
+          "anims": ["@forms_intro.text_panel_in"],
+          "clips_children": true,
+          "controls": [
+            {
+              "text@rt20k.l": {
+                "text_alignment": "center",
+                "anims": ["@forms_intro.text_panel_out_wait"],
+
+                "font_scale_factor": 2,
+                "text": "Made with love by"
+              }
+            }
+          ]
         }
       },
       {
@@ -60,11 +102,16 @@
             {
               "dingsel@rt20k.img": {
                 "size": [64, 64],
+                "$invisTime|default": 2,
+                "alpha": 0,
+                "anims": ["@forms_intro.creators_inAnim"],
                 "texture": "rt20k/intro/Dingsel",
                 "controls": [
                   {
                     "name@rt20k.l": {
                       "text": "§uDingsel",
+                      "alpha": 0,
+                      "anims": ["@forms_intro.creators_inAnim"],
                       "anchor_from": "bottom_middle",
                       "anchor_to": "bottom_middle",
                       "offset": [0, 16]
@@ -82,11 +129,16 @@
               "bp@rt20k.img": {
                 "size": [64, 64],
                 "texture": "rt20k/intro/blockplay",
+                "$invisTime|default": 4,
+                "alpha": 0,
+                "anims": ["@forms_intro.creators_inAnim"],
                 "controls": [
                   {
                     "name@rt20k.l": {
                       "text_alignment": "center",
                       "text": "§6Schwerty\nYassinArb",
+                      "alpha": 0,
+                      "anims": ["@forms_intro.creators_inAnim"],
                       "anchor_from": "bottom_middle",
                       "anchor_to": "bottom_middle",
                       "offset": [0, 26]
@@ -104,10 +156,15 @@
               "bp@rt20k.img": {
                 "size": [64, 64],
                 "texture": "rt20k/intro/Cookie",
+                "$invisTime|default": 6,
+                "alpha": 0,
+                "anims": ["@forms_intro.creators_inAnim"],
                 "controls": [
                   {
                     "name@rt20k.l": {
                       "text": "§dCookie",
+                      "alpha": 0,
+                      "anims": ["@forms_intro.creators_inAnim"],
                       "anchor_from": "bottom_middle",
                       "anchor_to": "bottom_middle",
                       "offset": [0, 16]
@@ -117,6 +174,1774 @@
               }
             }
           ]
+        }
+      }
+    ]
+  },
+
+  // spinner
+
+  "spinner_visiblewait": {
+    "anim_type": "wait",
+    "duration": 18.1,
+    "next": "@forms_intro.spinner_visible"
+  },
+
+  "spinnerp_hide": {
+    "anim_type": "size",
+    "from": [0, 0],
+    "to": [0, 0],
+    "duration": 0,
+    "next": "@forms_intro.spinnerp_visiblewait"
+  },
+  "spinnerp_visiblewait": {
+    "anim_type": "wait",
+    "duration": 18.1,
+    "next": "@forms_intro.spinnerp_show"
+  },
+  "spinnerp_show": {
+    "anim_type": "size",
+    "from": [48, 50],
+    "to": [48, 50],
+    "duration": 0
+  },
+  "spinner_visible": {
+    "anim_type": "alpha",
+    "from": 1,
+    "to": 1,
+    "duration": 0,
+    "next": "$next"
+  },
+
+  "first_spinner_anim": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "from": [0, 0],
+    "to": [0, "-100%c + 48px"],
+    "duration": 3
+  },
+  "second_spinner_anim": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "from": [0, 0],
+    "to": [0, "-100%c + 48px"],
+    "duration": 3.4
+  },
+  "third_spinner_anim": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "from": [0, 0],
+    "to": [0, "-100%c + 48px"],
+    "duration": 3.8
+  },
+  "fourth_spinner_anim": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "from": [0, 0],
+    "to": [0, "-100%c + 48px"],
+    "duration": 4.2
+  },
+  "five_spinner_anim": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "from": [0, 0],
+    "to": [0, "-100%c + 48px"],
+    "duration": 4.6
+  },
+  "six_spinner_anim": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "from": [0, 0],
+    "to": [0, "-100%c + 48px"],
+    "duration": 5
+  },
+  "spinner@rt20k.sp": {
+    "orientation": "horizontal",
+    "size": ["100%c", 50],
+    "controls": [
+      {
+        "first@rt20k.p": {
+          "size": [48, 50],
+          "clips_children": true,
+          "anims": ["@forms_intro.spinnerp_hide"],
+          "controls": [
+            {
+              "stack@rt20k.sp": {
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "$next": "@forms_intro.first_spinner_anim",
+                "anims": ["@forms_intro.spinner_visiblewait"],
+                "size": [48, "100%c"],
+                "controls": [
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/9"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/0"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "second@rt20k.p": {
+          "size": [48, 50],
+          "clips_children": true,
+          "anims": ["@forms_intro.spinnerp_hide"],
+
+          "controls": [
+            {
+              "stack@rt20k.sp": {
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "$next": "@forms_intro.second_spinner_anim",
+                "anims": ["@forms_intro.spinner_visiblewait"],
+                "size": [48, "100%c"],
+                "controls": [
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/7"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/0"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "third@rt20k.p": {
+          "size": [48, 50],
+          "clips_children": true,
+          "anims": ["@forms_intro.spinnerp_hide"],
+
+          "controls": [
+            {
+              "stack@rt20k.sp": {
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "$next": "@forms_intro.third_spinner_anim",
+                "anims": ["@forms_intro.spinner_visiblewait"],
+                "size": [48, "100%c"],
+                "controls": [
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/9"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/9"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/9"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/dot"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "fourth@rt20k.p": {
+          "size": [48, 50],
+          "clips_children": true,
+          "anims": ["@forms_intro.spinnerp_hide"],
+
+          "controls": [
+            {
+              "stack@rt20k.sp": {
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "$next": "@forms_intro.fourth_spinner_anim",
+                "anims": ["@forms_intro.spinner_visiblewait"],
+                "size": [48, "100%c"],
+                "controls": [
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/7"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/7"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/0"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "five@rt20k.p": {
+          "size": [48, 50],
+          "clips_children": true,
+          "anims": ["@forms_intro.spinnerp_hide"],
+
+          "controls": [
+            {
+              "stack@rt20k.sp": {
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "$next": "@forms_intro.five_spinner_anim",
+                "anims": ["@forms_intro.spinner_visiblewait"],
+                "size": [48, "100%c"],
+                "controls": [
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/7"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/0"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/9"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/0"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "six@rt20k.p": {
+          "size": [48, 50],
+          "clips_children": true,
+          "anims": ["@forms_intro.spinnerp_hide"],
+
+          "controls": [
+            {
+              "stack@rt20k.sp": {
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "$next": "@forms_intro.six_spinner_anim",
+                "anims": ["@forms_intro.spinner_visiblewait"],
+                "size": [48, "100%c"],
+                "controls": [
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/0"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/7"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/9"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/0"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  // intro
+
+  "intro_wait": {
+    "anim_type": "wait",
+    "duration": 13,
+    "next": "$next"
+  },
+
+  "intro_wait_anim": {
+    "anim_type": "wait",
+    "duration": 13,
+    "next": "@forms_intro.flipbook_show"
+  },
+
+  "flipbook_show": {
+    "anim_type": "alpha",
+    "from": 1,
+    "to": 1,
+    "duration": 0,
+    "next": "@forms_intro.flipbook_showwait"
+  },
+  "flipbook_showwait": {
+    "anim_type": "wait",
+    "duration": 2,
+    "next": "@forms_intro.flipbook_hide"
+  },
+  "flipbook_hide": {
+    "anim_type": "alpha",
+    "from": 0,
+    "to": 0,
+    "duration": 0
+  },
+
+  "flipbook_road": {
+    "anim_type": "flip_book",
+    "frame_count": 22,
+    "frame_step": 1,
+    "fps": 11,
+    "duration": 2
+  },
+  "road_finished_wait": {
+    "anim_type": "wait",
+    "next": "@forms_intro.road_finished_show",
+    "duration": 2
+  },
+  "road_finished_show": {
+    "anim_type": "alpha",
+    "from": 1,
+    "to": 1
+  },
+
+  "first_part_wait": {
+    "anim_type": "wait",
+    "duration": 2.4,
+    "next": "@forms_intro.first_part_increase"
+  },
+
+  "first_part_increase": {
+    "anim_type": "size",
+    "from": [250, 64],
+    "to": [250, 128],
+    "duration": 1.2,
+    "easing": "out_cubic",
+    "next": "@forms_intro.first_part_wait_2"
+  },
+
+  "first_part_wait_2": {
+    "anim_type": "wait",
+    "duration": 1.5,
+    "next": "@forms_intro.first_part_gone"
+  },
+  "first_part_gone": {
+    "anim_type": "size",
+    "from": [0, 0],
+    "to": [0, 0],
+    "duration": 0
+  },
+
+  "flipbook_explosion_wait": {
+    "anim_type": "wait",
+    "duration": 5,
+    "next": "@forms_intro.flipbook_explosion"
+  },
+  "flipbook_explosion": {
+    "anim_type": "flip_book",
+    "frame_count": 8,
+    "frame_step": 1,
+    "fps": 8
+  },
+
+  "explostion_wait_anim": {
+    "anim_type": "wait",
+    "duration": 18,
+    "next": "@forms_intro.explostion_show"
+  },
+
+  "explostion_show": {
+    "anim_type": "alpha",
+    "from": 1,
+    "to": 1,
+    "duration": 0,
+    "next": "@forms_intro.explostion_wait_anim2"
+  },
+
+  "explostion_wait_anim2": {
+    "anim_type": "wait",
+    "duration": 1,
+    "next": "@forms_intro.flipbook_hide"
+  },
+
+  "introsequenz@rt20k.p": {
+    "size": ["100%", "100%"],
+    "controls": [
+      {
+        "spinner@spinner": {}
+      },
+      {
+        "first_part@rt20k.sp": {
+          "size": [250, 64],
+          "$next": "@forms_intro.first_part_wait",
+          "anims": ["@forms_intro.intro_wait"],
+          "orientation": "vertical",
+          "clips_children": true,
+          "controls": [
+            {
+              "road@rt20k.img": {
+                "alpha": 0,
+                "size": [250, 64],
+                "$next": "@forms_intro.flipbook_road",
+                "anims": [
+                  "@forms_intro.intro_wait",
+                  "@forms_intro.intro_wait_anim"
+                ],
+                "texture": "rt20k/intro/RoadAnim_hori",
+                "uv_size": [90, 23],
+                "controls": [
+                  {
+                    "finished_road@rt20k.img": {
+                      "size": [250, 64],
+                      "$next": "@forms_intro.road_finished_wait",
+                      "anims": ["@forms_intro.intro_wait"],
+                      "texture": "rt20k/intro/road_finished",
+                      "alpha": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "to@rt20k.img": {
+                "$next": "@forms_intro.road_finished_wait",
+                "size": [250, 64],
+                "anims": ["@forms_intro.intro_wait"],
+                "texture": "rt20k/intro/to"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "explosion@rt20k.img": {
+          "size": [450, 115],
+          "offset": [0, 40],
+          "alpha": 0,
+          "$next": "@forms_intro.flipbook_explosion_wait",
+          "anims": [
+            "@forms_intro.intro_wait",
+            "@forms_intro.explostion_wait_anim"
+          ],
+          "texture": "rt20k/intro/explosion_anim",
+          "uv_size": [90, 23]
+        }
+      },
+      {
+        "explosion@rt20k.img": {
+          "size": [450, 115],
+          "offset": [0, -40],
+          "alpha": 0,
+          "$next": "@forms_intro.flipbook_explosion_wait",
+          "anims": [
+            "@forms_intro.intro_wait",
+            "@forms_intro.explostion_wait_anim"
+          ],
+          "texture": "rt20k/intro/explosion_anim",
+          "uv_size": [90, 23]
+        }
+      },
+      {
+        "explosion@rt20k.img": {
+          "size": [-450, 115],
+          "offset": [0, 0],
+          "alpha": 0,
+          "$next": "@forms_intro.flipbook_explosion_wait",
+          "anims": [
+            "@forms_intro.intro_wait",
+            "@forms_intro.explostion_wait_anim"
+          ],
+          "texture": "rt20k/intro/explosion_anim",
+          "uv_size": [90, 23]
         }
       }
     ]
