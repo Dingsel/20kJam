@@ -1,25 +1,25 @@
 {
-  "namespace": "rt20k_form",
-  "button@rt20k.b": {
-    "button_mappings": [
-      {
-        "from_button_id": "button.menu_select",
-        "to_button_id": "button.form_button_click",
-        "mapping_type": "pressed"
-      },
-      {
-        "from_button_id": "button.menu_ok",
-        "to_button_id": "button.form_button_click",
-        "mapping_type": "focused"
-      }
-    ],
-    "controls": [
-      {
-        "default@rt20k.i": {}
-      },
-      {
-        "hover@rt20k.i": {}
-      }
-    ]
-  }
+    "namespace": "rt20k_form",
+    "button@rt20k.b": {
+        "button_mappings": [
+            {
+                "from_button_id": "button.menu_select",
+                "to_button_id": "button.form_button_click",
+                "mapping_type": "pressed"
+            },
+            {
+                "from_button_id": "button.menu_ok",
+                "to_button_id": "button.form_button_click",
+                "mapping_type": "focused"
+            }
+        ],
+        "controls": [
+            {
+                "default@rt20k.i": {}
+            },
+            {
+                "hover@rt20k.i": {}
+            }
+        ]
+    }
 }

@@ -1,12 +1,28 @@
-type GamemodeType = "Solo" | "Team"
+import { Player, Vector3 } from "@minecraft/server"
 
-interface GamemodeExport {
+export type GamemodeType = "Solo" | "Team"
+
+export interface GamemodeExport {
     displayName: string
     typeId: string
     gamemodeType: GamemodeType
+    gameSettings: GameSettingInformation
 
-    onceActive?: () => void
-    whileActive?: () => void
+    spawnPlayer: (player: Player) => void
+
+    onceActive?: () => void | Promise<void>
+    whileActive?: () => void | Promise<void>
+    dispose?: () => void | Promise<void>
+    onPlayerWin?: (player: Player) => void
 }
 
-interface GameSettingInformation { }
+export type DeathSequenceType = "instantRespawn" | "timedRespawn" | "noRespawn"
+
+export interface GameSettingInformation {
+    mapBounds: { start: Vector3, end: Vector3 }
+    deathSequence: DeathSequenceType
+}
+
+export interface GameEventData {
+    players: Player[]
+}
