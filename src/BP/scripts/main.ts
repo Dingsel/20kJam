@@ -1,3 +1,5 @@
+
+import { ActionFormData } from "@minecraft/server-ui"
 import { GameMode, Player, system, Vector3, world } from "@minecraft/server"
 import BoxFightGameMode from "./gamemodes/boxfight"
 import { GameEventData, GamemodeExport } from "./gamemodes/gamemodeTypes"
@@ -66,3 +68,11 @@ export async function endRound(playersThatWon: Player[]) {
     })
 
 }
+
+world.getAllPlayers().forEach(player => {
+    const ui = new ActionFormData()
+        .title('RT20K.intro')
+        .button('')
+        .show(player)
+
+})

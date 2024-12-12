@@ -1,8 +1,12 @@
 {
-  "namespace": "rt",
+  "namespace": "rt20k",
   "p": {
     "type": "panel",
     "anchor_from": "center",
+    "size": [
+      "100%",
+      "100%"
+    ],
     "anchor_to": "center"
   },
   "img": {

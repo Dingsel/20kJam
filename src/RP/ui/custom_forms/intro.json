@@ -1,3 +1,124 @@
 {
-    "namespace": "test"
+  "namespace": "forms_intro",
+
+  "creators_inAnim": {
+    "anim_type": "wait",
+    "duration": "$invisTime",
+    "next": "@forms_intro.creators_inAnimAlpha"
+  },
+
+  "creators_inAnimAlpha": {
+    "anim_type": "alpha",
+    "from": 0,
+    "to": 1,
+    "duration": 0.4,
+    "next": "@forms_intro.creators_wait"
+  },
+
+  "creators_wait": {
+    "anim_type": "wait",
+    "duration": "(5 - $invistime)",
+    "next": "(5 - $invistime)"
+  },
+  "creators_out": {
+    "anim_type": "alpha",
+    "from": 1,
+    "to": 0,
+    "duration": 0.4
+  },
+
+  "main@rt20k.img": {
+    "size": ["100%", "100%"],
+    "controls": [
+      {
+        "creators@creators": {}
+      },
+      {
+        "exitable_screen@server_form.exitable_screen": {}
+      }
+    ]
+  },
+
+  "creators@rt20k.p": {
+    "size": ["100%cm", "100%c + 16px"],
+    "controls": [
+      {
+        "text@rt20k.l": {
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "font_scale_factor": 2,
+          "text": "Made with love by"
+        }
+      },
+      {
+        "stack_creators@rt20k.sp": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "orientation": "horizontal",
+          "size": ["100%c", "100%cm"],
+          "controls": [
+            {
+              "dingsel@rt20k.img": {
+                "size": [64, 64],
+                "texture": "rt20k/intro/Dingsel",
+                "controls": [
+                  {
+                    "name@rt20k.l": {
+                      "text": "§uDingsel",
+                      "anchor_from": "bottom_middle",
+                      "anchor_to": "bottom_middle",
+                      "offset": [0, 16]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "padding@rt20k.p": {
+                "size": [16, 0]
+              }
+            },
+            {
+              "bp@rt20k.img": {
+                "size": [64, 64],
+                "texture": "rt20k/intro/blockplay",
+                "controls": [
+                  {
+                    "name@rt20k.l": {
+                      "text_alignment": "center",
+                      "text": "§6Schwerty\nYassinArb",
+                      "anchor_from": "bottom_middle",
+                      "anchor_to": "bottom_middle",
+                      "offset": [0, 26]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "padding@rt20k.p": {
+                "size": [16, 0]
+              }
+            },
+            {
+              "bp@rt20k.img": {
+                "size": [64, 64],
+                "texture": "rt20k/intro/Cookie",
+                "controls": [
+                  {
+                    "name@rt20k.l": {
+                      "text": "§dCookie",
+                      "anchor_from": "bottom_middle",
+                      "anchor_to": "bottom_middle",
+                      "offset": [0, 16]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
 }
