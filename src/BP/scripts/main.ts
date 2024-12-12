@@ -5,6 +5,8 @@ import BoxFightGameMode from "./gamemodes/boxfight"
 import { GameEventData, GamemodeExport } from "./gamemodes/gamemodeTypes"
 import { anounceGamemode, shuffleArr } from "./utils"
 
+export const dim = world.getDimension("overworld")
+
 const spawnLocation: Vector3 = {
     x: 0,
     y: 123,
@@ -43,6 +45,7 @@ function setupGame() {
         })
 
         if (checkIfWin()) {
+            //Score of a player over 20k
             world.sendMessage("Hurray you won the Event")
         } else gameLoop()
     }
@@ -53,11 +56,13 @@ function setupGame() {
 setupGame()
 
 export async function endRound(playersThatWon: Player[]) {
+    await activeGamemode?.dispose?.()
     activeGamemode = null
 
     world.getAllPlayers().forEach((player) => {
         player.setGameMode(GameMode.spectator)
         player.playSound("mob.enderdragon.growl")
+        player.onScreenDisplay.setTitle(playersThatWon.map(x => x.name).join(","))
     })
 
     await system.waitTicks(60)
@@ -69,10 +74,10 @@ export async function endRound(playersThatWon: Player[]) {
 
 }
 
-world.getAllPlayers().forEach(player => {
-    const ui = new ActionFormData()
-        .title('RT20K.intro')
-        .button('')
-        .show(player)
-
-})
+//world.getAllPlayers().forEach(player => {
+//    const ui = new ActionFormData()
+//        .title('RT20K.intro')
+//        .button('')
+//        .show(player)
+//
+//})

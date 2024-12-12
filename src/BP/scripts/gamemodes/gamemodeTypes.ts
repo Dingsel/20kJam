@@ -10,8 +10,9 @@ export interface GamemodeExport {
 
     spawnPlayer: (player: Player) => void
 
-    onceActive?: () => void
-    whileActive?: () => void
+    onceActive?: () => void | Promise<void>
+    whileActive?: () => void | Promise<void>
+    dispose?: () => void | Promise<void>
 }
 
 export type DeathSequenceType = "instantRespawn" | "timedRespawn" | "noRespawn"
