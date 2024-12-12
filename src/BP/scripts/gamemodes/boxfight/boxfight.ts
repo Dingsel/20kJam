@@ -1,4 +1,4 @@
-import { BlockVolume, BlockVolumeBase, Player, system, Vector3, world } from "@minecraft/server"
+import { BlockVolume, Player, Vector3, world } from "@minecraft/server"
 import { splitupPlayers } from "../../hooks/splitupPlayers"
 import { GameEventData, GamemodeExport } from "../gamemodeTypes"
 import { activeGamemode, dim, endRound } from "../../main"
