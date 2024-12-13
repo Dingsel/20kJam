@@ -1,10 +1,13 @@
 
 import { GameMode, Player, system, Vector3, world } from "@minecraft/server"
-import BoxFightGameMode from "./gamemodes/boxfight/boxfight"
 import { GameEventData, GamemodeExport } from "./gamemodes/gamemodeTypes"
+import BoxFightGameMode from "./gamemodes/boxfight/boxfight"
 import { anounceGamemode, shuffleArr } from "./utils"
 
+type Gamemodes = ((eventData: GameEventData) => GamemodeExport | Promise<GamemodeExport>)[]
+
 export const dim = world.getDimension("overworld")
+export let activeGamemode: GamemodeExport | null = null
 
 const spawnLocation: Vector3 = {
     x: 0,
@@ -12,22 +15,21 @@ const spawnLocation: Vector3 = {
     z: 0
 }
 
-const gameModes: ((eventData: GameEventData) => GamemodeExport)[] = [
+const gameModes: Gamemodes = [
     BoxFightGameMode
 ]
-
-export let activeGamemode: GamemodeExport | null = null
 
 function checkIfWin() {
     return true
 }
 
 function setupGame() {
-    const randomGamemodes: ((eventData: GameEventData) => GamemodeExport)[] = shuffleArr(gameModes)
+    const randomGamemodes: Gamemodes = shuffleArr(gameModes)
     let gamemodeIndex = 0
 
     async function gameLoop() {
-        const upcomingGamemode = randomGamemodes[gamemodeIndex % randomGamemodes.length]({ players: world.getAllPlayers() })
+        const gamemodeElementIndex = gamemodeIndex % randomGamemodes.length
+        const upcomingGamemode = await randomGamemodes[gamemodeElementIndex]({ players: world.getAllPlayers() })
         activeGamemode = upcomingGamemode
 
         await anounceGamemode(upcomingGamemode)
