@@ -1,4 +1,4 @@
-import { Player, system, world } from "@minecraft/server";
+import { ItemLockMode, ItemStack, ItemType, Player, system, world } from "@minecraft/server";
 import { GamemodeExport } from "./gamemodes/gamemodeTypes";
 
 export function shuffleArr<T extends any[]>(array: T): T {
@@ -22,4 +22,10 @@ export async function titleCountdown(remainingSeconds: number, targetPlayer?: Pl
         await system.waitTicks(20)
         await titleCountdown(remainingSeconds - 1)
     }
+}
+
+export function lockItem(itemType: ItemType | string, amount?: number): ItemStack {
+    const stack = new ItemStack(itemType, amount)
+    stack.lockMode = ItemLockMode.inventory
+    return stack
 }

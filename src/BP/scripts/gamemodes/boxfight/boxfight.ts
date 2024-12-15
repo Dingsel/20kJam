@@ -1,4 +1,4 @@
-import { BlockVolume, Player, Vector3, world } from "@minecraft/server"
+import { BlockVolume, Entity, EntityEquippableComponent, EntityInventoryComponent, EquipmentSlot, ItemStack, Player, Vector3, world } from "@minecraft/server"
 import { splitupPlayers } from "../../hooks/splitupPlayers"
 import { GameEventData, GamemodeExport } from "../gamemodeTypes"
 import { activeGamemode, dim, endRound } from "../../main"
@@ -7,14 +7,14 @@ import { BoxfightPregame } from "./pregame"
 
 const { start, end } = {
     start: {
-        x: 0,
-        y: -60,
-        z: 0
+        x: -1,
+        y: -58,
+        z: -1
     },
     end: {
-        x: 2,
-        y: -60,
-        z: 2
+        x: 1,
+        y: -58,
+        z: 1
     }
 }
 
@@ -28,18 +28,18 @@ const winCond = [{ block: TEAM_1_BLOCK, teamId: 0 }, { block: TEAM_2_BLOCK, team
 const teamSpawnLocations = [
     {
         x: 0,
-        y: 20,
-        z: -10
+        y: -55,
+        z: -19
     },
     {
         x: 0,
-        y: 20,
-        z: 10
+        y: -55,
+        z: 19
     }
 ] as const
 
 export async function BoxFightGameMode({ players }: GameEventData): Promise<GamemodeExport> {
-    const { playerTeamMap } = await BoxfightPregame({ players })
+    const { playerTeamMap, getSelectedKit, dispose } = await BoxfightPregame({ players })
 
     const timer = useCountdown(180 * 20)
 
@@ -116,14 +116,36 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
             const teamData = playerTeamMap.get(player)
             if (!teamData) return
             const spawnLoc = teamSpawnLocations[teamData.teamId] || teamSpawnLocations[0]
-            player.teleport(spawnLoc)
+            player.teleport(spawnLoc, { facingLocation: start })
         },
 
-        onceActive() {
-            console.warn("jnrejerj")
+        async onceActive() {
             for (const [player, { teamId }] of playerTeamMap.entries()) {
                 if (!player || !player.isValid()) return
-                player.nameTag = `${teamId === 0 ? "§6[ORANGE]" : "§u[PURPLE]"} ${player.name}`
+
+                const container = (player.getComponent("inventory") as EntityInventoryComponent).container
+                const equipment = player.getComponent("equippable") as EntityEquippableComponent
+
+                if (teamId === 0) {
+                    player.nameTag = `"§6[ORANGE]" ${player.name}`
+                    container?.setItem(8, new ItemStack(TEAM_1_BLOCK, 64))
+                } else {
+                    player.nameTag = `"§u[PURPLE]" ${player.name}`
+                    container?.setItem(8, new ItemStack(TEAM_2_BLOCK, 64))
+                }
+
+                const { kitItems } = getSelectedKit(player)
+                if (kitItems.offhand) {
+                    equipment.setEquipment(EquipmentSlot.Offhand, kitItems.offhand)
+                }
+
+                kitItems.items?.forEach(({ slot, item }) => {
+                    container?.setItem(slot, item)
+                });
+
+                (await this).spawnPlayer(player)
+
+                //TODO: FANCY ANOUNCER HERE
             }
         },
 
@@ -132,6 +154,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
         },
 
         dispose() {
+            dispose()
             world.afterEvents.playerPlaceBlock.unsubscribe(event)
             timer.dispose()
             players.forEach((player) => {

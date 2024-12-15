@@ -34,7 +34,7 @@ function setupGame() {
 
         await anounceGamemode(upcomingGamemode)
 
-        upcomingGamemode.onceActive?.()
+        await upcomingGamemode.onceActive?.()
 
         await new Promise<void>((res) => {
             const runId = system.runInterval(() => {
@@ -66,7 +66,8 @@ export async function endRound(playersThatWon: Player[]) {
 
     world.getAllPlayers().forEach((player) => {
         player.setGameMode(GameMode.spectator)
-        player.playSound("mob.enderdragon.growl")
+        //TODO SOUND :)
+        player.playSound("")
         player.onScreenDisplay.setTitle(playersThatWon.map(x => x.name).join(","))
     })
 
