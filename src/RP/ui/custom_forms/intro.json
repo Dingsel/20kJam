@@ -29,6 +29,7 @@
 
   "main@rt20k.img": {
     "size": ["100%", "100%"],
+    "anims": ["@forms_intro.out_mumwait_anim"],
     "controls": [
       {
         "creators@creators": {}
@@ -155,7 +156,7 @@
             {
               "bp@rt20k.img": {
                 "size": [64, 64],
-                "texture": "rt20k/intro/Cookie",
+                "texture": "rt20k/intro/theEnemiez",
                 "$invisTime|default": 6,
                 "alpha": 0,
                 "anims": ["@forms_intro.creators_inAnim"],
@@ -254,6 +255,17 @@
     "from": [0, 0],
     "to": [0, "-100%c + 48px"],
     "duration": 5
+  },
+  "out_mumwait_anim": {
+    "anim_type": "wait",
+    "next": "@forms_intro.out_mum_anim",
+    "duration": 24.1
+  },
+  "out_mum_anim": {
+    "anim_type": "alpha",
+    "from": 1,
+    "to": 0,
+    "duration": 1
   },
   "spinner@rt20k.sp": {
     "orientation": "horizontal",
@@ -436,6 +448,7 @@
                   {
                     "num@rt20k.img": {
                       "size": [48, 46],
+                      "anims": ["@forms_intro.out_mumwait_anim"],
                       "texture": "rt20k/intro/numbers/2"
                     }
                   },
@@ -639,6 +652,7 @@
                   {
                     "num@rt20k.img": {
                       "size": [48, 46],
+                      "anims": ["@forms_intro.out_mumwait_anim"],
                       "texture": "rt20k/intro/numbers/0"
                     }
                   },
@@ -864,6 +878,8 @@
                   {
                     "num@rt20k.img": {
                       "size": [48, 46],
+                      "anims": ["@forms_intro.out_mumwait_anim"],
+
                       "texture": "rt20k/intro/numbers/dot"
                     }
                   },
@@ -1111,6 +1127,8 @@
                   {
                     "num@rt20k.img": {
                       "size": [48, 46],
+                      "anims": ["@forms_intro.out_mumwait_anim"],
+
                       "texture": "rt20k/intro/numbers/0"
                     }
                   },
@@ -1402,6 +1420,8 @@
                   {
                     "num@rt20k.img": {
                       "size": [48, 46],
+                      "anims": ["@forms_intro.out_mumwait_anim"],
+
                       "texture": "rt20k/intro/numbers/0"
                     }
                   },
@@ -1726,6 +1746,8 @@
                   {
                     "num@rt20k.img": {
                       "size": [48, 46],
+                      "anims": ["@forms_intro.out_mumwait_anim"],
+
                       "texture": "rt20k/intro/numbers/0"
                     }
                   },

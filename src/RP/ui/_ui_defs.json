@@ -5,6 +5,10 @@
     "ui/custom_forms/common.json",
 
     // Forms --
-    "ui/custom_forms/intro.json"
+    "ui/custom_forms/intro.json",
+
+    // Huds --
+    // Gamemodes -
+    "ui/hud_elements/gamemodes/boxfights.json"
   ]
 }
