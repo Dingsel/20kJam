@@ -19,7 +19,6 @@ export interface GamemodeExport {
 export type DeathSequenceType = "instantRespawn" | "timedRespawn" | "noRespawn"
 
 export interface GameSettingInformation {
-    mapBounds: { start: Vector3, end: Vector3 }
     deathSequence: DeathSequenceType
 }
 

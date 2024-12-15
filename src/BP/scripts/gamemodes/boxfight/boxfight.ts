@@ -97,18 +97,6 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
         gamemodeType: "Team",
         typeId: "rt:boxfight",
         gameSettings: {
-            mapBounds: {
-                start: {
-                    x: 0,
-                    y: 20,
-                    z: 0
-                },
-                end: {
-                    x: 0,
-                    y: 20,
-                    z: 0
-                }
-            },
             deathSequence: "noRespawn"
         },
 
@@ -127,10 +115,10 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 const equipment = player.getComponent("equippable") as EntityEquippableComponent
 
                 if (teamId === 0) {
-                    player.nameTag = `"§6[ORANGE]" ${player.name}`
+                    player.nameTag = `§6[ORANGE] ${player.name}`
                     container?.setItem(8, new ItemStack(TEAM_1_BLOCK, 64))
                 } else {
-                    player.nameTag = `"§u[PURPLE]" ${player.name}`
+                    player.nameTag = `§u[PURPLE] ${player.name}`
                     container?.setItem(8, new ItemStack(TEAM_2_BLOCK, 64))
                 }
 

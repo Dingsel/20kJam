@@ -3,6 +3,9 @@ import { GameMode, Player, system, Vector3, world } from "@minecraft/server"
 import { GameEventData, GamemodeExport } from "./gamemodes/gamemodeTypes"
 import BoxFightGameMode from "./gamemodes/boxfight/boxfight"
 import { anounceGamemode, shuffleArr } from "./utils"
+import { EvadeGameMode } from "./gamemodes/evade/evade"
+
+import "./prototypes/player"
 
 type Gamemodes = ((eventData: GameEventData) => GamemodeExport | Promise<GamemodeExport>)[]
 
@@ -16,7 +19,8 @@ const spawnLocation: Vector3 = {
 }
 
 const gameModes: Gamemodes = [
-    BoxFightGameMode
+    BoxFightGameMode,
+    EvadeGameMode
 ]
 
 function checkIfWin() {
@@ -65,6 +69,7 @@ export async function endRound(playersThatWon: Player[]) {
     })
 
     world.getAllPlayers().forEach((player) => {
+        player.isDead = false
         player.setGameMode(GameMode.spectator)
         //TODO SOUND :)
         player.playSound("")
@@ -86,3 +91,19 @@ export async function endRound(playersThatWon: Player[]) {
 //        .show(player)
 //
 //})
+
+
+world.afterEvents.projectileHitBlock.subscribe((event) => {
+    const { projectile } = event
+    if (!projectile.isValid() || projectile.typeId !== "rt:falling_anvil") return
+    projectile.remove()
+})
+
+world.afterEvents.projectileHitEntity.subscribe((event) => {
+    const { projectile } = event
+    const hitEntity = event.getEntityHit().entity
+    if (!projectile.isValid() || projectile.typeId !== "rt:falling_anvil" || !hitEntity) return
+    projectile.remove()
+    hitEntity.applyDamage(6)
+    console.warn(hitEntity.typeId)
+})

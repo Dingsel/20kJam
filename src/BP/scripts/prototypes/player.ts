@@ -8,7 +8,9 @@ interface RTPlayer {
 declare module "@minecraft/server" {
     interface Player {
         selectedKitIndex: number | undefined;
+        lastHitBy: Player | undefined
         rt: RTPlayer
+        isDead: boolean
     }
 }
 
