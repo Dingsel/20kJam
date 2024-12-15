@@ -1,10 +1,16 @@
 
 import { GameMode, Player, system, Vector3, world } from "@minecraft/server"
-import BoxFightGameMode from "./gamemodes/boxfight/boxfight"
 import { GameEventData, GamemodeExport } from "./gamemodes/gamemodeTypes"
+import BoxFightGameMode from "./gamemodes/boxfight/boxfight"
 import { anounceGamemode, shuffleArr } from "./utils"
+import { EvadeGameMode } from "./gamemodes/evade/evade"
+
+import "./prototypes/player"
+
+type Gamemodes = ((eventData: GameEventData) => GamemodeExport | Promise<GamemodeExport>)[]
 
 export const dim = world.getDimension("overworld")
+export let activeGamemode: GamemodeExport | null = null
 
 const spawnLocation: Vector3 = {
     x: 0,
@@ -12,27 +18,27 @@ const spawnLocation: Vector3 = {
     z: 0
 }
 
-const gameModes: ((eventData: GameEventData) => GamemodeExport)[] = [
-    BoxFightGameMode
+const gameModes: Gamemodes = [
+    BoxFightGameMode,
+    EvadeGameMode
 ]
-
-export let activeGamemode: GamemodeExport | null = null
 
 function checkIfWin() {
     return true
 }
 
 function setupGame() {
-    const randomGamemodes: ((eventData: GameEventData) => GamemodeExport)[] = shuffleArr(gameModes)
+    const randomGamemodes: Gamemodes = shuffleArr(gameModes)
     let gamemodeIndex = 0
 
     async function gameLoop() {
-        const upcomingGamemode = randomGamemodes[gamemodeIndex % randomGamemodes.length]({ players: world.getAllPlayers() })
+        const gamemodeElementIndex = gamemodeIndex % randomGamemodes.length
+        const upcomingGamemode = await randomGamemodes[gamemodeElementIndex]({ players: world.getAllPlayers() })
         activeGamemode = upcomingGamemode
 
         await anounceGamemode(upcomingGamemode)
 
-        upcomingGamemode.onceActive?.()
+        await upcomingGamemode.onceActive?.()
 
         await new Promise<void>((res) => {
             const runId = system.runInterval(() => {
@@ -63,8 +69,10 @@ export async function endRound(playersThatWon: Player[]) {
     })
 
     world.getAllPlayers().forEach((player) => {
+        player.isDead = false
         player.setGameMode(GameMode.spectator)
-        player.playSound("mob.enderdragon.growl")
+        //TODO SOUND :)
+        player.playSound("")
         player.onScreenDisplay.setTitle(playersThatWon.map(x => x.name).join(","))
     })
 
@@ -80,4 +88,20 @@ import { ActionFormData } from "@minecraft/server-ui"
 
 world.getAllPlayers().forEach(player => {
    player.onScreenDisplay.setTitle("TMR12:00"+ `PLA${player.name},,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLD${player.name},,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,`) 
+})
+
+
+world.afterEvents.projectileHitBlock.subscribe((event) => {
+    const { projectile } = event
+    if (!projectile.isValid() || projectile.typeId !== "rt:falling_anvil") return
+    projectile.remove()
+})
+
+world.afterEvents.projectileHitEntity.subscribe((event) => {
+    const { projectile } = event
+    const hitEntity = event.getEntityHit().entity
+    if (!projectile.isValid() || projectile.typeId !== "rt:falling_anvil" || !hitEntity) return
+    projectile.remove()
+    hitEntity.applyDamage(6)
+    console.warn(hitEntity.typeId)
 })

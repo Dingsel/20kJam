@@ -12,14 +12,14 @@ export function splitupPlayers(teamAmmount: number, splittingPlayers: Player[]) 
     //) throw new Error("Not Enough People To Start The Game")
 
     const isUneaven = !!(players.length & 1)
-    const playerTeamMap = new Map<string, { teamId: number }>()
+    const playerTeamMap = new Map<Player, { teamId: number }>()
 
     for (let i = 0; i < players.length; i++) {
 
         const player = players[i]
         const assignedTeam = i % teamAmmount
 
-        playerTeamMap.set(player.id, {
+        playerTeamMap.set(player, {
             teamId: assignedTeam
         })
     }
