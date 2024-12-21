@@ -2,7 +2,6 @@ import { Vector3Utils } from "@minecraft/math";
 import { GameEventData, GamemodeExport } from "../gamemodeTypes";
 import { useCountdown } from "../../hooks/useCountdown";
 import { dim, endRound } from "../../main";
-import { BlockVolume, ListBlockVolume } from "@minecraft/server";
 
 const { start, end } = {
     start: {
@@ -37,6 +36,7 @@ function spawnAnvils() {
 
 export async function EvadeGameMode({ players }: GameEventData): Promise<GamemodeExport> {
     const timer = useCountdown(60 * 20)
+    let gameActiveTime = 0;
 
     timer.onTimeDown(() => {
         endRound(players.filter(x => !x.isDead))
@@ -55,10 +55,21 @@ export async function EvadeGameMode({ players }: GameEventData): Promise<Gamemod
 
         whileActive() {
             spawnAnvils()
-            players.forEach((p) => {
-                if (!p.isValid() || p.isDead) return
-                p.rt.points += 50
-            })
+
+            gameActiveTime++
+
+            if (gameActiveTime % 20 === 0) {
+                players.forEach((p) => {
+                    if (!p.isValid() || p.isDead) return
+                    p.rt.points += 50
+                })
+            }
+        },
+
+        async onceActive() {
+            for (const player of players) {
+                (await this).spawnPlayer(player)
+            }
         },
 
         dispose() {

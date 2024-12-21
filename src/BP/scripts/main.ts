@@ -1,10 +1,13 @@
 
 import { GameMode, Player, system, Vector3, world } from "@minecraft/server"
 import { GameEventData, GamemodeExport } from "./gamemodes/gamemodeTypes"
+import { MinefieldGameMode } from "./gamemodes/minefield/minefield"
+import { ParkourGameMode } from "./gamemodes/parkour/parkour"
 import BoxFightGameMode from "./gamemodes/boxfight/boxfight"
-import { anounceGamemode, shuffleArr } from "./utils"
 import { EvadeGameMode } from "./gamemodes/evade/evade"
+import { anounceGamemode, shuffleArr } from "./utils"
 
+import "./customComponents/customComponentsHandler"
 import "./prototypes/player"
 
 type Gamemodes = ((eventData: GameEventData) => GamemodeExport | Promise<GamemodeExport>)[]
@@ -20,7 +23,9 @@ const spawnLocation: Vector3 = {
 
 const gameModes: Gamemodes = [
     BoxFightGameMode,
-    EvadeGameMode
+    EvadeGameMode,
+    ParkourGameMode,
+    MinefieldGameMode
 ]
 
 function checkIfWin() {
