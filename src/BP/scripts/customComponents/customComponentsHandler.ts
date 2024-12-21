@@ -11,8 +11,7 @@ const customComponents: CustomComponent[] = [
 ]
 
 world.beforeEvents.worldInitialize.subscribe((event) => {
-    const { blockComponentRegistry } = event
     customComponents.forEach(({ typeId, component }) => {
-        blockComponentRegistry.registerCustomComponent(typeId, component)
+        event.blockComponentRegistry.registerCustomComponent(typeId, component)
     })
 })

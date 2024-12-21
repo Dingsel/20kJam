@@ -63,7 +63,7 @@ function setupGame() {
     gameLoop()
 }
 
-setupGame()
+//setupGame()
 
 export async function endRound(playersThatWon: Player[]) {
     await activeGamemode?.dispose?.()

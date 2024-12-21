@@ -42,7 +42,7 @@ export async function MinefieldGameMode({ players }: GameEventData): Promise<Gam
         typeId: "rt:minefield",
         gamemodeType: "Solo",
         gameSettings: {
-            deathSequence: "timedRespawn"
+            deathSequence: "noRespawn"
         },
         spawnPlayer(player) {
             player.teleport(minefieldStartLocation)
@@ -52,6 +52,10 @@ export async function MinefieldGameMode({ players }: GameEventData): Promise<Gam
                 if (!minefieldFinishArea.doesLocationTouchFaces(player.location)) continue
                 player.sendMessage("You finished the minefield!")
                 roundWinners.push(player)
+            }
+
+            if (roundWinners.length === players.length) {
+                endRound(roundWinners)
             }
         }
     }

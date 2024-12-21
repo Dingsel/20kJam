@@ -5,12 +5,18 @@
             "identifier": "rt:explode_plate"
         },
         "components": {
-            "minecraft:collision_box": {
-                "size": [1.0, 0.1, 1.0]
+            "minecraft:entity_fall_on": {},
+            "minecraft:geometry": {
+                "identifier": "geometry.explode_plate"
             },
-            "minecraft:custom_components": [
-                "rt:explosion_trigger_step"
-            ]
+            "minecraft:custom_components": ["rt:explosion_trigger_step"],
+            "minecraft:destructible_by_explosion": false,
+            "minecraft:destructible_by_mining": false,
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "stone"
+                }
+            }
         }
     }
 }
