@@ -27,20 +27,21 @@
         "duration": 0.4
     },
 
-    "main@rt20k.img": {
-        "size": ["100%", "100%"],
-        "controls": [
-            {
-                "creators@creators": {}
-            },
-            {
-                "introsequenz@introsequenz": {}
-            },
-            {
-                "exitable_screen@server_form.exitable_screen": {}
-            }
-        ]
-    },
+  "main@rt20k.img": {
+    "size": ["100%", "100%"],
+    "anims": ["@forms_intro.out_mumwait_anim"],
+    "controls": [
+      {
+        "creators@creators": {}
+      },
+      {
+        "introsequenz@introsequenz": {}
+      },
+      {
+        "exitable_screen@server_form.exitable_screen": {}
+      }
+    ]
+  },
 
     "text_panel_in": {
         "anim_type": "wait",
@@ -85,105 +86,99 @@
                                 "text_alignment": "center",
                                 "anims": ["@forms_intro.text_panel_out_wait"],
 
-                                "font_scale_factor": 2,
-                                "text": "Made with love by"
-                            }
-                        }
-                    ]
-                }
+                "font_scale_factor": 2,
+                "text": "Made with love by"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "stack_creators@rt20k.sp": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "orientation": "horizontal",
+          "size": ["100%c", "100%cm"],
+          "controls": [
+            {
+              "dingsel@rt20k.img": {
+                "size": [64, 64],
+                "$invisTime|default": 2,
+                "alpha": 0,
+                "anims": ["@forms_intro.creators_inAnim"],
+                "texture": "rt20k/intro/Dingsel",
+                "controls": [
+                  {
+                    "name@rt20k.l": {
+                      "text": "§uDingsel",
+                      "alpha": 0,
+                      "anims": ["@forms_intro.creators_inAnim"],
+                      "anchor_from": "bottom_middle",
+                      "anchor_to": "bottom_middle",
+                      "offset": [0, 16]
+                    }
+                  }
+                ]
+              }
             },
             {
-                "stack_creators@rt20k.sp": {
-                    "anchor_from": "bottom_middle",
-                    "anchor_to": "bottom_middle",
-                    "orientation": "horizontal",
-                    "size": ["100%c", "100%cm"],
-                    "controls": [
-                        {
-                            "dingsel@rt20k.img": {
-                                "size": [64, 64],
-                                "$invisTime|default": 2,
-                                "alpha": 0,
-                                "anims": ["@forms_intro.creators_inAnim"],
-                                "texture": "rt20k/intro/Dingsel",
-                                "controls": [
-                                    {
-                                        "name@rt20k.l": {
-                                            "text": "§uDingsel",
-                                            "alpha": 0,
-                                            "anims": [
-                                                "@forms_intro.creators_inAnim"
-                                            ],
-                                            "anchor_from": "bottom_middle",
-                                            "anchor_to": "bottom_middle",
-                                            "offset": [0, 16]
-                                        }
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "padding@rt20k.p": {
-                                "size": [16, 0]
-                            }
-                        },
-                        {
-                            "bp@rt20k.img": {
-                                "size": [64, 64],
-                                "texture": "rt20k/intro/blockplay",
-                                "$invisTime|default": 4,
-                                "alpha": 0,
-                                "anims": ["@forms_intro.creators_inAnim"],
-                                "controls": [
-                                    {
-                                        "name@rt20k.l": {
-                                            "text_alignment": "center",
-                                            "text": "§6Schwerty\nYassinArb",
-                                            "alpha": 0,
-                                            "anims": [
-                                                "@forms_intro.creators_inAnim"
-                                            ],
-                                            "anchor_from": "bottom_middle",
-                                            "anchor_to": "bottom_middle",
-                                            "offset": [0, 26]
-                                        }
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "padding@rt20k.p": {
-                                "size": [16, 0]
-                            }
-                        },
-                        {
-                            "bp@rt20k.img": {
-                                "size": [64, 64],
-                                "texture": "rt20k/intro/Cookie",
-                                "$invisTime|default": 6,
-                                "alpha": 0,
-                                "anims": ["@forms_intro.creators_inAnim"],
-                                "controls": [
-                                    {
-                                        "name@rt20k.l": {
-                                            "text": "§dCookie",
-                                            "alpha": 0,
-                                            "anims": [
-                                                "@forms_intro.creators_inAnim"
-                                            ],
-                                            "anchor_from": "bottom_middle",
-                                            "anchor_to": "bottom_middle",
-                                            "offset": [0, 16]
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
+              "padding@rt20k.p": {
+                "size": [16, 0]
+              }
+            },
+            {
+              "bp@rt20k.img": {
+                "size": [64, 64],
+                "texture": "rt20k/intro/blockplay",
+                "$invisTime|default": 4,
+                "alpha": 0,
+                "anims": ["@forms_intro.creators_inAnim"],
+                "controls": [
+                  {
+                    "name@rt20k.l": {
+                      "text_alignment": "center",
+                      "text": "§6Schwerty\nYassinArb",
+                      "alpha": 0,
+                      "anims": ["@forms_intro.creators_inAnim"],
+                      "anchor_from": "bottom_middle",
+                      "anchor_to": "bottom_middle",
+                      "offset": [0, 26]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "padding@rt20k.p": {
+                "size": [16, 0]
+              }
+            },
+            {
+              "bp@rt20k.img": {
+                "size": [64, 64],
+                "texture": "rt20k/intro/Cookie",
+                "$invisTime|default": 6,
+                "alpha": 0,
+                "anims": ["@forms_intro.creators_inAnim"],
+                "controls": [
+                  {
+                    "name@rt20k.l": {
+                      "text": "§dCookie",
+                      "alpha": 0,
+                      "anims": ["@forms_intro.creators_inAnim"],
+                      "anchor_from": "bottom_middle",
+                      "anchor_to": "bottom_middle",
+                      "offset": [0, 16]
+                    }
+                  }
+                ]
+              }
             }
-        ]
-    },
+          ]
+        }
+      }
+    ]
+  },
 
     // spinner
 
@@ -219,248 +214,248 @@
         "next": "$next"
     },
 
-    "first_spinner_anim": {
-        "anim_type": "offset",
-        "easing": "out_cubic",
-        "from": [0, 0],
-        "to": [0, "-100%c + 48px"],
-        "duration": 3
-    },
-    "second_spinner_anim": {
-        "anim_type": "offset",
-        "easing": "out_cubic",
-        "from": [0, 0],
-        "to": [0, "-100%c + 48px"],
-        "duration": 3.4
-    },
-    "third_spinner_anim": {
-        "anim_type": "offset",
-        "easing": "out_cubic",
-        "from": [0, 0],
-        "to": [0, "-100%c + 48px"],
-        "duration": 3.8
-    },
-    "fourth_spinner_anim": {
-        "anim_type": "offset",
-        "easing": "out_cubic",
-        "from": [0, 0],
-        "to": [0, "-100%c + 48px"],
-        "duration": 4.2
-    },
-    "five_spinner_anim": {
-        "anim_type": "offset",
-        "easing": "out_cubic",
-        "from": [0, 0],
-        "to": [0, "-100%c + 48px"],
-        "duration": 4.6
-    },
-    "six_spinner_anim": {
-        "anim_type": "offset",
-        "easing": "out_cubic",
-        "from": [0, 0],
-        "to": [0, "-100%c + 48px"],
-        "duration": 5
-    },
-    "spinner@rt20k.sp": {
-        "orientation": "horizontal",
-        "size": ["100%c", 50],
-        "controls": [
+  "first_spinner_anim": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "from": [0, 0],
+    "to": [0, "-100%c + 48px"],
+    "duration": 3
+  },
+  "second_spinner_anim": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "from": [0, 0],
+    "to": [0, "-100%c + 48px"],
+    "duration": 3.4
+  },
+  "third_spinner_anim": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "from": [0, 0],
+    "to": [0, "-100%c + 48px"],
+    "duration": 3.8
+  },
+  "fourth_spinner_anim": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "from": [0, 0],
+    "to": [0, "-100%c + 48px"],
+    "duration": 4.2
+  },
+  "five_spinner_anim": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "from": [0, 0],
+    "to": [0, "-100%c + 48px"],
+    "duration": 4.6
+  },
+  "six_spinner_anim": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "from": [0, 0],
+    "to": [0, "-100%c + 48px"],
+    "duration": 5
+  },
+  "spinner@rt20k.sp": {
+    "orientation": "horizontal",
+    "size": ["100%c", 50],
+    "controls": [
+      {
+        "first@rt20k.p": {
+          "size": [48, 50],
+          "clips_children": true,
+          "anims": ["@forms_intro.spinnerp_hide"],
+          "controls": [
             {
-                "first@rt20k.p": {
-                    "size": [48, 50],
-                    "clips_children": true,
-                    "anims": ["@forms_intro.spinnerp_hide"],
-                    "controls": [
-                        {
-                            "stack@rt20k.sp": {
-                                "anchor_from": "top_middle",
-                                "anchor_to": "top_middle",
-                                "$next": "@forms_intro.first_spinner_anim",
-                                "anims": ["@forms_intro.spinner_visiblewait"],
-                                "size": [48, "100%c"],
-                                "controls": [
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
+              "stack@rt20k.sp": {
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "$next": "@forms_intro.first_spinner_anim",
+                "anims": ["@forms_intro.spinner_visiblewait"],
+                "size": [48, "100%c"],
+                "controls": [
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
 
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/9"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/4"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/2"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/8"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/1"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/2"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/0"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/6"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/8"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/1"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/2"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "second@rt20k.p": {
-                    "size": [48, 50],
-                    "clips_children": true,
-                    "anims": ["@forms_intro.spinnerp_hide"],
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/9"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/0"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "second@rt20k.p": {
+          "size": [48, 50],
+          "clips_children": true,
+          "anims": ["@forms_intro.spinnerp_hide"],
 
                     "controls": [
                         {
@@ -477,193 +472,193 @@
                                         }
                                     },
 
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/4"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/6"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/1"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/6"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/7"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/2"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/8"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/1"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/4"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/0"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "third@rt20k.p": {
-                    "size": [48, 50],
-                    "clips_children": true,
-                    "anims": ["@forms_intro.spinnerp_hide"],
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/7"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/0"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "third@rt20k.p": {
+          "size": [48, 50],
+          "clips_children": true,
+          "anims": ["@forms_intro.spinnerp_hide"],
 
                     "controls": [
                         {
@@ -680,215 +675,215 @@
                                         }
                                     },
 
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/9"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/6"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/1"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/2"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/8"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/4"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/6"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/9"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/1"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/2"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/8"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/1"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/6"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/9"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/dot"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "fourth@rt20k.p": {
-                    "size": [48, 50],
-                    "clips_children": true,
-                    "anims": ["@forms_intro.spinnerp_hide"],
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/9"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/9"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/9"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/dot"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "fourth@rt20k.p": {
+          "size": [48, 50],
+          "clips_children": true,
+          "anims": ["@forms_intro.spinnerp_hide"],
 
                     "controls": [
                         {
@@ -949,193 +944,193 @@
                                         }
                                     },
 
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/4"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/6"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/1"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/6"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/7"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/2"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/8"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/6"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/7"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/0"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "five@rt20k.p": {
-                    "size": [48, 50],
-                    "clips_children": true,
-                    "anims": ["@forms_intro.spinnerp_hide"],
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/7"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/7"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/0"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "five@rt20k.p": {
+          "size": [48, 50],
+          "clips_children": true,
+          "anims": ["@forms_intro.spinnerp_hide"],
 
                     "controls": [
                         {
@@ -1218,215 +1213,215 @@
                                         }
                                     },
 
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/4"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/6"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/1"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/6"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/7"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/4"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/0"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/9"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/8"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/1"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/8"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/0"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "six@rt20k.p": {
-                    "size": [48, 50],
-                    "clips_children": true,
-                    "anims": ["@forms_intro.spinnerp_hide"],
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/7"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/0"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/9"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/0"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "six@rt20k.p": {
+          "size": [48, 50],
+          "clips_children": true,
+          "anims": ["@forms_intro.spinnerp_hide"],
 
                     "controls": [
                         {
@@ -1542,212 +1537,212 @@
                                         }
                                     },
 
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/4"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/6"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/1"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/6"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/7"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/5"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/2"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/9"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/2"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/3"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/6"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/8"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    },
-                                    {
-                                        "num@rt20k.img": {
-                                            "size": [48, 46],
-                                            "texture": "rt20k/intro/numbers/0"
-                                        }
-                                    },
-                                    {
-                                        "padd@rt20k.p": {
-                                            "size": [48, 2]
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/4"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/1"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/7"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/5"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/9"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/2"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/3"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/6"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/8"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  },
+                  {
+                    "num@rt20k.img": {
+                      "size": [48, 46],
+                      "texture": "rt20k/intro/numbers/0"
+                    }
+                  },
+                  {
+                    "padd@rt20k.p": {
+                      "size": [48, 2]
+                    }
+                  }
+                ]
+              }
             }
-        ]
-    },
+          ]
+        }
+      }
+    ]
+  },
 
     // intro
 

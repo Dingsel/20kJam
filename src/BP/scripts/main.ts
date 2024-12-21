@@ -89,13 +89,11 @@ export async function endRound(playersThatWon: Player[]) {
     })
 }
 
-//world.getAllPlayers().forEach(player => {
-//    const ui = new ActionFormData()
-//        .title('RT20K.intro')
-//        .button('')
-//        .show(player)
-//
-//})
+import { ActionFormData } from "@minecraft/server-ui"
+
+world.getAllPlayers().forEach(player => {
+   player.onScreenDisplay.setTitle("TMR12:00"+ `PLA${player.name},,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLD${player.name},,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,`) 
+})
 
 
 world.afterEvents.projectileHitBlock.subscribe((event) => {
