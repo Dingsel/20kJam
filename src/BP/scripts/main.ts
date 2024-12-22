@@ -54,14 +54,40 @@ function setupGame() {
             }, 20)
         })
 
+        //Score of a player over 20k
         if (checkIfWin()) {
-            //Score of a player over 20k
             world.sendMessage("Hurray you won the Event")
         } else gameLoop()
     }
 
     gameLoop()
 }
+
+//TEMPORARY
+system.afterEvents.scriptEventReceive.subscribe(async (event) => {
+    const { id, message } = event
+    if (id !== "rt:forceGame") return
+
+    const selectedGamemode = gameModes[parseInt(message)]
+    if (!selectedGamemode) return
+
+    const upcomingGamemode = await selectedGamemode({ players: world.getAllPlayers() })
+
+    activeGamemode = upcomingGamemode
+
+    await anounceGamemode(upcomingGamemode)
+
+    await upcomingGamemode.onceActive?.()
+
+    await new Promise<void>((res) => {
+        const runId = system.runInterval(() => {
+            upcomingGamemode.whileActive?.()
+            if (activeGamemode !== null) return
+            system.clearRun(runId)
+            res()
+        }, 20)
+    })
+})
 
 //setupGame()
 
@@ -89,10 +115,8 @@ export async function endRound(playersThatWon: Player[]) {
     })
 }
 
-import { ActionFormData } from "@minecraft/server-ui"
-
 world.getAllPlayers().forEach(player => {
-   player.onScreenDisplay.setTitle("TMR12:00"+ `PLA${player.name},,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLD${player.name},,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,`) 
+    //player.onScreenDisplay.setTitle("TMR12:00" + `PLA${player.name},,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLD${player.name},,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,`)
 })
 
 

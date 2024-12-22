@@ -1,6 +1,6 @@
 import { system } from "@minecraft/server"
 
-interface Countdown {
+export interface Countdown {
     addTime: (timeInTicks: number) => this
     dispose: () => void
     getRemaining: () => { ticks: number, seconds: string }
