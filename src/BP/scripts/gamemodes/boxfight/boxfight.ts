@@ -1,8 +1,8 @@
 import { BlockVolume, Entity, EntityEquippableComponent, EntityInventoryComponent, EquipmentSlot, ItemStack, Player, Vector3, world } from "@minecraft/server"
-import { splitupPlayers } from "../../hooks/splitupPlayers"
 import { GameEventData, GamemodeExport } from "../gamemodeTypes"
 import { activeGamemode, dim, endRound } from "../../main"
 import { useCountdown } from "../../hooks/useCountdown"
+import { useBoxfightDisplay } from "./boxfigtDisplay"
 import { BoxfightPregame } from "./pregame"
 
 const { start, end } = {
@@ -42,6 +42,11 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
     const { playerTeamMap, getSelectedKit, dispose } = await BoxfightPregame({ players })
 
     const timer = useCountdown(180 * 20)
+    const display = useBoxfightDisplay({
+        players,
+        teamMap: playerTeamMap,
+        timer
+    })
 
     timer.onTimeDown(() => {
         checkMostPercent()
@@ -135,6 +140,10 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
 
                 //TODO: FANCY ANOUNCER HERE
             }
+        },
+
+        whileActive() {
+            display.updateDisplay()
         },
 
         onPlayerWin(player) {

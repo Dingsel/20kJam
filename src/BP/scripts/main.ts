@@ -1,10 +1,13 @@
 
 import { GameMode, Player, system, Vector3, world } from "@minecraft/server"
 import { GameEventData, GamemodeExport } from "./gamemodes/gamemodeTypes"
+import { MinefieldGameMode } from "./gamemodes/minefield/minefield"
+import { ParkourGameMode } from "./gamemodes/parkour/parkour"
 import BoxFightGameMode from "./gamemodes/boxfight/boxfight"
-import { anounceGamemode, shuffleArr } from "./utils"
 import { EvadeGameMode } from "./gamemodes/evade/evade"
+import { anounceGamemode, shuffleArr } from "./utils"
 
+import "./customComponents/customComponentsHandler"
 import "./prototypes/player"
 
 type Gamemodes = ((eventData: GameEventData) => GamemodeExport | Promise<GamemodeExport>)[]
@@ -20,7 +23,9 @@ const spawnLocation: Vector3 = {
 
 const gameModes: Gamemodes = [
     BoxFightGameMode,
-    EvadeGameMode
+    EvadeGameMode,
+    ParkourGameMode,
+    MinefieldGameMode
 ]
 
 function checkIfWin() {
@@ -49,8 +54,8 @@ function setupGame() {
             }, 20)
         })
 
+        //Score of a player over 20k
         if (checkIfWin()) {
-            //Score of a player over 20k
             world.sendMessage("Hurray you won the Event")
         } else gameLoop()
     }
@@ -58,7 +63,33 @@ function setupGame() {
     gameLoop()
 }
 
-setupGame()
+//TEMPORARY
+system.afterEvents.scriptEventReceive.subscribe(async (event) => {
+    const { id, message } = event
+    if (id !== "rt:forceGame") return
+
+    const selectedGamemode = gameModes[parseInt(message)]
+    if (!selectedGamemode) return
+
+    const upcomingGamemode = await selectedGamemode({ players: world.getAllPlayers() })
+
+    activeGamemode = upcomingGamemode
+
+    await anounceGamemode(upcomingGamemode)
+
+    await upcomingGamemode.onceActive?.()
+
+    await new Promise<void>((res) => {
+        const runId = system.runInterval(() => {
+            upcomingGamemode.whileActive?.()
+            if (activeGamemode !== null) return
+            system.clearRun(runId)
+            res()
+        }, 20)
+    })
+})
+
+//setupGame()
 
 export async function endRound(playersThatWon: Player[]) {
     await activeGamemode?.dispose?.()
@@ -84,10 +115,8 @@ export async function endRound(playersThatWon: Player[]) {
     })
 }
 
-import { ActionFormData } from "@minecraft/server-ui"
-
 world.getAllPlayers().forEach(player => {
-   player.onScreenDisplay.setTitle("TMR12:00"+ `PLA${player.name},,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLD${player.name},,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,`) 
+    //player.onScreenDisplay.setTitle("TMR12:00" + `PLA${player.name},,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLD${player.name},,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,`)
 })
 
 
