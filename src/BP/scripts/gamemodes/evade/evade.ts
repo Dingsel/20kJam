@@ -2,6 +2,7 @@ import { Vector3Utils } from "@minecraft/math";
 import { GameEventData, GamemodeExport } from "../gamemodeTypes";
 import { useCountdown } from "../../hooks/useCountdown";
 import { dim, endRound } from "../../main";
+import { GameMode } from "@minecraft/server";
 
 const { start, end } = {
     start: {
@@ -47,6 +48,7 @@ export async function EvadeGameMode({ players }: GameEventData): Promise<Gamemod
         typeId: "rt:evade",
         gamemodeType: "Solo",
         gameSettings: {
+            gameMode: GameMode.adventure,
             deathSequence: "noRespawn"
         },
         spawnPlayer(player) {

@@ -1,4 +1,4 @@
-import { ItemLockMode, ItemStack, ItemType, Player, system, world } from "@minecraft/server";
+import { ItemLockMode, ItemStack, ItemType, Player, Structure, system, world } from "@minecraft/server";
 import { GamemodeExport } from "./gamemodes/gamemodeTypes";
 
 export function shuffleArr<T extends any[]>(array: T): T {
@@ -28,4 +28,10 @@ export function lockItem(itemType: ItemType | string, amount?: number): ItemStac
     const stack = new ItemStack(itemType, amount)
     stack.lockMode = ItemLockMode.inventory
     return stack
+}
+
+export function structure([structureId]: TemplateStringsArray): Structure {
+    const structure: Structure | undefined = world.structureManager.get(structureId)
+    if (!structure) throw new Error(`Structure with id ${structureId} not found`)
+    return structure
 }

@@ -1,4 +1,4 @@
-import { BlockVolume, Player } from "@minecraft/server"
+import { BlockVolume, GameMode, Player } from "@minecraft/server"
 import { GameEventData, GamemodeExport } from "../gamemodeTypes"
 import { useCountdown } from "../../hooks/useCountdown"
 import { endRound } from "../../main"
@@ -42,6 +42,7 @@ export async function MinefieldGameMode({ players }: GameEventData): Promise<Gam
         typeId: "rt:minefield",
         gamemodeType: "Solo",
         gameSettings: {
+            gameMode: GameMode.adventure,
             deathSequence: "noRespawn"
         },
         spawnPlayer(player) {

@@ -9,6 +9,8 @@ import { anounceGamemode, shuffleArr } from "./utils"
 
 import "./customComponents/customComponentsHandler"
 import "./prototypes/player"
+import "./deathSequences"
+import { BuildBattle } from "./gamemodes/buildBattle/buildBattle"
 
 type Gamemodes = ((eventData: GameEventData) => GamemodeExport | Promise<GamemodeExport>)[]
 
@@ -25,7 +27,8 @@ const gameModes: Gamemodes = [
     BoxFightGameMode,
     EvadeGameMode,
     ParkourGameMode,
-    MinefieldGameMode
+    MinefieldGameMode,
+    BuildBattle
 ]
 
 function checkIfWin() {
@@ -43,7 +46,12 @@ function setupGame() {
 
         await anounceGamemode(upcomingGamemode)
 
+        for (const player of world.getAllPlayers()) {
+            player.setGameMode(upcomingGamemode.gameSettings.gameMode)
+        }
+
         await upcomingGamemode.onceActive?.()
+
 
         await new Promise<void>((res) => {
             const runId = system.runInterval(() => {
@@ -76,6 +84,10 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
     activeGamemode = upcomingGamemode
 
     await anounceGamemode(upcomingGamemode)
+    
+    for (const player of world.getAllPlayers()) {
+        player.setGameMode(upcomingGamemode.gameSettings.gameMode)
+    }
 
     await upcomingGamemode.onceActive?.()
 
@@ -101,10 +113,10 @@ export async function endRound(playersThatWon: Player[]) {
 
     world.getAllPlayers().forEach((player) => {
         player.isDead = false
+        player.runCommand("clear @s")
         player.setGameMode(GameMode.spectator)
         //TODO SOUND :)
         player.playSound("")
-        player.onScreenDisplay.setTitle(playersThatWon.map(x => x.name).join(","))
     })
 
     await system.waitTicks(60)

@@ -1,4 +1,4 @@
-import { BlockVolume, Entity, EntityEquippableComponent, EntityInventoryComponent, EquipmentSlot, ItemStack, Player, Vector3, world } from "@minecraft/server"
+import { BlockVolume, Entity, EntityEquippableComponent, EntityInventoryComponent, EquipmentSlot, GameMode, ItemStack, Player, Vector3, world } from "@minecraft/server"
 import { GameEventData, GamemodeExport } from "../gamemodeTypes"
 import { activeGamemode, dim, endRound } from "../../main"
 import { useCountdown } from "../../hooks/useCountdown"
@@ -21,9 +21,9 @@ const { start, end } = {
 const vol = new BlockVolume(start, end)
 const BLOCK_NEEDED_FOR_WIN = vol.getCapacity()
 
+const TEAM_0_BLOCK = "minecraft:purple_concrete_powder"
 const TEAM_1_BLOCK = "minecraft:orange_concrete_powder"
-const TEAM_2_BLOCK = "minecraft:purple_concrete_powder"
-const winCond = [{ block: TEAM_1_BLOCK, teamId: 0 }, { block: TEAM_2_BLOCK, teamId: 1 }]
+const winCond = [{ block: TEAM_0_BLOCK, teamId: 0 }, { block: TEAM_1_BLOCK, teamId: 1 }]
 
 const teamSpawnLocations = [
     {
@@ -102,6 +102,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
         gamemodeType: "Team",
         typeId: "rt:boxfight",
         gameSettings: {
+            gameMode: GameMode.adventure,
             deathSequence: "noRespawn"
         },
 
@@ -120,11 +121,11 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 const equipment = player.getComponent("equippable") as EntityEquippableComponent
 
                 if (teamId === 0) {
+                    player.nameTag = `§u[PURPLE] ${player.name}`
+                    container?.setItem(8, new ItemStack(TEAM_0_BLOCK, 64))
+                } else {
                     player.nameTag = `§6[ORANGE] ${player.name}`
                     container?.setItem(8, new ItemStack(TEAM_1_BLOCK, 64))
-                } else {
-                    player.nameTag = `§u[PURPLE] ${player.name}`
-                    container?.setItem(8, new ItemStack(TEAM_2_BLOCK, 64))
                 }
 
                 const { kitItems } = getSelectedKit(player)
