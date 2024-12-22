@@ -272,7 +272,7 @@
 
         "alpha": 0.4,
         "texture": "textures/ui/hud_tip_text_background",
-        "size": ["100%c + 6px", "100%c"],
+        "size": ["100%cm + 6px", "100%cm"],
         "controls": [
             {
                 "timer_insides@rt20k.l": {
@@ -297,7 +297,16 @@
                         }
                     ]
                 }
-            }
+            },
+            {
+              "setSize@rt20k.l": {
+                  "font_scale_factor": "$font_scale",
+
+                  "shadow": true,
+                  "offset": [0, -1],
+                  "text": "§r00:00"
+              }
+          }
         ]
     }
 }
