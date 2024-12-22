@@ -52,7 +52,7 @@
     "getPlayerPic": {
         "$name_at|default": 8,
         "type": "grid",
-        "size": [0, 0],
+        "size": [16, 0],
         "grid_item_template": "gm_boxfights.getPlayerPic_item",
         "grid_dimension_binding": "#players_grid_dimension",
         "collection_name": "players_collection",
