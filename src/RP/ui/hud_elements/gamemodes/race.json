@@ -1,0 +1,273 @@
+{
+  "namespace": "gm_race",
+
+  "render": {
+    "type": "panel",
+    "factory": {
+      "name": "hud_title_text_factory",
+      "control_ids": {
+        "hud_title_text": "main@gm_race.main"
+      }
+    }
+  },
+ 
+  "out_anim_main": {
+    "anim_type":"wait",
+    "duration": 1.5,
+    "next": "@gm_race.out_anim_main2"
+  },
+  "out_anim_main2": {
+    "anim_type":"offset",
+    "duration": 0.6,
+    "easing": "in_back",
+    "from": [0,0],
+    "to": [0,-50]
+  },
+  "main@rt20k.p": {
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "('%.3s' * #hud_title_text_string)",
+        "target_property_name": "#text_name"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#text_name = 'RAC')",
+        "target_property_name": "#visible"
+      }
+    ],
+    "anims": ["@gm_race.out_anim_main"],
+    "controls": [
+      {
+        "top@rt20k.sp": {
+          "size": ["100%c", 16],
+          "offset": [0, 2],
+          "orientation": "horizontal",
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "controls": [
+            {
+              "podest@gm_race.podest": {}
+            },
+            {
+              "pad@rt20k.p": {
+                "size": [4, 16]
+              }
+            },
+            {
+              "timer@gm_boxfights.timer": {
+                "$which_at|default": 3,
+                "size": ["100%c + 6px", 16],
+                "$font_scale": 1.5
+              }
+            },
+            {
+              "pad@rt20k.p": {
+                "size": [4, 16]
+              }
+            },
+            {
+              "timer@gm_boxfights.timer": {
+                "$which_at": 65,
+                "size": ["100%c + 6px", 16],
+                "$font_scale": 1.5,
+                "$color": [0.2,0.9,0.3],
+                "$length": 4,
+                "$inside_base": "You are 10th",
+                "$extra_addition": "§aYou are §r"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "podest@rt20k.sp": {
+    "orientation": "horizontal",
+    "size": ["100%c", 12],
+    "controls": [
+      {
+        "first_background@rt20k.img": {
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle",
+          "alpha": 0.4,
+          "texture": "textures/ui/hud_tip_text_background",
+          "color": [0.8, 0.4, 0.2],
+          "size": ["100%c", 16],
+          "controls": [
+            {
+              "stack@rt20k.sp": {
+                "orientation": "horizontal",
+                "size": ["100%c", 12],
+                "controls": [
+                  {
+                    "first@rt20k.p": {
+                      "size": [2, 12]
+                    }
+                  },
+                  {
+                    "first@rt20k.l": {
+                      "text": "1st",
+                      "color": [1, 0.8, 0.2]
+                    }
+                  },
+                  {
+                    "first@gm_race.getPlayerPic": {}
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+
+      {
+        "pad@rt20k.p": {
+          "size": [2, 12]
+        }
+      },
+      {
+        "second_background@rt20k.img": {
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle",
+          "alpha": 0.4,
+          "texture": "textures/ui/hud_tip_text_background",
+          "color": [0.8, 0.4, 0.2],
+          "size": ["100%c", 16],
+          "controls": [
+            {
+              "stack@rt20k.sp": {
+                "orientation": "horizontal",
+                "size": ["100%c", 12],
+                "controls": [
+                  {
+                    "pad@rt20k.p": {
+                      "size": [2, 12]
+                    }
+                  },
+                  {
+                    "second@rt20k.l": {
+                      "text": "2nd",
+                      "color": [0.6, 0.6, 0.7]
+                    }
+                  },
+                  {
+                    "second@gm_race.getPlayerPic": {
+                      "$name_at": 29
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "pad@rt20k.p": {
+          "size": [2, 12]
+        }
+      },
+      {
+        "second_background@rt20k.img": {
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle",
+          "alpha": 0.4,
+          "texture": "textures/ui/hud_tip_text_background",
+          "color": [0.8, 0.4, 0.2],
+          "size": ["100%c", 16],
+          "controls": [
+            {
+              "stack@rt20k.sp": {
+                "orientation": "horizontal",
+                "size": ["100%c", 12],
+                "controls": [
+                  {
+                    "pad@rt20k.p": {
+                      "size": [2, 12]
+                    }
+                  },
+                  {
+                    "third@rt20k.l": {
+                      "text": "3rd",
+                      "color": [0.7, 0.6, 0.4]
+                    }
+                  },
+                  {
+                    "third@gm_race.getPlayerPic": {
+                      "$name_at": 47
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "getPlayerPic": {
+    "$name_at|default": 11,
+    "type": "grid",
+    "size": [16, 0],
+    "grid_item_template": "gm_race.getPlayerPic_item",
+    "grid_dimension_binding": "#players_grid_dimension",
+    "collection_name": "players_collection",
+    "bindings": [
+      {
+        "binding_name": "#players_grid_dimension",
+        "binding_condition": "always"
+      }
+    ]
+  },
+
+  "getPlayerPic_item@rt20k.p": {
+    "size": [0, 0],
+    "controls": [
+      {
+        "pic@rt20k.img": {
+          "texture": "#texture",
+          "size": [12, 12],
+          "offset": [8, 6],
+          "layer": 4,
+          "texture_file_system": "#texture_source",
+          "bindings": [
+            {
+              "binding_name": "#hud_title_text_string"
+            },
+            {
+              "binding_name": "#texture",
+              "binding_type": "collection",
+              "binding_collection_name": "players_collection"
+            },
+            {
+              "binding_name": "#texture_source",
+              "binding_name_override": "#texture_file_system",
+              "binding_type": "collection",
+              "binding_collection_name": "players_collection"
+            },
+            {
+              "binding_name": "#gamertag",
+              "binding_type": "collection",
+              "binding_collection_name": "players_collection"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(('%.18s' * (#hud_title_text_string - (('%.' + $name_at + 's') * #hud_title_text_string))) - ',')",
+              "target_property_name": "#text_name"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#text_name = ('P' + #gamertag))",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+Timer
+-Prefix: TMR
+-5letters
+
+BoxFights
+-Prefix: TMR
+-Has Timer
+-Players (4max on each side) Player: PLA | PLD | PLN + Name.pad(17)
+
+Race
+-Example: RACTMR00:00PSchwertKlee4517,,PSchwertKlee4517,,PSchwertKlee4517,,TMR1st,
+-Prefix: RAC
+-Has Timer
+-Players (3) Player: P + Name.pad(17)
+-text: Prefix: TMR, Length 4

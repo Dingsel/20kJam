@@ -1,6 +1,15 @@
 {
     "namespace": "hud",
-
+    "hud_title_text": {
+        "type": "stack_panel",
+        "orientation": "vertical",
+        "offset": [ 0, -19 ],
+        "layer": 1,
+        "visible": false,
+        "alpha": "@hud.anim_title_text_alpha_in",
+        "propagate_alpha": true
+      },
+    
     "root_panel": {
         "modifications": [
             {
@@ -9,6 +18,9 @@
                 "value": [
                     {
                         "boxfights@gm_boxfights.render": {}
+                    },
+                    {
+                        "race@gm_race.render": {}
                     }
                 ]
             }
