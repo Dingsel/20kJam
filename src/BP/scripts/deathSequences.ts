@@ -9,6 +9,7 @@ world.afterEvents.playerSpawn.subscribe(async (event) => {
     switch (activeGamemode?.gameSettings.deathSequence) {
         case "instantRespawn":
             activeGamemode.spawnPlayer(player)
+            break;
 
         case "noRespawn":
             player.isDead = true
@@ -21,6 +22,7 @@ world.afterEvents.playerSpawn.subscribe(async (event) => {
             await titleCountdown(5, player)
             player.isDead = false
             activeGamemode.spawnPlayer(player)
+            break;
 
     }
 })

@@ -31,7 +31,6 @@ export function BoxfightPregame({ players }: { players: Player[] }): Promise<Box
     const teamData = splitupPlayers(2, players)
 
     players.forEach((p) => {
-        p.runCommand("clear @s")
         const container = (p.getComponent("inventory") as EntityInventoryComponent).container
         container?.setItem(8, KitSelectorItem)
     })
