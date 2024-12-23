@@ -1,0 +1,60 @@
+{
+    "format_version": "1.20.80",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "rt:knockback_projectile",
+            "is_spawnable": true,
+            "is_summonable": true
+        },
+        "component_groups": {
+            "rt:despawn": {
+                "minecraft:instant_despawn": {}
+            }
+        },
+        "components": {
+            "minecraft:physics": {
+                "has_collision": true,
+                "has_gravity": true
+            },
+            "minecraft:damage_sensor": {
+                "triggers": [
+                    {
+                        "cause": "all",
+                        "deals_damage": false
+                    }
+                ]
+            },
+            "minecraft:knockback_resistance": {
+                "value": 1,
+                "max": 1
+            },
+            "minecraft:collision_box": {
+                "height": 1,
+                "width": 1
+            },
+            "minecraft:projectile": {
+                "gravity": 0.1,
+                "anchor": 1,
+                "should_bounce": true,
+                "power": 4,
+                "on_hit": {},
+                "inertia": 0.99
+            },
+            "minecraft:timer": {
+                "time": 5,
+                "looping": true,
+                "time_down_event": {
+                    "event": "rt:despawn",
+                    "target": "self"
+                }
+            }
+        },
+        "events": {
+            "rt:despawn": {
+                "add": {
+                    "component_groups": ["rt:despawn"]
+                }
+            }
+        }
+    }
+}

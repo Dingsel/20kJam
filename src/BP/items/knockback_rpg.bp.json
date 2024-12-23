@@ -1,0 +1,29 @@
+{
+    "format_version": "1.20.80",
+    "minecraft:item": {
+        "description": {
+            "identifier": "rt:knockback_rpg",
+            "menu_category": {
+                "category": "items"
+            }
+        },
+        "components": {
+            "minecraft:use_animation": "bow",
+            "minecraft:max_stack_size": 1,
+            "minecraft:icon": "stick",
+            "minecraft:hand_equipped": true,
+            "minecraft:projectile": {
+                "minimum_critical_power": 1,
+                "projectile_entity": "rt:knockback_projectile"
+            },
+            "minecraft:throwable": {
+                "do_swing_animation": true,
+                "min_draw_duration": 0,
+                "max_draw_duration": 1,
+                "launch_power_scale": 1,
+                "max_launch_power": 5,
+                "scale_power_by_draw_duration": false
+            }
+        }
+    }
+}
