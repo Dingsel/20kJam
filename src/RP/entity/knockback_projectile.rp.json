@@ -1,0 +1,28 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "rt:knockback_projectile",
+            "materials": {
+                "default": "entity_custom"
+            },
+            "textures": {
+                "default": "textures/models/knockback_projectile.texture"
+            },
+            "geometry": {
+                "default": "geometry.knockback_projectile"
+            },
+            "animations": {
+                "fly": "animation.knockback_projectile.fly"
+            },
+            "scripts": {
+                "animate": ["fly"]
+            },
+            "render_controllers": ["controller.render.default"],
+            "spawn_egg": {
+                "base_color": "#288483",
+                "overlay_color": "#2B7135"
+            }
+        }
+    }
+}

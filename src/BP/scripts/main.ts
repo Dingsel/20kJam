@@ -11,16 +11,44 @@ import "./customComponents/customComponentsHandler"
 import "./prototypes/player"
 import "./deathSequences"
 import { BuildBattle } from "./gamemodes/buildBattle/buildBattle"
-
-type Gamemodes = ((eventData: GameEventData) => GamemodeExport | Promise<GamemodeExport>)[]
+import { BouncyBoxGameMode } from "./gamemodes/bouncyBox/bouncyBox"
 
 export const dim = world.getDimension("overworld")
 export let activeGamemode: GamemodeExport | null = null
 
+export type Gamemodes = ((eventData: GameEventData) => GamemodeExport | Promise<GamemodeExport>)[]
+export type GameRuleSettings = { [key in keyof typeof world.gameRules]?: typeof world.gameRules[key] }
+
+const isDev = true;
+
+const defaultGameRules: GameRuleSettings = {
+    doFireTick: false,
+    doWeatherCycle: false,
+    doDayLightCycle: false,
+    keepInventory: true,
+    doEntityDrops: false,
+    doInsomnia: false,
+    doImmediateRespawn: true,
+    doMobLoot: false,
+    doMobSpawning: false,
+    mobGriefing: false,
+    drowningDamage: false,
+    pvp: false,
+    fallDamage: false,
+    spawnRadius: 0,
+    doTileDrops: false,
+    commandBlocksEnabled: isDev,
+    commandBlockOutput: isDev,
+    doLimitedCrafting: false,
+    naturalRegeneration: true,
+    showCoordinates: isDev,
+    showTags: false
+}
+
 const spawnLocation: Vector3 = {
-    x: 0,
-    y: 123,
-    z: 0
+    x: -45,
+    y: 6,
+    z: -21
 }
 
 const gameModes: Gamemodes = [
@@ -28,11 +56,19 @@ const gameModes: Gamemodes = [
     EvadeGameMode,
     ParkourGameMode,
     MinefieldGameMode,
-    BuildBattle
+    BuildBattle,
+    BouncyBoxGameMode
 ]
 
 function checkIfWin() {
     return true
+}
+
+function applyGameRules(rules: GameRuleSettings) {
+    Object.entries(rules).forEach(([key, value]) => {
+        // @ts-expect-error
+        world.gameRules[key] = value
+    })
 }
 
 function setupGame() {
@@ -44,8 +80,10 @@ function setupGame() {
         const upcomingGamemode = await randomGamemodes[gamemodeElementIndex]({ players: world.getAllPlayers() })
         activeGamemode = upcomingGamemode
 
+
         await anounceGamemode(upcomingGamemode)
 
+        if (upcomingGamemode.gameSettings.gameRuleSettings) applyGameRules(upcomingGamemode.gameSettings.gameRuleSettings)
         for (const player of world.getAllPlayers()) {
             player.setGameMode(upcomingGamemode.gameSettings.gameMode)
         }
@@ -84,7 +122,7 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
     activeGamemode = upcomingGamemode
 
     await anounceGamemode(upcomingGamemode)
-    
+
     for (const player of world.getAllPlayers()) {
         player.setGameMode(upcomingGamemode.gameSettings.gameMode)
     }
@@ -107,6 +145,8 @@ export async function endRound(playersThatWon: Player[]) {
     await activeGamemode?.dispose?.()
     activeGamemode = null
 
+    applyGameRules(defaultGameRules)
+
     playersThatWon.forEach(x => {
         activeGamemode?.onPlayerWin?.(x)
     })
@@ -122,27 +162,7 @@ export async function endRound(playersThatWon: Player[]) {
     await system.waitTicks(60)
 
     world.getAllPlayers().forEach((player) => {
-        player.setGameMode(GameMode.survival)
+        player.setGameMode(GameMode.adventure)
         player.teleport(spawnLocation)
     })
 }
-
-world.getAllPlayers().forEach(player => {
-    //player.onScreenDisplay.setTitle("TMR12:00" + `PLA${player.name},,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLD${player.name},,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,PLN,,,,,,,,,,,,,,,,,`)
-})
-
-
-world.afterEvents.projectileHitBlock.subscribe((event) => {
-    const { projectile } = event
-    if (!projectile.isValid() || projectile.typeId !== "rt:falling_anvil") return
-    projectile.remove()
-})
-
-world.afterEvents.projectileHitEntity.subscribe((event) => {
-    const { projectile } = event
-    const hitEntity = event.getEntityHit().entity
-    if (!projectile.isValid() || projectile.typeId !== "rt:falling_anvil" || !hitEntity) return
-    projectile.remove()
-    hitEntity.applyDamage(6)
-    console.warn(hitEntity.typeId)
-})

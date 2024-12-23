@@ -1,4 +1,5 @@
 import { GameMode, Player, Vector3 } from "@minecraft/server"
+import { GameRuleSettings } from "../main"
 
 export type GamemodeType = "Solo" | "Team"
 
@@ -20,6 +21,7 @@ export type DeathSequenceType = "instantRespawn" | "timedRespawn" | "noRespawn"
 
 export interface GameSettingInformation {
     deathSequence: DeathSequenceType
+    gameRuleSettings?: GameRuleSettings
     gameMode: GameMode
 }
 

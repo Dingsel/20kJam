@@ -12,6 +12,9 @@ declare module "@minecraft/server" {
         rt: RTPlayer
         isDead: boolean
     }
+    interface Entity {
+        lastBounceTime: number | undefined
+    }
 }
 
 

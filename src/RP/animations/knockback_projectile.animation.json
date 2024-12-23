@@ -1,0 +1,13 @@
+{
+    "format_version": "1.8.0",
+    "animations": {
+        "animation.knockback_projectile.fly": {
+            "loop": true,
+            "bones": {
+                "bone2": {
+                    "rotation": ["q.anim_time * 400", 0, "q.anim_time * 400"]
+                }
+            }
+        }
+    }
+}

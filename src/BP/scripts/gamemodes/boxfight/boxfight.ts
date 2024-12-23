@@ -7,14 +7,14 @@ import { BoxfightPregame } from "./pregame"
 
 const { start, end } = {
     start: {
-        x: -1,
-        y: -58,
-        z: -1
+        x: 981,
+        y: 9,
+        z: -10
     },
     end: {
-        x: 1,
-        y: -58,
-        z: 1
+        x: 983,
+        y: 9,
+        z: -12
     }
 }
 
@@ -27,14 +27,14 @@ const winCond = [{ block: TEAM_0_BLOCK, teamId: 0 }, { block: TEAM_1_BLOCK, team
 
 const teamSpawnLocations = [
     {
-        x: 0,
-        y: -55,
-        z: -19
+        x: 982,
+        y: 8,
+        z: 20
     },
     {
-        x: 0,
-        y: -55,
-        z: 19
+        x: 982,
+        y: 8,
+        z: -42
     }
 ] as const
 
@@ -103,7 +103,10 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
         typeId: "rt:boxfight",
         gameSettings: {
             gameMode: GameMode.adventure,
-            deathSequence: "noRespawn"
+            deathSequence: "noRespawn",
+            gameRuleSettings: {
+                pvp: true
+            }
         },
 
         spawnPlayer(player) {

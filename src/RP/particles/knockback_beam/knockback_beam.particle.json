@@ -1,0 +1,52 @@
+{
+    "format_version": "1.10.0",
+    "particle_effect": {
+        "description": {
+            "identifier": "rt:knockback_beam",
+            "basic_render_parameters": {
+                "material": "particles_blend",
+                "texture": "particles/knockback_beam/knockback_beam.texture"
+            }
+        },
+        "components": {
+            "minecraft:emitter_local_space": {
+                "position": true,
+                "rotation": true
+            },
+            "minecraft:emitter_rate_steady": {
+                "spawn_rate": 4,
+                "max_particles": 100
+            },
+            "minecraft:emitter_lifetime_looping": {
+                "active_time": 1
+            },
+            "minecraft:emitter_shape_point": {},
+            "minecraft:particle_lifetime_expression": {
+                "max_lifetime": 1
+            },
+            "minecraft:particle_initial_speed": 0,
+            "minecraft:particle_motion_dynamic": {},
+            "minecraft:particle_appearance_billboard": {
+                "size": ["0.2 + v.particle_age", "0.2 + v.particle_age"],
+                "facing_camera_mode": "emitter_transform_yz",
+                "uv": {
+                    "texture_width": 16,
+                    "texture_height": 16,
+                    "uv": [0, 0],
+                    "uv_size": [16, 16]
+                }
+            },
+            "minecraft:particle_appearance_tinting": {
+                "color": {
+                    "interpolant": "v.particle_age / v.particle_lifetime",
+                    "gradient": {
+                        "0.0": "#ffffffff",
+                        "0.59": "#ffffffff",
+                        "1.0": "#00FFFFFF"
+                    }
+                }
+            }
+        }
+    }
+}
+
