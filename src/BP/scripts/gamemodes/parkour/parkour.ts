@@ -1,30 +1,30 @@
 import { BlockVolume, GameMode, Player } from "@minecraft/server";
 import { GameEventData, GamemodeExport } from "../gamemodeTypes";
 import { useCountdown } from "../../hooks/useCountdown";
-import { endRound } from "../../main";
+import { dim, endRound } from "../../main";
 
 const parkourFinishArea = new BlockVolume(
     {
-        x: 0,
-        y: -1,
-        z: 0
+        x: 3006,
+        y: 15,
+        z: 121
     },
     {
-        x: 1,
-        y: -1,
-        z: 1
+        x: 3017,
+        y: 9,
+        z: 111
     }
 )
 
 const parkourStartLocation = {
-    x: 15,
-    y: 0,
-    z: 0
+    x: 3013,
+    y: 13,
+    z: -1
 }
 
 export async function ParkourGameMode({ players }: GameEventData): Promise<GamemodeExport> {
     const roundWinners: Player[] = []
-    const timer = useCountdown(60 * 20)
+    const timer = useCountdown(120 * 20)
 
     timer.onTimeDown(() => {
         for (const player of players) {
@@ -45,15 +45,29 @@ export async function ParkourGameMode({ players }: GameEventData): Promise<Gamem
             gameMode: GameMode.adventure,
             deathSequence: "timedRespawn"
         },
+        async onceActive() {
+            for (const player of players) {
+                (await this).spawnPlayer(player)
+            }
+            timer.start()
+        },
         spawnPlayer(player) {
-            player.teleport(parkourStartLocation)
+            player.teleport(parkourStartLocation, { facingLocation: parkourFinishArea.from })
         },
         whileActive() {
             for (const player of players) {
-                if (!parkourFinishArea.doesLocationTouchFaces(player.location)) continue
+                player.setSpawnPoint({ dimension: dim, ...parkourStartLocation })
+                if (
+                    !parkourFinishArea.doesLocationTouchFaces(player.location) ||
+                    roundWinners.includes(player)
+                ) continue
                 player.sendMessage("You finished the parkour!")
+                player.setGameMode(GameMode.spectator)
                 roundWinners.push(player)
             }
-        }
+        },
+        onPlayerWin(player) {
+            player.rt.coins += 1250
+        },
     }
 }

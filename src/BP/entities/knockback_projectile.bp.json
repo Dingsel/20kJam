@@ -24,21 +24,9 @@
                     }
                 ]
             },
-            "minecraft:knockback_resistance": {
-                "value": 1,
-                "max": 1
-            },
             "minecraft:collision_box": {
                 "height": 1,
                 "width": 1
-            },
-            "minecraft:projectile": {
-                "gravity": 0.1,
-                "anchor": 1,
-                "should_bounce": true,
-                "power": 4,
-                "on_hit": {},
-                "inertia": 0.99
             },
             "minecraft:timer": {
                 "time": 5,

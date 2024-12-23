@@ -1,8 +1,13 @@
 {
     "format_version": "1.14.0",
     "sound_definitions": {
-        "coins": {
+        "rt:coins": {
             "sounds": ["sounds/coins"]
+        },
+        "rt:jingle": {
+            "category": "ui",
+            "max_distance": 99999,
+            "sounds": ["sounds/jingle"]
         }
     }
 }

@@ -63,7 +63,7 @@ export async function EvadeGameMode({ players }: GameEventData): Promise<Gamemod
             if (gameActiveTime % 20 === 0) {
                 players.forEach((p) => {
                     if (!p.isValid() || p.isDead) return
-                    p.rt.points += 50
+                    p.rt.coins += 50
                 })
             }
         },

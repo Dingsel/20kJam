@@ -1,6 +1,7 @@
 import { system } from "@minecraft/server"
 
 export interface Countdown {
+    start: () => this
     addTime: (timeInTicks: number) => this
     dispose: () => void
     getRemaining: () => { ticks: number, seconds: string }
@@ -8,53 +9,64 @@ export interface Countdown {
 }
 
 export function useCountdown(targetTimeInTicks: number): Countdown {
-    const startTime = system.currentTick
-    let endTime = startTime + targetTimeInTicks
-
-    let cbStack: (() => any)[] | null = []
-
-    let timerId = system.runTimeout(() => {
-        if (!cbStack) throw new Error("Timer Already Expired")
-        cbStack.forEach(x => x())
-    }, targetTimeInTicks)
+    let startTime: number | null = null
+    let endTime: number | null = null
+    let cbStack: (() => any)[] = []
+    let timerId: number | undefined
 
     return {
-        addTime(timeInTicks: number) {
-            const currentTime = system.currentTick
-            if (endTime - currentTime <= 0 || !cbStack) throw new Error("Timer Already Expired")
-            endTime += timeInTicks
+        start() {
+            if (startTime !== null) throw new Error("Timer Already Started")
+            startTime = system.currentTick
+            endTime = startTime + targetTimeInTicks
 
-            system.clearRun(timerId)
             timerId = system.runTimeout(() => {
                 if (!cbStack) throw new Error("Timer Already Expired")
                 cbStack.forEach(x => x())
-            }, endTime - startTime)
+            }, targetTimeInTicks)
+
+            return this
+        },
+
+        addTime(timeInTicks: number) {
+            if (startTime === null) throw new Error("Timer Not Started")
+            if (!endTime || !cbStack) throw new Error("Timer Already Expired")
+
+            const currentTime = system.currentTick
+            if (endTime - currentTime <= 0) throw new Error("Timer Already Expired")
+
+            endTime += timeInTicks
+
+            system.clearRun(timerId!)
+            timerId = system.runTimeout(() => {
+                if (!cbStack) throw new Error("Timer Already Expired")
+                cbStack.forEach(x => x())
+            }, endTime - currentTime)
 
             return this
         },
 
         dispose() {
-            system.clearRun(timerId)
-            cbStack = null //Allow GC
+            if (timerId !== undefined) system.clearRun(timerId)
         },
 
         getRemaining() {
             const currentTime = system.currentTick
             return {
                 get ticks() {
-                    return endTime - currentTime
+                    if (startTime === null) return targetTimeInTicks
+                    return endTime! - currentTime
                 },
 
                 get seconds() {
-                    return ((endTime - currentTime) / 20).toFixed(2)
+                    if (startTime === null) return (targetTimeInTicks / 20).toFixed(2)
+                    return ((endTime! - currentTime) / 20).toFixed(2)
                 }
             }
         },
 
         onTimeDown(callback: () => any) {
-            const currentTime = system.currentTick
-            if (endTime - currentTime <= 0 || !cbStack) throw new Error("Timer Already Expired")
-
+            if (!cbStack) throw new Error("Timer Already Expired")
             cbStack.push(callback)
         }
     }

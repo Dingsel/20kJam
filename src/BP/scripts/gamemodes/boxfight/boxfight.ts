@@ -1,9 +1,10 @@
-import { BlockVolume, Entity, EntityEquippableComponent, EntityInventoryComponent, EquipmentSlot, GameMode, ItemStack, Player, Vector3, world } from "@minecraft/server"
+import { BlockVolume, Entity, EntityEquippableComponent, EntityInventoryComponent, EquipmentSlot, GameMode, ItemStack, Player, system, Vector3, world } from "@minecraft/server"
 import { GameEventData, GamemodeExport } from "../gamemodeTypes"
 import { activeGamemode, dim, endRound } from "../../main"
 import { useCountdown } from "../../hooks/useCountdown"
 import { useBoxfightDisplay } from "./boxfigtDisplay"
 import { BoxfightPregame } from "./pregame"
+import { useLoadingTimer } from "../../utils"
 
 const { start, end } = {
     start: {
@@ -40,14 +41,13 @@ const teamSpawnLocations = [
 
 export async function BoxFightGameMode({ players }: GameEventData): Promise<GamemodeExport> {
     const { playerTeamMap, getSelectedKit, dispose } = await BoxfightPregame({ players })
-
     const timer = useCountdown(180 * 20)
+
     const display = useBoxfightDisplay({
         players,
         teamMap: playerTeamMap,
         timer
     })
-
     timer.onTimeDown(() => {
         checkMostPercent()
     })
@@ -57,6 +57,20 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
         if (activeGamemode?.typeId !== "rt:boxfight") return
         checkIfGameWon()
     })
+
+    const killEvent = world.afterEvents.entityDie.subscribe((event) => {
+        const { damageSource, deadEntity } = event
+        if (!(deadEntity instanceof Player)) return
+        const damigingEntity = damageSource.damagingEntity || deadEntity.lastHitBy
+        if (!(damigingEntity instanceof Player)) return
+
+        if (playerTeamMap.get(deadEntity)?.teamId === playerTeamMap.get(damigingEntity)?.teamId) {
+            damigingEntity.sendMessage(`§cYou Monster.`)
+            damigingEntity.playSound("mob.cat.meow", { pitch: 0.5 })
+            damigingEntity.rt.coins -= 250
+        } else damigingEntity.rt.coins += 250
+
+    }, { entityTypes: ["player"] })
 
     function checkIfGameWon() {
         for (const { block, teamId } of winCond) {
@@ -141,27 +155,30 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 });
 
                 (await this).spawnPlayer(player)
-
-                //TODO: FANCY ANOUNCER HERE
             }
+            system.run(async () => {
+                await useLoadingTimer(5, players)
+                timer.start()
+            })
         },
 
         whileActive() {
             display.updateDisplay()
         },
 
-        onPlayerWin(player) {
-            console.warn("We would add coins here for player ", player.name)
-        },
-
         dispose() {
             dispose()
             world.afterEvents.playerPlaceBlock.unsubscribe(event)
+            world.afterEvents.entityDie.unsubscribe(killEvent)
             timer.dispose()
             players.forEach((player) => {
                 if (!player.isValid()) return
                 player.nameTag = player.name
             })
+        },
+
+        onPlayerWin(player) {
+            player.rt.coins += 1000
         },
     }
 }
