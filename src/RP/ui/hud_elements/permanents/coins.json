@@ -2,12 +2,427 @@
   "namespace": "pm_coins",
 
   "render": {
-    "type": "panel",
+    "type": "stack_panel",
+    "anchor_from": "bottom_middle",
+    "orientation": "vertical",
+    "size": [90, "100%c"],
+    "offset": [-140, 0],
+    "anchor_to": "bottom_middle",
     "factory": {
       "name": "chat_item_factory",
       "control_ids": {
-        "chat_item": "chat_item@hud.achievment_item"
+        "chat_item": "coin_handle@pm_coins.coin_handle"
       }
     }
+  },
+  "coin_update_anim1": {
+    "anim_type": "size",
+    "easing": "in_cubic",
+    "to": [13, 13],
+    "from": [10, 10],
+    "duration": 0.2,
+    "next": "@pm_coins.coin_update_anim2"
+  },
+  "coin_update_anim2": {
+    "anim_type": "size",
+    "easing": "out_cubic",
+    "to": [10, 10],
+    "from": [13, 13],
+    "duration": 0.2
+  },
+  "coin_update@rt20k.img": {
+    "texture": "textures/ui/hud_tip_text_background",
+    "alpha": 0.4,
+    "bindings": [
+      {
+        "binding_name": "#chat_text",
+        "binding_name_override": "#text",
+        "binding_type": "collection",
+        "binding_collection_name": "chat_text_grid",
+        "binding_condition": "once"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "('%.19s' * #text)",
+        "target_property_name": "#prefix"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#prefix - 'RTKJAM:coins_update') = #prefix))",
+        "target_property_name": "#visible"
+      }
+    ],
+    "anchor_from": "bottom_right",
+    "offset": [0, -5.5],
+    "anchor_to": "bottom_right",
+    "size": ["100%c+6px", "100%c+4px"],
+    "controls": [
+      {
+        "stack@rt20k.sp": {
+          "orientation": "horizontal",
+          "size": ["100%c", 10],
+          "controls": [
+            {
+              "text_p@rt20k.p": {
+                "size": ["100%c", 10],
+                "controls": [
+                  {
+                    "text@rt20k.l": {
+                      "layer": 1,
+                      "bindings": [
+                        {
+                          "binding_name": "#chat_text",
+                          "binding_name_override": "#text",
+                          "binding_type": "collection",
+                          "binding_collection_name": "chat_text_grid",
+                          "binding_condition": "once"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(('§6' + #text) - 'RTKJAM:coins_update')",
+                          "target_property_name": "#final"
+                        }
+                      ],
+                      "offset": [0, -0.5],
+                      "shadow": true,
+                      "text": "#final"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "pad@rt20k.p": {
+                "size": [2, 10]
+              }
+            },
+            {
+              "img@rt20k.p": {
+                "size": ["100%c", 10],
+                "controls": [
+                  {
+                    "img@rt20k.img": {
+                      "anims": ["@pm_coins.coin_update_anim1"],
+                      "texture": "rt20k/coin",
+                      "size": [10, 10]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "coin_in_anim": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "from": [0, 20],
+    "to": [0, -5.5],
+    "duration": 0.8
+  },
+  "coin_in@rt20k.img": {
+    "texture": "textures/ui/hud_tip_text_background",
+    "alpha": 0.4,
+    "anims": ["@pm_coins.coin_in_anim"],
+    "bindings": [
+      {
+        "binding_name": "#chat_text",
+        "binding_name_override": "#text",
+        "binding_type": "collection",
+        "binding_collection_name": "chat_text_grid",
+        "binding_condition": "once"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "('%.15s' * #text)",
+        "target_property_name": "#prefix"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#prefix - 'RTKJAM:coins_in') = #prefix))",
+        "target_property_name": "#visible"
+      }
+    ],
+    "anchor_from": "bottom_right",
+    "offset": [0, -5.5],
+    "anchor_to": "bottom_right",
+    "size": ["100%c+6px", "100%c+4px"],
+    "controls": [
+      {
+        "stack@rt20k.sp": {
+          "orientation": "horizontal",
+          "size": ["100%c", 10],
+          "controls": [
+            {
+              "text_p@rt20k.p": {
+                "size": ["100%c", 10],
+                "controls": [
+                  {
+                    "text@rt20k.l": {
+                      "layer": 1,
+
+                      "bindings": [
+                        {
+                          "binding_name": "#chat_text",
+                          "binding_name_override": "#text",
+                          "binding_type": "collection",
+                          "binding_collection_name": "chat_text_grid",
+                          "binding_condition": "once"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(('§6' + #text) - 'RTKJAM:coins_in')",
+                          "target_property_name": "#final"
+                        }
+                      ],
+                      "offset": [0, -0.5],
+                      "shadow": true,
+                      "text": "#final"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "pad@rt20k.p": {
+                "size": [2, 10]
+              }
+            },
+            {
+              "img@rt20k.img": {
+                "texture": "rt20k/coin",
+                "size": [10, 10]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "coin_out_anim": {
+    "anim_type": "offset",
+    "easing": "in_cubic",
+    "to": [0, 20],
+    "from": [0, -5.5],
+    "duration": 0.8
+  },
+  "coin_out@rt20k.img": {
+    "texture": "textures/ui/hud_tip_text_background",
+    "alpha": 0.4,
+    "anims": ["@pm_coins.coin_out_anim"],
+    "bindings": [
+      {
+        "binding_name": "#chat_text",
+        "binding_name_override": "#text",
+        "binding_type": "collection",
+        "binding_collection_name": "chat_text_grid",
+        "binding_condition": "once"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "('%.16s' * #text)",
+        "target_property_name": "#prefix"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#prefix - 'RTKJAM:coins_out') = #prefix))",
+        "target_property_name": "#visible"
+      }
+    ],
+    "anchor_from": "bottom_right",
+    "offset": [0, -5.5],
+    "anchor_to": "bottom_right",
+    "size": ["100%c+6px", "100%c+4px"],
+    "controls": [
+      {
+        "stack@rt20k.sp": {
+          "orientation": "horizontal",
+          "size": ["100%c", 10],
+          "controls": [
+            {
+              "text_p@rt20k.p": {
+                "size": ["100%c", 10],
+                "controls": [
+                  {
+                    "text@rt20k.l": {
+                      "layer": 1,
+
+                      "bindings": [
+                        {
+                          "binding_name": "#chat_text",
+                          "binding_name_override": "#text",
+                          "binding_type": "collection",
+                          "binding_collection_name": "chat_text_grid",
+                          "binding_condition": "once"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(('§6' + #text) - 'RTKJAM:coins_out')",
+                          "target_property_name": "#final"
+                        }
+                      ],
+                      "offset": [0, -0.5],
+                      "shadow": true,
+                      "text": "#final"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "pad@rt20k.p": {
+                "size": [2, 10]
+              }
+            },
+            {
+              "img@rt20k.img": {
+                "texture": "rt20k/coin",
+                "size": [10, 10]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "coin_nothing@rt20k.img": {
+    "texture": "textures/ui/hud_tip_text_background",
+    "alpha": 0.4,
+    "bindings": [
+      {
+        "binding_name": "#chat_text",
+        "binding_name_override": "#text",
+        "binding_type": "collection",
+        "binding_collection_name": "chat_text_grid",
+        "binding_condition": "once"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "('%.20s' * #text)",
+        "target_property_name": "#prefix"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not((#prefix - 'RTKJAM:coins_nothing') = #prefix))",
+        "target_property_name": "#visible"
+      }
+    ],
+    "anchor_from": "bottom_right",
+    "offset": [0, -5.5],
+    "anchor_to": "bottom_right",
+    "size": ["100%c+6px", "100%c+4px"],
+    "controls": [
+      {
+        "stack@rt20k.sp": {
+          "orientation": "horizontal",
+          "size": ["100%c", 10],
+          "controls": [
+            {
+              "text_p@rt20k.p": {
+                "size": ["100%c", 10],
+                "controls": [
+                  {
+                    "text@rt20k.l": {
+                      "layer": 1,
+
+                      "bindings": [
+                        {
+                          "binding_name": "#chat_text",
+                          "binding_name_override": "#text",
+                          "binding_type": "collection",
+                          "binding_collection_name": "chat_text_grid",
+                          "binding_condition": "once"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(('§6' + #text) - 'RTKJAM:coins_nothing')",
+                          "target_property_name": "#final"
+                        }
+                      ],
+                      "offset": [0, -0.5],
+                      "shadow": true,
+                      "text": "#final"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "pad@rt20k.p": {
+                "size": [2, 10]
+              }
+            },
+            {
+              "img@rt20k.img": {
+                "texture": "rt20k/coin",
+                "size": [10, 10]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+"reset_anim": {
+  "anim_type": "wait",
+  "duration": 31,
+  "next": "@pm_coins.delete"
+},
+
+
+"delete": {
+  "anim_type": "size",
+  "from": [0,0],
+  "to": [0,0],
+  "duration": 0,
+     "destroy_at_end": "chat_grid_item"
+},
+
+  "coin_handle@rt20k.p": {
+    "size": ["100%c", "100%c"],
+    "controls": [
+      {
+        "size_handle@rt20k.p": {
+          "size": [90, 1000],
+          "anims": ["@pm_coins.reset_anim"],
+          "bindings": [
+            {
+              "binding_name": "#chat_text",
+              "binding_name_override": "#text",
+              "binding_type": "collection",
+              "binding_collection_name": "chat_text_grid",
+              "binding_condition": "once"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "('%.13s' * #text)",
+              "target_property_name": "#prefix"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(not((#prefix - 'RTKJAM:coins') = #prefix))",
+              "target_property_name": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "coin_in@pm_coins.coin_in": {}
+            },
+            {
+              "coin_out@pm_coins.coin_out": {}
+            },
+            {
+              "coin_update@pm_coins.coin_update": {}
+            },
+            {
+              "coin_nothing@pm_coins.coin_nothing": {}
+            }
+          ]
+        }
+      }
+    ]
   }
 }
