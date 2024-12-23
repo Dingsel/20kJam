@@ -1,0 +1,13 @@
+{
+  "namespace": "pm_coins",
+
+  "render": {
+    "type": "panel",
+    "factory": {
+      "name": "chat_item_factory",
+      "control_ids": {
+        "chat_item": "chat_item@hud.achievment_item"
+      }
+    }
+  }
+}

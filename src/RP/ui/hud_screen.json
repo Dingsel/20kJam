@@ -1,29 +1,96 @@
 {
-    "namespace": "hud",
-    "hud_title_text": {
-        "type": "stack_panel",
-        "orientation": "vertical",
-        "offset": [ 0, -19 ],
-        "layer": 1,
-        "visible": false,
-        "alpha": "@hud.anim_title_text_alpha_in",
-        "propagate_alpha": true
+  "namespace": "hud",
+
+  "chat_grid_item": {
+    "type": "panel",
+    "layer": 1,
+    "size": ["100%-2px", "100%c"],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_name": "#chat_text",
+        "binding_name_override": "#text",
+        "binding_type": "collection",
+        "binding_collection_name": "chat_text_grid",
+        "binding_condition": "once"
       },
-    
-    "root_panel": {
-        "modifications": [
+      {
+        "binding_type": "view",
+        "source_property_name": "('%.7s' * #text)",
+        "target_property_name": "#prefix"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "((#prefix - '20KJAM:') = #prefix)",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "chat_background": {
+          "type": "image",
+          "texture": "textures/ui/Black",
+          "alpha": 0.7,
+          "size": ["100%", "100%c"],
+          "anims": ["@hud.anim_chat_bg_wait"],
+          "bindings": [
             {
-                "array_name": "controls",
-                "operation": "insert_front",
-                "value": [
-                    {
-                        "boxfights@gm_boxfights.render": {}
-                    },
-                    {
-                        "race@gm_race.render": {}
-                    }
-                ]
+              "binding_name": "#chat_text",
+              "binding_name_override": "#text",
+              "binding_type": "collection",
+              "binding_collection_name": "chat_text_grid",
+              "binding_condition": "once"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "('%.7s' * #text)",
+              "target_property_name": "#prefix"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "((#prefix - '20KJAM:') = #prefix)",
+              "target_property_name": "#visible"
             }
+          ],
+          "controls": [
+            {
+              "chat_text@chat_label": {
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "offset": [2, 0]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "hud_title_text": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "offset": [0, -19],
+    "layer": 1,
+    "visible": false,
+    "alpha": "@hud.anim_title_text_alpha_in",
+    "propagate_alpha": true
+  },
+
+  "root_panel": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_front",
+        "value": [
+          {
+            "boxfights@gm_boxfights.render": {}
+          },
+          {
+            "race@gm_race.render": {}
+          }
         ]
-    }
+      }
+    ]
+  }
 }
