@@ -43,6 +43,8 @@ export async function BuildBattle(game: GameEventData): Promise<GamemodeExport> 
         info.patternOrder.shift()
         player.dimension.fillBlocks(info.targetPatternVolume, "minecraft:air")
 
+        player.rt.coins += 750
+
         if (info.patternOrder.length <= 0) {
             winningPlayers.push(player)
             player.setGameMode(GameMode.spectator)
@@ -80,6 +82,7 @@ export async function BuildBattle(game: GameEventData): Promise<GamemodeExport> 
                 container.setItem(1, shear)
                 player.teleport(info.spawnLocation)
             }
+            timer.start()
         },
 
         spawnPlayer(player) {

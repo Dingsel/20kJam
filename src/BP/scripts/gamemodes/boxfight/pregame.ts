@@ -2,6 +2,7 @@ import { EntityInventoryComponent, ItemLockMode, ItemStack, Player, system, worl
 import { uiManager } from "@minecraft/server-ui"
 import { splitupPlayers } from "../../hooks/splitupPlayers"
 import { kitForm, kits } from "./staticData"
+import { titleCountdown } from "../../utils"
 
 export interface BoxFightKitItemDetails {
     slot: number
@@ -60,7 +61,7 @@ export function BoxfightPregame({ players }: { players: Player[] }): Promise<Box
     }
 
     return new Promise(async (resolve) => {
-        await system.waitTicks(20 * 20) //20 sec pregame loby time
+        await titleCountdown(20, players, { endSound: "", endText: "", tickSound: "" })
 
         players.forEach((p) => {
             if (!p.isValid()) return

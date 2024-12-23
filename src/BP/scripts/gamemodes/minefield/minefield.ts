@@ -5,22 +5,29 @@ import { endRound } from "../../main"
 
 const minefieldFinishArea = new BlockVolume(
     {
-        x: 0,
-        y: -1,
-        z: 0
+        x: 1979,
+        y: 16,
+        z: -52
     },
     {
-        x: 1,
-        y: -1,
-        z: 1
+        x: 2007,
+        y: 0,
+        z: -44
     }
 )
 
-const minefieldStartLocation = {
-    x: 15,
-    y: 0,
-    z: 0
-}
+const minefieldStartLocations = [
+    {
+        x: 1986,
+        y: 1,
+        z: 34
+    },
+    {
+        x: 1997,
+        y: 3,
+        z: 34
+    }
+]
 
 export async function MinefieldGameMode({ players }: GameEventData): Promise<GamemodeExport> {
     const roundWinners: Player[] = []
@@ -45,19 +52,33 @@ export async function MinefieldGameMode({ players }: GameEventData): Promise<Gam
             gameMode: GameMode.adventure,
             deathSequence: "noRespawn"
         },
+        async onceActive() {
+            for (const player of players) {
+                (await this).spawnPlayer(player)
+            }
+            timer.start()
+        },
         spawnPlayer(player) {
-            player.teleport(minefieldStartLocation)
+            const randomStartLocation = minefieldStartLocations[Math.floor(Math.random() * minefieldStartLocations.length)]
+            player.teleport(randomStartLocation, { facingLocation: minefieldFinishArea.to })
         },
         whileActive() {
             for (const player of players) {
-                if (!minefieldFinishArea.doesLocationTouchFaces(player.location)) continue
+                if (
+                    !minefieldFinishArea.doesLocationTouchFaces(player.location)
+                    || roundWinners.includes(player)
+                ) continue
                 player.sendMessage("You finished the minefield!")
+                player.setGameMode(GameMode.spectator)
                 roundWinners.push(player)
             }
 
             if (roundWinners.length === players.length) {
                 endRound(roundWinners)
             }
-        }
+        },
+        onPlayerWin(player) {
+            player.rt.coins += 1250
+        },
     }
 }

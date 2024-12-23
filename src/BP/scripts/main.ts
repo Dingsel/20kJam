@@ -47,7 +47,7 @@ const defaultGameRules: GameRuleSettings = {
 
 const spawnLocation: Vector3 = {
     x: -45,
-    y: 6,
+    y: 7,
     z: -21
 }
 
@@ -89,7 +89,6 @@ function setupGame() {
         }
 
         await upcomingGamemode.onceActive?.()
-
 
         await new Promise<void>((res) => {
             const runId = system.runInterval(() => {
@@ -166,3 +165,10 @@ export async function endRound(playersThatWon: Player[]) {
         player.teleport(spawnLocation)
     })
 }
+
+
+world.afterEvents.playerSpawn.subscribe((event) => {
+    const { player } = event
+
+    player.rt.setCoinDisplay("shown")
+})
