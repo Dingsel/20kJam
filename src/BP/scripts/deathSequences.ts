@@ -19,7 +19,7 @@ world.afterEvents.playerSpawn.subscribe(async (event) => {
         case "timedRespawn":
             player.isDead = true
             player.setGameMode(GameMode.spectator)
-            await titleCountdown(5, player)
+            await titleCountdown(5, [player])
             player.isDead = false
             if (!player.isValid() || activeGamemode === null) return
             player.setGameMode(activeGamemode.gameSettings.gameMode)

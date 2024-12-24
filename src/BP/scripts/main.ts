@@ -80,10 +80,10 @@ function setupGame() {
         const upcomingGamemode = await randomGamemodes[gamemodeElementIndex]({ players: world.getAllPlayers() })
         activeGamemode = upcomingGamemode
 
-
         await anounceGamemode(upcomingGamemode)
 
         if (upcomingGamemode.gameSettings.gameRuleSettings) applyGameRules(upcomingGamemode.gameSettings.gameRuleSettings)
+
         for (const player of world.getAllPlayers()) {
             player.setGameMode(upcomingGamemode.gameSettings.gameMode)
         }
@@ -116,11 +116,14 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
     const selectedGamemode = gameModes[parseInt(message)]
     if (!selectedGamemode) return
 
+    //TODO: Only valid players
     const upcomingGamemode = await selectedGamemode({ players: world.getAllPlayers() })
 
     activeGamemode = upcomingGamemode
 
     await anounceGamemode(upcomingGamemode)
+
+    if (upcomingGamemode.gameSettings.gameRuleSettings) applyGameRules(upcomingGamemode.gameSettings.gameRuleSettings)
 
     for (const player of world.getAllPlayers()) {
         player.setGameMode(upcomingGamemode.gameSettings.gameMode)
@@ -166,9 +169,16 @@ export async function endRound(playersThatWon: Player[]) {
     })
 }
 
-
+/* system.runInterval(() => {
+    world.getAllPlayers().forEach((player) => {
+        player.setSpawnPoint({ dimension: dim, ...player.location })
+    })
+}, 5)
+ */
 world.afterEvents.playerSpawn.subscribe((event) => {
     const { player } = event
-
+    player.rt.setCoinDisplay("shown")
+})
+world.getAllPlayers().forEach((player) => {
     player.rt.setCoinDisplay("shown")
 })

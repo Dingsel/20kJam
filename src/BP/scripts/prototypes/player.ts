@@ -43,7 +43,7 @@ Object.defineProperty(Player.prototype, "rt", {
                         player.sendMessage(`RTKJAM:coins_out${coins}`)
                         break
                     case "shown":
-                        if (typeof player.coinRefreshTimer !== "undefined") system.clearJob(player.coinRefreshTimer)
+                        if (typeof player.coinRefreshTimer !== "undefined") system.clearRun(player.coinRefreshTimer)
 
                         player.coinRefreshTimer = system.runInterval(() => {
                             player.rt.setCoinDisplay("refreshing")
@@ -69,7 +69,7 @@ Object.defineProperty(Player.prototype, "rt", {
                 }
 
                 player.setDynamicProperty(`rt:coins`, value)
-                if (typeof player.coinRefreshTimer !== "undefined") system.clearJob(player.coinRefreshTimer)
+                if (typeof player.coinRefreshTimer !== "undefined") system.clearRun(player.coinRefreshTimer)
 
                 player.coinRefreshTimer = system.runInterval(() => {
                     player.rt.setCoinDisplay("refreshing")

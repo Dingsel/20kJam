@@ -70,7 +70,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
             damigingEntity.rt.coins -= 250
         } else damigingEntity.rt.coins += 250
 
-    }, { entityTypes: ["player"] })
+    })
 
     function checkIfGameWon() {
         for (const { block, teamId } of winCond) {
