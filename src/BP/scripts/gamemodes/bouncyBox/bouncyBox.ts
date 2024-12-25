@@ -1,8 +1,11 @@
-import { BlockVolume, EntityProjectileComponent, GameMode, Player, system, world } from "@minecraft/server";
+import { GameMode, Player, system, world } from "@minecraft/server";
 import { GameEventData, GamemodeExport } from "../gamemodeTypes";
 import { splitupPlayers } from "../../hooks/splitupPlayers";
 import { VECTOR3_BACK, VECTOR3_DOWN, VECTOR3_FORWARD, VECTOR3_LEFT, VECTOR3_RIGHT, VECTOR3_UP, Vector3Utils } from "@minecraft/math";
 import { dim } from "../../main";
+import { useBouncyBoxDisplay } from "./boncyBoxDisplay";
+import { useCountdown } from "../../hooks/useCountdown";
+import { titleCountdown } from "../../utils";
 
 const teamSpawnLocations = [
     {
@@ -86,53 +89,39 @@ world.afterEvents.projectileHitEntity.subscribe((event) => {
 })
 
 export async function BouncyBoxGameMode({ players }: GameEventData): Promise<GamemodeExport> {
-    const teamData = splitupPlayers(2, players)
+    const { playerTeamMap } = splitupPlayers(2, players)
+    const timer = useCountdown(180 * 20)
 
-    let platformBounds = new BlockVolume(
-        {
-            x: -79,
-            y: -40,
-            z: -76
-        },
-        {
-            x: -107,
-            y: -40,
-            z: -48
-        }
-    )
+    const display = useBouncyBoxDisplay({ players, teamMap: playerTeamMap, timer })
 
-    let currentDecreases = 0;
-    dim.fillBlocks(platformBounds, "minecraft:bedrock") // Maybe even a structure?
+    function checkIfGameWon() {
+        const alivePlayers = players.filter(x => x.isValid());
+        const teams = [0, 1];
 
-    function decreaseMapSize() {
-        currentDecreases++
-
-        const { from, to } = platformBounds
-
-        const newBounds = {
-            from: {
-                x: from.x + currentDecreases,
-                y: from.y,
-                z: from.z + currentDecreases
-            },
-            to: {
-                x: to.x - currentDecreases,
-                y: to.y,
-                z: to.z - currentDecreases
+        for (const teamId of teams) {
+            if (!alivePlayers.some(p => playerTeamMap.get(p)?.teamId === teamId)) {
+                const winningTeam = teamId === 0 ? 1 : 0;
+                alivePlayers
+                    .filter(p => playerTeamMap.get(p)?.teamId === winningTeam)
+                    .forEach(p => p.rt.coins += 1000);
             }
-        };
-
-        const fillAir = (bounds: BlockVolume) => {
-            dim.fillBlocks(bounds, "minecraft:air")
         }
-
-        fillAir(new BlockVolume(from, { x: newBounds.from.x, y: to.y, z: to.z }))
-        fillAir(new BlockVolume({ x: newBounds.to.x, y: from.y, z: from.z }, to))
-        fillAir(new BlockVolume({ x: from.x, y: from.y, z: from.z }, { x: newBounds.to.x, y: to.y, z: newBounds.from.z }))
-        fillAir(new BlockVolume({ x: newBounds.from.x, y: from.y, z: newBounds.to.z }, { x: to.x, y: to.y, z: to.z }))
-
-        return new BlockVolume(newBounds.from, newBounds.to)
     }
+
+    const killEvent = world.afterEvents.entityDie.subscribe((event) => {
+        const { damageSource, deadEntity } = event
+        if (!(deadEntity instanceof Player)) return
+        const damigingEntity = damageSource.damagingEntity /* || deadEntity.lastHitBy */
+        if (!(damigingEntity instanceof Player)) return
+
+        const deadEntityTeam = playerTeamMap.get(deadEntity)?.teamId
+
+        playerTeamMap.forEach(({ teamId }, player) => {
+            if (teamId === deadEntityTeam) return
+            player.rt.coins += 125
+        })
+        checkIfGameWon()
+    })
 
     return {
         displayName: "Bouncy Box",
@@ -143,16 +132,28 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
             deathSequence: "noRespawn"
         },
 
+        async onceActive() {
+            for (const [player, { teamId }] of playerTeamMap) {
+                player.teleport(Vector3Utils.add(teamSpawnLocations[teamId], { x: 0, y: 0, z: Math.floor(Math.random() * 10 - 5) }))
+            }
+
+            await titleCountdown(5, players)
+
+            timer.start()
+        },
+
         spawnPlayer(player) {
+            console.warn("This should never execute")
         },
 
         whileActive() {
-            if (3 >= currentDecreases) {
-                platformBounds = decreaseMapSize()
-            }
+            display.updateDisplay()
+            checkIfGameWon()
         },
 
         dispose() {
+            timer.dispose()
+            world.afterEvents.entityDie.unsubscribe(killEvent)
             system.clearRun(interval)
         },
     }

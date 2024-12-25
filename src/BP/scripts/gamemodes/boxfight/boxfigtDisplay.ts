@@ -2,7 +2,7 @@ import { Player } from "@minecraft/server";
 import { DisplayHandler } from "../../display/displayHandler";
 import { Countdown } from "../../hooks/useCountdown";
 
-class BoxfightDisplayHandler extends DisplayHandler {
+export class BoxfightDisplayHandler extends DisplayHandler {
     private teamMap: Map<Player, { teamId: number; }>;
     private timer: Countdown;
 
