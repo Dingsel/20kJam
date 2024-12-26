@@ -4,6 +4,8 @@ import { Countdown } from "../../hooks/useCountdown";
 
 function getTextFromPosition(position: number): string {
     switch (position) {
+        case -1:
+            return "DEAD";
         case 0:
             return "1st";
         case 1:
@@ -15,7 +17,7 @@ function getTextFromPosition(position: number): string {
     }
 }
 
-class ParkourDisplay extends DisplayHandler {
+export class ParkourDisplay extends DisplayHandler {
     private gamePlacementMap: Map<number, Player>;
     private timer: Countdown;
 

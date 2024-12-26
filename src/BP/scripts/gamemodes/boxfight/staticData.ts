@@ -15,7 +15,7 @@ export const kits: BoxFightKit[] = [
         displayName: "Test",
         typeId: "test",
         kitItems: {
-            offhand: arrows,
+            Offhand: arrows,
             items: [
                 {
                     item: stoneSword,
@@ -32,7 +32,7 @@ export const kits: BoxFightKit[] = [
         displayName: "Test2",
         typeId: "test2",
         kitItems: {
-            offhand: shield,
+            Offhand: shield,
             items: [
                 {
                     item: ironSword,

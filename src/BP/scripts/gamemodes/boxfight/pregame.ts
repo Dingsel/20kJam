@@ -1,4 +1,4 @@
-import { EntityInventoryComponent, ItemLockMode, ItemStack, Player, system, world } from "@minecraft/server"
+import { EntityInventoryComponent, EquipmentSlot, ItemLockMode, ItemStack, Player, system, world } from "@minecraft/server"
 import { uiManager } from "@minecraft/server-ui"
 import { splitupPlayers } from "../../hooks/splitupPlayers"
 import { kitForm, kits } from "./staticData"
@@ -9,10 +9,9 @@ export interface BoxFightKitItemDetails {
     item: ItemStack
 }
 
-export interface KitItems {
-    offhand?: ItemStack
+export type KitItems = {
     items?: BoxFightKitItemDetails[]
-}
+} & { [key in EquipmentSlot]?: ItemStack }
 
 export interface BoxFightKit {
     displayName: string
