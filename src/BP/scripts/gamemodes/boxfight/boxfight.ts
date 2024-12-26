@@ -73,11 +73,11 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
             damigingEntity.rt.coins -= 250
         } else {
             const teamColour = playerTeamMap.get(deadEntity)?.teamId === 0 ? {
-                x: 255,
+                r: 255,
                 g: 180,
                 b: 74
             } : {
-                x: 201,
+                r: 201,
                 g: 133,
                 b: 234
             }
@@ -207,11 +207,11 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 }, 60)
                 for (const player of players) {
                     player.setGameMode(GameMode.spectator);
-                  }
-                  await useLoadingTimer(5, players);
-                  for (const player of players) {
+                }
+                await useLoadingTimer(5, players);
+                for (const player of players) {
                     player.setGameMode((await this).gameSettings.gameMode);
-                  }
+                }
                 timer.start()
             })
         },
