@@ -116,6 +116,7 @@ export const kits: BoxFightKit[] = [
 
 export const kitForm = new ActionFormData();
 kitForm.title("RT20K.kits");
+
 kitForm.body("");
 kitForm.button('Stone Sword', 'textures/items/stone_sword');
 kitForm.button('Crossbow', 'textures/items/crossbow_standby');
