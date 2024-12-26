@@ -45,9 +45,11 @@ export function BoxfightPregame({ players }: { players: Player[] }): Promise<Box
         const res = await kitForm.show(source)
         if (!res || typeof res.selection === "undefined") return
 
-        const kit = kits[Math.floor(res.selection / 5)]
+        const selectedKitIndex = Math.floor(res.selection / 5)
+
+        const kit = kits[selectedKitIndex]
         if (kit) {
-            source.selectedKitIndex = res.selection
+            source.selectedKitIndex = selectedKitIndex
         }
     })
 
