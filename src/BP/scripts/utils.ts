@@ -10,13 +10,13 @@ export function shuffleArr<T extends any[]>(array: T): T {
 }
 
 export async function anounceGamemode(gamemode: GamemodeExport): Promise<void> {
-
-    for (const player of world.getAllPlayers()) {
+    world.getAllPlayers().forEach(async (player) => {
         player.playSound("random.levelup")
         await system.waitTicks(20)
         player.playSound("rt:jingle", { volume: 9999 })
-    }
+    })
 
+    await system.waitTicks(20)
     world.sendMessage(`here would some fancy anouncement go for ${gamemode.displayName}`)
     return system.waitTicks(60)
 }
