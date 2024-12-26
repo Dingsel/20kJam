@@ -59,7 +59,7 @@
             },
             {
               "timer@gm_boxfights.timer": {
-                "$which_at|default": 3,
+                "$which_at": 3,
                 "size": ["100%c + 6px", 16],
                 "$font_scale": 1.5
               }

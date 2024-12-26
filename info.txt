@@ -13,3 +13,6 @@ Race
 -Has Timer
 -Players (3) Player: P + Name.pad(17)
 -text: Prefix: TMR, Length 4
+
+BuildBattle
+-Example: BLDTMR00:00TMR2/2

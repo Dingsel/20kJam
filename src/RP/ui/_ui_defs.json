@@ -11,6 +11,7 @@
     // Gamemodes -
     "ui/hud_elements/gamemodes/boxfights.json",
     "ui/hud_elements/gamemodes/race.json",
+    "ui/hud_elements/gamemodes/buildbattle.json",
     // Permanents -
     "ui/hud_elements/permanents/coins.json"
 
