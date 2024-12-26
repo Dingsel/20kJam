@@ -187,8 +187,13 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
 
                     dim.fillBlocks(clearVol, "minecraft:air")
                 }, 60)
-
-                await useLoadingTimer(5, players)
+                for (const player of players) {
+                    player.setGameMode(GameMode.spectator);
+                  }
+                  await useLoadingTimer(5, players);
+                  for (const player of players) {
+                    player.setGameMode((await this).gameSettings.gameMode);
+                  }
                 timer.start()
             })
         },

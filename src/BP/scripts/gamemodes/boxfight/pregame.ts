@@ -62,7 +62,7 @@ export function BoxfightPregame({ players }: { players: Player[] }): Promise<Box
     }
 
     return new Promise(async (resolve) => {
-        await titleCountdown(20, players, { endSound: "", endText: "", tickSound: "" })
+        await titleCountdown(20, players, { endSound: "", endText: "", tickSound: "", actionbar: true, extraText: '§2Pick your Kit §a' })
 
         players.forEach((p) => {
             if (!p.isValid()) return

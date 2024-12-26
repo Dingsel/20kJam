@@ -1,0 +1,109 @@
+{
+  "namespace": "pm_basetext",
+
+  "render": {
+    "type": "stack_panel",
+    "anchor_from": "bottom_middle",
+    "orientation": "vertical",
+    "size": [180, "100%c"],
+    "offset": [0, 0],
+    "anchor_to": "bottom_middle",
+    "factory": {
+      "name": "chat_item_factory",
+      "control_ids": {
+        "chat_item": "coin_handle@pm_basetext.text_handle"
+      }
+    }
+  },
+
+  "text@rt20k.img": {
+    "texture": "textures/ui/hud_tip_text_background",
+    "alpha": 0.4,
+    "anchor_from": "bottom_middle",
+    "offset": [0, -5.5],
+    "anchor_to": "bottom_middle",
+    "size": ["100%", "100%c+4px"],
+    "controls": [
+      {
+        "stack@rt20k.sp": {
+          "orientation": "horizontal",
+          "size": ["100%c", 10],
+          "controls": [
+            {
+              "text_p@rt20k.p": {
+                "size": ["100%c", 10],
+                "controls": [
+                  {
+                    "text@rt20k.l": {
+                      "layer": 1,
+
+                      "bindings": [
+                        {
+                          "binding_name": "#chat_text",
+                          "binding_name_override": "#text",
+                          "binding_type": "collection",
+                          "binding_collection_name": "chat_text_grid",
+                          "binding_condition": "once"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(#text - 'RTKJAM:stext')",
+                          "target_property_name": "#final"
+                        }
+                      ],
+                      "offset": [0, -0.5],
+                      "shadow": true,
+                      "text": "#final"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "reset_anim": {
+    "anim_type": "wait",
+    "duration": 2,
+    "next": "@pm_coins.delete"
+  },
+
+  "text_handle@rt20k.p": {
+    "size": ["100%c", "100%c"],
+    "controls": [
+      {
+        "size_handle@rt20k.p": {
+          "size": [180, 1000],
+          "anims": ["@pm_basetext.reset_anim"],
+          "bindings": [
+            {
+              "binding_name": "#chat_text",
+              "binding_name_override": "#text",
+              "binding_type": "collection",
+              "binding_collection_name": "chat_text_grid",
+              "binding_condition": "once"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "('%.13s' * #text)",
+              "target_property_name": "#prefix"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(not((#prefix - 'RTKJAM:stext') = #prefix))",
+              "target_property_name": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "text@pm_basetext.text": {}
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

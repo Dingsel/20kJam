@@ -10,60 +10,67 @@ const parkourFinishArea = new BlockVolume(
     {
         x: 3006,
         y: 15,
-        z: 121
+        z: 121,
     },
     {
         x: 3017,
         y: 9,
-        z: 111
+        z: 111,
     }
-)
+);
 
 const parkourStartLocation = {
     x: 3013,
     y: 13,
-    z: -1
-}
+    z: -1,
+};
 
-export async function ParkourGameMode({ players }: GameEventData): Promise<GamemodeExport> {
-    const roundWinners: Player[] = []
-    const timer = useCountdown(120 * 20)
-    const gamePlacementMap = new Map<number, Player>()
-    let fixedPlacements: Player[] = []
+export async function ParkourGameMode({
+    players,
+}: GameEventData): Promise<GamemodeExport> {
+    const roundWinners: Player[] = [];
+    const timer = useCountdown(120 * 20);
+    const gamePlacementMap = new Map<number, Player>();
+    let fixedPlacements: Player[] = [];
 
-    const display = useParkourDisplay({ players, timer, gamePlacementMap })
+    const display = useParkourDisplay({ players, timer, gamePlacementMap });
 
     function updatePlacements() {
-        fixedPlacements = fixedPlacements.filter(x => x.isValid())
+        fixedPlacements = fixedPlacements.filter((x) => x.isValid());
 
         let i = 0;
-        gamePlacementMap.clear()
-        fixedPlacements.forEach(player => {
-            gamePlacementMap.set(i++, player)
-        })
+        gamePlacementMap.clear();
+        fixedPlacements.forEach((player) => {
+            gamePlacementMap.set(i++, player);
+        });
 
-        const arr = players.filter(x => !roundWinners.includes(x) && x.isValid()).sort((a, b) => {
-            return (
-                Vector3Utils.distance(parkourFinishArea.from, a.isDead ? VECTOR3_ZERO : a.location) -
-                Vector3Utils.distance(parkourFinishArea.from, b.isDead ? VECTOR3_ZERO : b.location)
-            )
-        })
+        const arr = players
+            .filter((x) => !roundWinners.includes(x) && x.isValid())
+            .sort((a, b) => {
+                return (
+                    Vector3Utils.distance(
+                        parkourFinishArea.from,
+                        a.isDead ? VECTOR3_ZERO : a.location
+                    ) -
+                    Vector3Utils.distance(
+                        parkourFinishArea.from,
+                        b.isDead ? VECTOR3_ZERO : b.location
+                    )
+                );
+            });
 
-        arr.forEach(player => {
-            gamePlacementMap.set(i++, player)
-        })
+        arr.forEach((player) => {
+            gamePlacementMap.set(i++, player);
+        });
     }
 
     timer.onTimeDown(() => {
         for (const player of players) {
-            if (
-                roundWinners.includes(player) ||
-                !player.isValid()
-            ) continue
-            player.sendMessage("§cYou ran out of time!")
+            if (roundWinners.includes(player) || !player.isValid()) continue;
+            player.sendMessage("§cYou ran out of time!");
         }
-        endRound(roundWinners)
-    })
+        endRound(roundWinners);
+    });
 
     return {
         displayName: "Parkour",
@@ -71,39 +78,57 @@ export async function ParkourGameMode({ players }: GameEventData): Promise<Gamem
         gamemodeType: "Solo",
         gameSettings: {
             gameMode: GameMode.adventure,
-            deathSequence: "timedRespawn"
+            deathSequence: "timedRespawn",
         },
         async onceActive() {
             for (const player of players) {
-                (await this).spawnPlayer(player)
+                (await this).spawnPlayer(player);
             }
             system.run(async () => {
-                await useLoadingTimer(5, players)
-                timer.start()
-            })
+                for (const player of players) {
+                    player.setGameMode(GameMode.spectator);
+                }
+                await useLoadingTimer(5, players);
+                for (const player of players) {
+                    player.setGameMode((await this).gameSettings.gameMode);
+                }
+                timer.start();
+            });
         },
         spawnPlayer(player) {
-            player.teleport(parkourStartLocation, { facingLocation: parkourFinishArea.from })
+            player.teleport(parkourStartLocation, {
+                facingLocation: parkourFinishArea.from,
+            });
         },
         whileActive() {
-            updatePlacements()
-            display.updateDisplay()
+            updatePlacements();
+
+            for (const player of roundWinners) {
+                if (!player.isValid()) continue;
+                player.sendMessage("RTKJAM:stext" + "§eYou are §6Finished");
+            }
+
+            display.updateDisplay();
             for (const player of players) {
                 if (
                     !player.isValid() ||
                     !parkourFinishArea.isInside(player.location) ||
                     roundWinners.includes(player) ||
                     player.isDead
-                ) continue
-                player.sendMessage("You finished the parkour!")
-                player.setGameMode(GameMode.spectator)
-                player.rt.coins += Math.max(1250 - roundWinners.length * 125, 100)
-                fixedPlacements.push(player)
-                roundWinners.push(player)
+                )
+                    continue;
+                player.sendMessage("You finished the parkour!");
+                player.setGameMode(GameMode.spectator);
+                player.rt.coins += Math.max(1250 - roundWinners.length * 125, 100);
+                fixedPlacements.push(player);
+                roundWinners.push(player);
                 if (roundWinners.length === players.length) {
-                    endRound(roundWinners)
+                    endRound(roundWinners);
                 }
             }
-        }
-    }
+        },
+        dispose() {
+            timer.dispose();
+        },
+    };
 }

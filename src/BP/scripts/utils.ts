@@ -26,17 +26,25 @@ export async function titleCountdown(
     targetPlayers?: Player[],
     soundSettings = {
         tickSound: "random.click",
+        actionbar: false,
         endSound: "note.pling",
-        endText: "GO"
+        endText: "§aGO",
+        extraText: "§2Respawning in §a"
     }
 ): Promise<void> {
     targetPlayers?.forEach((player) => {
         if (remainingSeconds <= 0) {
             player.playSound(soundSettings.endSound)
             player.onScreenDisplay.setActionBar(soundSettings.endText)
+            player.sendMessage("RTKJAM:stext")
+
         } else {
+            if(soundSettings.actionbar) {
+                player.onScreenDisplay.setActionBar(soundSettings.extraText + (String(remainingSeconds)))
+            } else {
+                player.sendMessage("RTKJAM:stext" + soundSettings.extraText+ (String(remainingSeconds)))
+            }
             player.playSound(soundSettings.tickSound)
-            player.onScreenDisplay.setActionBar(String(remainingSeconds))
         }
     })
 
@@ -60,6 +68,6 @@ export function structure([structureId]: TemplateStringsArray): Structure {
 
 export async function useLoadingTimer(seconds: number, targetPlayers: Player[]): Promise<void> {
     targetPlayers.forEach((player) => player.inputPermissions.movementEnabled = false)
-    await titleCountdown(seconds, targetPlayers)
+    await titleCountdown(seconds, targetPlayers, { endSound: "random.orb", endText: "§aGO", tickSound: "random.click", extraText: "§2Starting in §a",actionbar:false })
     targetPlayers.forEach((player) => player.inputPermissions.movementEnabled = true)
 }
