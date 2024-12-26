@@ -1,21 +1,26 @@
 import { ActionFormData } from "@minecraft/server-ui"
 import { lockItem } from "../../utils"
 import { BoxFightKit } from "./pregame"
+import { ItemDurabilityComponent } from "@minecraft/server"
 
-const arrows = lockItem("minecraft:arrow", 16)
+const arrowsSniper = lockItem("minecraft:arrow", 8)
 const stoneSword = lockItem("minecraft:stone_sword")
 const crossbow = lockItem("minecraft:crossbow")
+const leatherHelmet = lockItem("minecraft:leather_helmet")
 
-const shield = lockItem("minecraft:shield")
+const shield = lockItem("minecraft:shield");
+(shield.getComponent('durability') as ItemDurabilityComponent).damage = 100
 const ironSword = lockItem("minecraft:iron_sword")
-const goldenApple = lockItem("minecraft:golden_apple", 2)
+const leatherBoots = lockItem("minecraft:leather_boots")
+const goldenApple = lockItem("minecraft:golden_apple", 1)
 
 export const kits: BoxFightKit[] = [
     {
-        displayName: "Test",
-        typeId: "test",
+        displayName: "Sniper",
+        typeId: "sniper",
         kitItems: {
-            Offhand: arrows,
+            Offhand: arrowsSniper,
+            Head: leatherHelmet,
             items: [
                 {
                     item: stoneSword,
@@ -29,10 +34,11 @@ export const kits: BoxFightKit[] = [
         }
     },
     {
-        displayName: "Test2",
-        typeId: "test2",
+        displayName: "Tank",
+        typeId: "tank",
         kitItems: {
             Offhand: shield,
+            Feet: leatherBoots,
             items: [
                 {
                     item: ironSword,
