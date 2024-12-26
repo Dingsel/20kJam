@@ -154,7 +154,7 @@ export async function endRound(playersThatWon: Player[]) {
             activeGamemode?.onPlayerWin?.(player)
             player.playSound("random.levelup", { pitch: 1.5 })
         } else {
-            player.playSound("note.harp")
+            player.playSound("note.didgeridoo", { pitch: 0.66 })
         }
 
         player.isDead = false
