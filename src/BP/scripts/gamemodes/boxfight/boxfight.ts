@@ -137,30 +137,6 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
         },
 
         async onceActive() {
-            const { start, end } = {
-                start: {
-                    x: 981,
-                    y: 9 - 2,
-                    z: -10
-                },
-                end: {
-                    x: 983,
-                    y: 9 - 2,
-                    z: -12
-                }
-            }
-
-            const trnsVol = new BlockVolume(start, end)
-
-            dim.fillBlocks(trnsVol, "minecraft:allow")
-            trnsVol.translate({ x: 0, y: 1, z: 0 })
-            dim.fillBlocks(trnsVol, "minecraft:bedrock")
-            trnsVol.translate({ x: 0, y: 1, z: 0 })
-
-            dim.fillBlocks(new BlockVolume(start, { x: 983, y: 128, z: -12 }), "minecraft:air")
-            dim.fillBlocks(vol, "minecraft:gray_concrete_powder")
-
-
             for (const [player, { teamId }] of playerTeamMap.entries()) {
                 if (!player || !player.isValid()) return
 
@@ -187,6 +163,30 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 (await this).spawnPlayer(player)
             }
             system.run(async () => {
+                const { start, end } = {
+                    start: {
+                        x: 981,
+                        y: 9 - 2,
+                        z: -10
+                    },
+                    end: {
+                        x: 983,
+                        y: 9 - 2,
+                        z: -12
+                    }
+                }
+
+                const trnsVol = new BlockVolume(start, end)
+
+                dim.fillBlocks(trnsVol, "minecraft:allow")
+                trnsVol.translate({ x: 0, y: 1, z: 0 })
+                dim.fillBlocks(trnsVol, "minecraft:bedrock")
+                trnsVol.translate({ x: 0, y: 1, z: 0 })
+
+                dim.fillBlocks(new BlockVolume(start, { x: 983, y: 128, z: -12 }), "minecraft:air")
+                dim.fillBlocks(vol, "minecraft:gray_concrete_powder")
+
+
                 await useLoadingTimer(5, players)
                 timer.start()
             })
