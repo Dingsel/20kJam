@@ -101,11 +101,12 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
     })
 
     function checkIfGameWon() {
-        const alivePlayers = players.filter(x => x.isValid());
+        const alivePlayers = players.filter(x => x.isValid() && !x.isDead);
         const teams = [0, 1];
 
         for (const teamId of teams) {
-            if (/*!isDev &&*/ !alivePlayers.some(p => playerTeamMap.get(p)?.teamId === teamId)) {
+            if (/*!isDev &&*/ !alivePlayers.some(p => playerTeamMap.get(p)?.teamId === teamId) && isActive) {
+                isActive = false;
                 const winningTeam = teamId === 0 ? 1 : 0;
                 const winningTeamMembers = alivePlayers.filter(p => playerTeamMap.get(p)?.teamId === winningTeam)
                 winningTeamMembers.forEach(p => p.rt.coins += 1000);
@@ -117,22 +118,14 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
     const killEvent = world.afterEvents.entityDie.subscribe((event) => {
         const { damageSource, deadEntity } = event
         if (!(deadEntity instanceof Player)) return
-        const damigingEntity = damageSource.damagingEntity /* || deadEntity.lastHitBy */
-        if (!(damigingEntity instanceof Player)) return
-
-        const deadEntityTeam = playerTeamMap.get(deadEntity)?.teamId
-
-        playerTeamMap.forEach(({ teamId }, player) => {
-            if (teamId === deadEntityTeam) return
-            player.rt.coins += 125
-        })
         checkIfGameWon()
     })
 
     const itemUseEvent = world.afterEvents.itemUse.subscribe((event) => {
         const { itemStack, source } = event
+
         if (
-            !players.indexOf(source) ||
+            !players.includes(source) ||
             !isActive ||
             itemStack.typeId !== "rt:knockback_rpg" ||
             source.getItemCooldown("rt:knockback_rpg") > 0
@@ -179,10 +172,17 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
                 )
             }
 
+            display.updateDisplay()
+            const interval = system.runInterval(() => {
+                display.updateDisplay()
+            }, 20)
+
             system.run(async () => {
+
                 await useLoadingTimer(5, players)
                 isActive = true
                 timer.start()
+                system.clearRun(interval)
             })
         },
 
@@ -191,7 +191,7 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
         },
 
         whileActive() {
-            display.updateDisplay()
+            isActive && display.updateDisplay()
             checkIfGameWon()
         },
 
