@@ -4,6 +4,7 @@ import { GameEventData, GamemodeExport } from "../gamemodeTypes";
 import { generateMap } from "./pregame";
 import { activeGamemode, endRound } from "../../main";
 import { lockItem } from "../../utils";
+import { useBuildBattleDisplay } from "./buildBattleDisplay";
 
 const shear = lockItem("minecraft:shears")
 const pickaxe = lockItem("minecraft:iron_pickaxe")
@@ -13,6 +14,7 @@ export async function BuildBattle(game: GameEventData): Promise<GamemodeExport> 
     const { dispose, playerMapSettings } = await generateMap(game)
 
     const timer = useCountdown(150 * 20)
+    const display = useBuildBattleDisplay({ players, timer, playerMapSettings })
 
     const winningPlayers: Player[] = []
 
@@ -85,12 +87,17 @@ export async function BuildBattle(game: GameEventData): Promise<GamemodeExport> 
             timer.start()
         },
 
+        whileActive() {
+            display.updateDisplay()
+        },
+
         spawnPlayer(player) {
             const info = playerMapSettings.get(player)
             if (!info) {
                 console.warn("heh?")
                 return
             }
+            player.setSpawnPoint({ ...info.spawnLocation, dimension: player.dimension })
             player.teleport(info.spawnLocation)
         },
 

@@ -145,15 +145,18 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
 
 export async function endRound(playersThatWon: Player[]) {
     await activeGamemode?.dispose?.()
-    activeGamemode = null
 
     applyGameRules(defaultGameRules)
 
-    playersThatWon.forEach(x => {
-        activeGamemode?.onPlayerWin?.(x)
-    })
 
     world.getAllPlayers().forEach((player) => {
+        if (playersThatWon.includes(player)) {
+            activeGamemode?.onPlayerWin?.(player)
+            player.playSound("random.levelup", { pitch: 1.5 })
+        } else {
+            player.playSound("note.harp")
+        }
+
         player.isDead = false
         player.runCommand("clear @s")
         player.setGameMode(GameMode.spectator)
@@ -161,10 +164,13 @@ export async function endRound(playersThatWon: Player[]) {
         player.playSound("")
     })
 
+    activeGamemode = null
+
     await system.waitTicks(60)
 
     world.getAllPlayers().forEach((player) => {
         player.setGameMode(GameMode.adventure)
+        player.addEffect("instant_health", 20, { showParticles: false })
         player.teleport(spawnLocation)
     })
 }
