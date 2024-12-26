@@ -1,12 +1,13 @@
 {
   "namespace": "forms_kits",
 
-  
+
   "main@rt20k.img": {
     "texture": "rt20k/forms/background",
     "size": [164, 168],
     "controls": [
       {
+        
         "exitable_screen@server_form.exitable_screen": {}
       }
     ]
