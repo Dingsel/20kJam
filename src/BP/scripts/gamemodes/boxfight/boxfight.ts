@@ -153,9 +153,9 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
             const trnsVol = new BlockVolume(start, end)
 
             dim.fillBlocks(trnsVol, "minecraft:allow")
-            vol.translate({ x: 0, y: 1, z: 0 })
+            trnsVol.translate({ x: 0, y: 1, z: 0 })
             dim.fillBlocks(trnsVol, "minecraft:bedrock")
-            vol.translate({ x: 0, y: 1, z: 0 })
+            trnsVol.translate({ x: 0, y: 1, z: 0 })
 
             dim.fillBlocks(new BlockVolume(start, { x: 983, y: 128, z: -12 }), "minecraft:air")
             dim.fillBlocks(vol, "minecraft:gray_concrete_powder")
