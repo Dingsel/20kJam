@@ -6,6 +6,7 @@ import { useBoxfightDisplay } from "./boxfigtDisplay"
 import { BoxfightPregame } from "./pregame"
 import { useLoadingTimer } from "../../utils"
 import { Vector3Utils } from "@minecraft/math"
+import { playerKillParticle } from "../../commonParticles"
 
 const { start, end } = {
     start: {
@@ -70,8 +71,24 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
             damigingEntity.sendMessage(`§cYou Monster.`)
             damigingEntity.playSound("mob.cat.meow", { pitch: 0.5 })
             damigingEntity.rt.coins -= 250
-        } else damigingEntity.rt.coins += 250
+        } else {
+            const teamColour = playerTeamMap.get(deadEntity)?.teamId === 0 ? {
+                r: 255,
+                g: 180,
+                b: 74
+            } : {
+                r: 201,
+                g: 133,
+                b: 234
+            }
 
+            playerKillParticle.spawn({
+                carrier: deadEntity.dimension,
+                location: deadEntity.location,
+                dynamicParticleVars: teamColour
+            })
+            damigingEntity.rt.coins += 250
+        }
     })
 
     function checkIfGameWon() {
@@ -190,11 +207,11 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 }, 60)
                 for (const player of players) {
                     player.setGameMode(GameMode.spectator);
-                  }
-                  await useLoadingTimer(5, players);
-                  for (const player of players) {
+                }
+                await useLoadingTimer(5, players);
+                for (const player of players) {
                     player.setGameMode((await this).gameSettings.gameMode);
-                  }
+                }
                 timer.start()
             })
         },
