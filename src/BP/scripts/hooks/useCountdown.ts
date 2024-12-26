@@ -55,12 +55,12 @@ export function useCountdown(targetTimeInTicks: number): Countdown {
             return {
                 get ticks() {
                     if (startTime === null) return targetTimeInTicks
-                    return endTime! - currentTime
+                    return Math.max(0, endTime! - currentTime)
                 },
 
                 get seconds() {
                     if (startTime === null) return (targetTimeInTicks / 20).toFixed(2)
-                    return ((endTime! - currentTime) / 20).toFixed(2)
+                    return (Math.max(0, endTime! - currentTime) / 20).toFixed(2)
                 }
             }
         },

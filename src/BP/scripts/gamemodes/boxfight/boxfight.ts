@@ -61,7 +61,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
     const killEvent = world.afterEvents.entityDie.subscribe((event) => {
         const { damageSource, deadEntity } = event
         if (!(deadEntity instanceof Player)) return
-        const damigingEntity = damageSource.damagingEntity || deadEntity.lastHitBy
+        const damigingEntity = damageSource.damagingEntity /* || deadEntity.lastHitBy */
         if (!(damigingEntity instanceof Player)) return
 
         if (playerTeamMap.get(deadEntity)?.teamId === playerTeamMap.get(damigingEntity)?.teamId) {
@@ -70,7 +70,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
             damigingEntity.rt.coins -= 250
         } else damigingEntity.rt.coins += 250
 
-    }, { entityTypes: ["player"] })
+    })
 
     function checkIfGameWon() {
         for (const { block, teamId } of winCond) {
@@ -81,6 +81,9 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                     playerTeamMap.get(x)?.teamId === teamId
                 )
             })
+            for (const player of winningPlayers) {
+                player.rt.coins += 1000
+            }
             endRound(winningPlayers)
             return
         }
@@ -105,6 +108,9 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                     playerTeamMap.get(x)?.teamId === winningTeam
                 )
             })
+            for (const player of winningPlayers) {
+                player.rt.coins += 1000
+            }
             endRound(winningPlayers)
             return
         }
@@ -175,11 +181,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 if (!player.isValid()) return
                 player.nameTag = player.name
             })
-        },
-
-        onPlayerWin(player) {
-            player.rt.coins += 1000
-        },
+        }
     }
 }
 

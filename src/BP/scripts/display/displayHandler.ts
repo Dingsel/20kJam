@@ -7,11 +7,14 @@ export class DisplayHandler {
         this.players = player;
     }
 
-    public getDisplayText(): string {
+    public getDisplayText(player: Player): string {
         return ""
     }
 
     public updateDisplay(): void {
-        this.players.forEach(player => player.onScreenDisplay.setTitle(this.getDisplayText()))
+        this.players.forEach(player => {
+            if (!player.isValid()) return
+            player.onScreenDisplay.setTitle(this.getDisplayText(player))
+        })
     }
 }
