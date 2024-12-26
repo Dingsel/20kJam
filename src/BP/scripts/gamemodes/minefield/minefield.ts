@@ -161,7 +161,7 @@ export async function MinefieldGameMode({ players }: GameEventData): Promise<Gam
                 roundWinners.push(player)
             }
 
-            if (roundWinners.length === players.length) {
+            if (roundWinners.length === players.filter(x => x.isValid() && !x.isDead).length) {
                 isActive = false
                 endRound(roundWinners)
             }
