@@ -1,14 +1,256 @@
 {
   "namespace": "forms_kits",
 
-
   "main@rt20k.img": {
     "texture": "rt20k/forms/background",
     "size": [164, 168],
     "controls": [
       {
-        
+        "insides@rt20k.sp": {
+          "size": ["100%-8px", "100%-8px"],
+          "controls": [
+            {
+              "title@forms_kits.title": {}
+            },
+            {
+              "kit_panel@forms_kits.kit_panel": {}
+            },
+            {
+              "kit_panel@forms_kits.kit_panel": {
+                "$buttons": 5,
+                "$button_2": 6,
+                "$button_3": 7,
+                "$button_4": 8,
+                "$button_5": 9
+              }
+            },
+            {
+              "kit_panel@forms_kits.kit_panel": {
+                "$buttons": 10,
+                "$button_2": 11,
+                "$button_3": 12,
+                "$button_4": 13,
+                "$button_5": 14
+              }
+            },
+            {
+              "kit_panel@forms_kits.kit_panel": {
+                "$buttons": 15,
+                "$button_2": 16,
+                "$button_3": 17,
+                "$button_4": 18,
+                "$button_5": 19
+              }
+            },
+            {
+              "kit_panel@forms_kits.kit_panel": {
+                "$buttons": 20,
+                "$button_2": 21,
+                "$button_3": 22,
+                "$button_4": 23,
+                "$button_5": 24
+              }
+            }
+          ]
+        }
+      },
+      {
+        "close@rt20k.b": {
+          "size": [11, 11],
+          "anchor_from": "top_right",
+          "anchor_to": "top_right",
+          "offset": [14,5],
+          "button_mappings": [
+            {
+                "from_button_id": "button.menu_select",
+                "to_button_id": "button.menu_exit",
+                "mapping_type": "pressed"
+            },
+            {
+                "from_button_id": "button.menu_ok",
+                "to_button_id": "button.menu_exit",
+                "mapping_type": "focused"
+            }
+        ],
+          "controls": [
+            {
+              "hover@rt20k.img": {
+                "size": [11, 11],
+                "texture": "rt20k/forms/close_hover"
+              }
+            },
+            {
+                "default@rt20k.img": {
+                  "size": [11, 11],
+                  "texture": "rt20k/forms/close"
+                }
+              }
+          ]
+        }
+      },
+      {
         "exitable_screen@server_form.exitable_screen": {}
+      }
+    ]
+  },
+
+  "kit_panel@rt20k.p": {
+    "size": [157, 28],
+    "$buttons|default": 0,
+    "$button_2|default": 1,
+    "$button_3|default": 2,
+    "$button_4|default": 3,
+    "$button_5|default": 4,
+    "controls": [
+      {
+        "form_buttons@rt20k.sp": {
+          "size": [68, 24],
+          "collection_name": "form_buttons",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "controls": [
+            {
+              "equip@rt20k_form.button": {
+                "collection_index": "$buttons",
+                "size": [68, 24],
+                "bindings": [
+                  {
+                    "binding_type": "collection_details",
+                    "binding_collection_name": "form_buttons"
+                  }
+                ],
+                "controls": [
+                  {
+                    "hover@rt20k.img": {
+                      "size": ["100%", "100%"],
+                      "texture": "rt20k/forms/button"
+                    }
+                  },
+                  {
+                    "default@rt20k.img": {
+                      "size": ["100%", "100%"],
+                      "texture": "rt20k/forms/button_nohover"
+                    }
+                  },
+                  {
+                    "text@rt20k.l": {
+                      "text": "Equip",
+                      "font_scale_factor": 2,
+                      "layer": 2,
+                      "offset": [0, -1]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "itemsOutline@rt20k.img": {
+          "anchor_from": "top_right",
+          "anchor_to": "top_right",
+          "size": ["100%c+8px", "100%c+8px"],
+          "texture": "rt20k/forms/inside_outline",
+          "controls": [
+            {
+              "items_stack@rt20k.sp": {
+                "orientation": "horizontal",
+                "collection_name": "form_buttons",
+
+                "size": ["100%c", 16],
+                "controls": [
+                  {
+                    "item@forms_kits.item": {
+                      "collection_index": "$buttons"
+                    }
+                  },
+                  {
+                    "item@forms_kits.item": {
+                      "collection_index": "$button_2"
+                    }
+                  },
+                  {
+                    "item@forms_kits.item": {
+                      "collection_index": "$button_3"
+                    }
+                  },
+                  {
+                    "item@forms_kits.item": {
+                      "collection_index": "$button_4"
+                    }
+                  },
+                  {
+                    "item@forms_kits.item": {
+                      "collection_index": "$button_5"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "item@rt20k.img": {
+    "size": [16, 16],
+    "texture": "rt20k/forms/inside_1",
+    "controls": [
+      {
+        "icon@rt20k.img": {
+          "size": [16, 16],
+          "bindings": [
+            {
+              "binding_name": "#form_button_texture",
+              "binding_name_override": "#texture",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_name": "#form_button_texture_file_system",
+              "binding_name_override": "#texture_file_system",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(not ((#texture = '') or (#texture = 'loading')))",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "title@rt20k.p": {
+    "size": ["100%", "100%c+2px"],
+    "controls": [
+      {
+        "outline@rt20k.img": {
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "size": ["100%c+8px", "100%c+8px"],
+          "texture": "rt20k/forms/inside_outline",
+          "controls": [
+            {
+              "inside@rt20k.img": {
+                "size": ["100%c+2px", "14px"],
+                "texture": "rt20k/forms/inside_2",
+                "controls": [
+                  {
+                    "text@rt20k.l": {
+                      "text": "Pick your Kit",
+                      "font_scale_factor": 2
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
       }
     ]
   }
