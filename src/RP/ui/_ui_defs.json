@@ -6,7 +6,7 @@
 
     // Forms --
     "ui/custom_forms/intro.json",
-
+    "ui/custom_forms/kit_select.json",
     // Huds --
     // Gamemodes -
     "ui/hud_elements/gamemodes/boxfights.json",

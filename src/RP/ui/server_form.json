@@ -54,6 +54,12 @@
                 }
             },
             {
+                "kits@form_type": {
+                    "$text": "RT20K.kits",
+                    "$content": "forms_kits.main"
+                }
+            },
+            {
                 "vanilla@vanilla_form": {}
             }
         ]
