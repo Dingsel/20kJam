@@ -102,6 +102,9 @@
           },
           {
             "coins@pm_coins.render": {}
+          },
+          {
+            "coins@pm_basetext.render": {}
           }
         ]
       }
