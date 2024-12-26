@@ -5,7 +5,7 @@ import { GameEventData } from "../gamemodeTypes";
 import { BlockVolume, Player, Structure, Vector3, world } from "@minecraft/server";
 import { buildBattleBasePos, buildbattleMaxPos, buildBoxStructure, buildPattern, buildPatternStartOffset, spawnLocationOffset, targetPatternStartOffset } from "./staticData";
 
-interface PlayerMapSettings {
+export interface PlayerMapSettings {
     patternOrder: Structure[],
     buildAreaStart: Vector3,
     spawnLocation: Vector3,

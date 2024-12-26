@@ -135,6 +135,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
             const teamData = playerTeamMap.get(player)
             if (!teamData) return
             const spawnLoc = teamSpawnLocations[teamData.teamId] || teamSpawnLocations[0]
+            player.setSpawnPoint({ ...spawnLoc, dimension: player.dimension })
             player.teleport(spawnLoc, { facingLocation: start })
         },
 

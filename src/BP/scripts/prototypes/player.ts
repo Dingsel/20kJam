@@ -76,6 +76,10 @@ Object.defineProperty(Player.prototype, "rt", {
                 if (typeof player.coinRefreshTimer !== "undefined") system.clearRun(player.coinRefreshTimer)
 
                 player.coinRefreshTimer = system.runInterval(() => {
+                    if (!player.isValid()) {
+                        player.coinRefreshTimer && system.clearRun(player.coinRefreshTimer)
+                        return
+                    }
                     player.rt.setCoinDisplay("refreshing")
                 }, 600)
             }
