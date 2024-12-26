@@ -181,4 +181,5 @@ world.afterEvents.playerSpawn.subscribe((event) => {
 })
 world.getAllPlayers().forEach((player) => {
     player.rt.setCoinDisplay("shown")
+    applyGameRules(defaultGameRules)
 })
