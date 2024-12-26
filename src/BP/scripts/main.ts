@@ -19,7 +19,7 @@ export let activeGamemode: GamemodeExport | null = null
 export type Gamemodes = ((eventData: GameEventData) => GamemodeExport | Promise<GamemodeExport>)[]
 export type GameRuleSettings = { [key in keyof typeof world.gameRules]?: typeof world.gameRules[key] }
 
-const isDev = true;
+export const isDev = true;
 
 const defaultGameRules: GameRuleSettings = {
     doFireTick: false,

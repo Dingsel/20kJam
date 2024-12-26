@@ -12,7 +12,7 @@
             },
             "minecraft:material_instances": {
                 "*": {
-                    "texture": "slime_block"
+                    "texture": "quartz_bricks"
                 }
             }
         }
