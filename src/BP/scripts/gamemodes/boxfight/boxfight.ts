@@ -153,7 +153,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 }
 
                 const { kitItems } = getSelectedKit(player)
-                for (const slot of Object.keys(EquipmentSlot)) {
+                for (const slot of Object.values(EquipmentSlot)) {
                     const slotKey = slot as keyof typeof EquipmentSlot
 
                     if (!kitItems[slotKey]) continue
