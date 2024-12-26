@@ -56,6 +56,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
     const event = world.afterEvents.playerPlaceBlock.subscribe((event) => {
         const { block, player } = event
         if (activeGamemode?.typeId !== "rt:boxfight") return
+        if (!vol.isInside(block.location)) block.setType("minecraft:air")
         checkIfGameWon()
     })
 
