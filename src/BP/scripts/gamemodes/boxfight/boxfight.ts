@@ -56,6 +56,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
     const event = world.afterEvents.playerPlaceBlock.subscribe((event) => {
         const { block, player } = event
         if (activeGamemode?.typeId !== "rt:boxfight") return
+        if (!vol.isInside(block.location)) block.setType("minecraft:air")
         checkIfGameWon()
     })
 
@@ -153,7 +154,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 }
 
                 const { kitItems } = getSelectedKit(player)
-                for (const slot of Object.keys(EquipmentSlot)) {
+                for (const slot of Object.values(EquipmentSlot)) {
                     const slotKey = slot as keyof typeof EquipmentSlot
 
                     if (!kitItems[slotKey]) continue
