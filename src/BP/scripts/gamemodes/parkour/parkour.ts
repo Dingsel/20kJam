@@ -5,6 +5,7 @@ import { dim, endRound } from "../../main";
 import { useParkourDisplay } from "./parkourDisplay";
 import { VECTOR3_ZERO, Vector3Utils } from "@minecraft/math";
 import { useLoadingTimer } from "../../utils";
+import { playerKillParticle } from "../../commonParticles";
 
 const parkourFinishArea = new BlockVolume(
     {
@@ -119,6 +120,18 @@ export async function ParkourGameMode({
                     continue;
                 player.sendMessage("You finished the parkour!");
                 player.setGameMode(GameMode.spectator);
+
+                playerKillParticle.spawn({
+                    carrier: player.dimension,
+                    location: player.location,
+                    dynamicParticleVars: {
+                        r: 255,
+                        g: 255,
+                        b: 255
+                    }
+                })
+
+
                 player.rt.coins += Math.max(1250 - roundWinners.length * 125, 100);
                 fixedPlacements.push(player);
                 roundWinners.push(player);

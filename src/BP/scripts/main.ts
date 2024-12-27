@@ -1,5 +1,5 @@
 
-import { GameMode, Player, system, Vector3, world } from "@minecraft/server"
+import { EntityInventoryComponent, GameMode, Player, system, Vector3, world } from "@minecraft/server"
 import { GameEventData, GamemodeExport } from "./gamemodes/gamemodeTypes"
 import { MinefieldGameMode } from "./gamemodes/minefield/minefield"
 import { ParkourGameMode } from "./gamemodes/parkour/parkour"
@@ -182,7 +182,8 @@ export async function endRound(playersThatWon: Player[]) {
 }, 5)
  */
 world.afterEvents.playerSpawn.subscribe((event) => {
-    const { player } = event
+    const { player } = event;
+    (player.getComponent('inventory') as EntityInventoryComponent).container?.clearAll()
     player.rt.setCoinDisplay("shown")
 })
 world.getAllPlayers().forEach((player) => {

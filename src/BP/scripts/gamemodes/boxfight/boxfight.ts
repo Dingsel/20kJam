@@ -8,6 +8,7 @@ import { useLoadingTimer } from "../../utils"
 import { Vector3Utils } from "@minecraft/math"
 import { playerKillParticle } from "../../commonParticles"
 
+
 const { start, end } = {
     start: {
         x: 981,
@@ -72,7 +73,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
             damigingEntity.playSound("mob.cat.meow", { pitch: 0.5 })
             damigingEntity.rt.coins -= 250
         } else {
-            const teamColour = playerTeamMap.get(deadEntity)?.teamId === 0 ? {
+            const teamColour = playerTeamMap.get(deadEntity)?.teamId === 1 ? {
                 r: 255,
                 g: 180,
                 b: 74
@@ -81,7 +82,8 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 g: 133,
                 b: 234
             }
-
+            damigingEntity.playSound("firework.blast", { volume: 0.7 })
+            deadEntity.playSound("firework.blast", { volume: 0.7 })
             playerKillParticle.spawn({
                 carrier: deadEntity.dimension,
                 location: deadEntity.location,
@@ -157,6 +159,8 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
         },
 
         async onceActive() {
+
+
             for (const [player, { teamId }] of playerTeamMap.entries()) {
                 if (!player || !player.isValid()) return
 
@@ -188,6 +192,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 });
 
                 (await this).spawnPlayer(player)
+
             }
             system.run(async () => {
                 system.runTimeout(() => {
@@ -204,7 +209,13 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                     clearVol.translate({ x: 0, y: 1, z: 0 })
 
                     dim.fillBlocks(clearVol, "minecraft:air")
+
+                    dim.spawnParticle('rt:boxfight_glow', Vector3Utils.add(start, { x: 1.5, y: 1.3, z: -2 }))
+                    dim.spawnParticle('rt:boxfight_glow', Vector3Utils.add(start, { x: 1.5, y: 1.3, z: 1 }))
+                    dim.spawnParticle('rt:boxfight_glow2', Vector3Utils.add(start, { x: 0, y: 1.3, z: -0.5 }))
+                    dim.spawnParticle('rt:boxfight_glow2', Vector3Utils.add(start, { x: 3, y: 1.3, z: -0.5 }))
                 }, 60)
+
                 for (const player of players) {
                     player.setGameMode(GameMode.spectator);
                 }

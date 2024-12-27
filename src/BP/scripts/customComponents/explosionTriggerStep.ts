@@ -8,7 +8,7 @@ export const ExplosionTriggerStep: CustomComponent = {
             const { entity, block } = event
             if (!entity || !entity.isValid()) return
             block.dimension.createExplosion(Vector3Utils.add(block.location, VECTOR3_UP), 1.5, { breaksBlocks: false, allowUnderwater: true, causesFire: false })
-            block.setType("minecraft:bedrock")
+            block.setType("minecraft:black_concrete")
         },
     }
 }

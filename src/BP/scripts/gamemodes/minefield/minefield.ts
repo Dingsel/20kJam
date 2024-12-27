@@ -5,6 +5,7 @@ import { dim, endRound } from "../../main";
 import { useLoadingTimer } from "../../utils";
 import { useMinefieldDisplay } from "./minefieldDisplay";
 import { VECTOR3_ZERO, Vector3Utils } from "@minecraft/math";
+import { playerKillParticle } from "../../commonParticles";
 
 const minefieldFinishArea = new BlockVolume(
     {
@@ -168,8 +169,13 @@ export async function MinefieldGameMode({
         },
         whileActive() {
             updatePlacements();
-            isActive && display.updateDisplay();
 
+            for (const player of roundWinners) {
+                if (!player.isValid()) continue;
+                player.sendMessage("RTKJAM:stext" + "§eYou are §6Finished");
+            }
+
+            isActive && display.updateDisplay();
             for (const player of players) {
                 if (
                     !minefieldFinishArea.isInside(player.location) ||
@@ -177,8 +183,19 @@ export async function MinefieldGameMode({
                 )
                     continue;
                 player.sendMessage("You finished the minefield!");
-                player.rt.coins += 1250;
-                player.setGameMode(GameMode.spectator);
+
+                playerKillParticle.spawn({
+                    carrier: player.dimension,
+                    location: player.location,
+                    dynamicParticleVars: {
+                        r: 255,
+                        g: 255,
+                        b: 255
+                    }
+                })
+
+                player.rt.coins += Math.max(1250 - roundWinners.length * 125, 100);
+                 player.setGameMode(GameMode.spectator);
 
                 fixedPlacements.push(player);
                 roundWinners.push(player);
@@ -196,7 +213,7 @@ export async function MinefieldGameMode({
             timer.dispose();
         },
         onPlayerWin(player) {
-            player.rt.coins += 1250;
+
         },
     };
 }

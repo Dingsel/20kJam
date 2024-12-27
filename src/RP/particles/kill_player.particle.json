@@ -18,7 +18,7 @@
 		},
 		"components": {
 			"minecraft:emitter_initialization": {
-				"creation_expression": "v.r =1;v.g = 1;v.b = 1;"
+				"creation_expression": "v.r;v.g;v.b;"
 			},
 			"minecraft:emitter_rate_instant": {
 				"num_particles": 50
@@ -50,7 +50,7 @@
 				}
 			},
 			"minecraft:particle_appearance_tinting": {
-				"color": ["v.r", "v.g", "v.b", 1]
+				"color": ["v.r/255", "v.g/255", "v.b/255", 1]
 			}
 		}
 	}
