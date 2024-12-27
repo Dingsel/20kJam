@@ -8,6 +8,11 @@
             "category": "ui",
             "max_distance": 99999,
             "sounds": ["sounds/jingle"]
+        },
+        "rt:spin": {
+            "category": "ui",
+            "max_distance": 99999,
+            "sounds": ["sounds/spin"]
         }
     }
 }

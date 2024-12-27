@@ -164,6 +164,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
             for (const [player, { teamId }] of playerTeamMap.entries()) {
                 if (!player || !player.isValid()) return
 
+
                 const container = (player.getComponent("inventory") as EntityInventoryComponent).container
                 const equipment = player.getComponent("equippable") as EntityEquippableComponent
 

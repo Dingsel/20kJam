@@ -1,0 +1,461 @@
+{
+  "namespace": "pm_gamechooser",
+
+  "render": {
+    "type": "stack_panel",
+    "anchor_from": "bottom_middle",
+    "orientation": "vertical",
+    "size": [180, "100%c"],
+    "offset": [0, "-50%"],
+    "anchor_to": "bottom_middle",
+    "factory": {
+      "name": "chat_item_factory",
+      "control_ids": {
+        "chat_item": "handle@pm_gamechooser.handle"
+      }
+    }
+  },
+
+  "handle@rt20k.p": {
+    "size": ["100%c", "100%c"],
+    "controls": [
+      {
+        "size_handle@rt20k.p": {
+          "size": [180, 1000],
+          "bindings": [
+            {
+              "binding_name": "#chat_text",
+              "binding_name_override": "#text",
+              "binding_type": "collection",
+              "binding_collection_name": "chat_text_grid",
+              "binding_condition": "once"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "('%.13s' * #text)",
+              "target_property_name": "#prefix"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(not((#prefix - 'RTKJAM:cgame') = #prefix))",
+              "target_property_name": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "center_panel@rt20k.p": {
+                "anchor_from": "bottom_middle",
+                "anims": ["@pm_gamechooser.center_panel_anim_1"],
+                "anchor_to": "bottom_middle",
+                "size": [180, 0],
+                "controls": [
+                  {
+                    "choosing_game_text@pm_gamechooser.choosing_game_text": {
+                        "anims": ["@pm_gamechooser.choosing_game_anim_1_1"],
+                      "anchor_from": "center",
+                      "anchor_to": "center"
+                    }
+                  },
+                  {
+                    "gamestack": {
+                      "type": "panel",
+                      "size": [180, 18],
+                      "clips_children": true,
+                      "anchor_from": "top_middle",
+                      "anchor_to": "top_middle",
+                      "controls": [
+                        {
+                          "stack1@pm_gamechooser.gamemodes_stack1": {
+                            "offset": [0,0],
+                            "layer": 2,
+                            "anchor_from": "top_middle",
+                            "anchor_to": "top_middle"
+                          }
+                        },
+                        {
+                            "background@rt20k.img": {
+                                    "size": [0,0],
+                                    "texture": "textures/ui/hud_tip_text_background",
+                                    "alpha": 0.3,
+                                    "anims": ["@pm_gamechooser.background_anim_1_1"]
+                            }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+                "white@rt20k.img": {
+                    "texture": "rt20k/white",
+                    "alpha": 0,
+                    "layer": 1000,
+                    "anims": ["@pm_gamechooser.white_1_1"],
+                    "size": [2000,2000]
+                }
+            },
+            {
+                "black@rt20k.img": {
+                    "alpha": 0,
+                    "layer": 1100,
+                    "anims": ["@pm_gamechooser.black_1_1"],
+                    "size": [2000,2000]
+                }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+"center_panel_anim_1": {
+    "anim_type": "wait",
+    "duration": 6.9,
+    "next": "@pm_gamechooser.center_panel_anim_2"
+},
+
+"center_panel_anim_2": {
+    "anim_type": "offset",
+    "duration":0.2,
+    "from": [0,0],
+    "to": [0,2000]
+},
+
+"black_1_1": {
+    "anim_type": "wait",
+    "duration": 6.3,
+    "next": "@pm_gamechooser.black_1_2"
+},
+"black_1_2": {
+    "anim_type": "alpha",
+    "duration": 0.2,
+    "from":1,
+    "to":0,
+    "next": "@pm_gamechooser.black_1_3"
+
+},
+"black_1_3": {
+    "anim_type": "alpha",
+    "duration": 0.2,
+    "from":1,
+    "to":0
+},
+"white_1_1": {
+    "anim_type": "wait",
+    "duration": 3.5,
+    "next": "@pm_gamechooser.white_1_2"
+},
+"white_1_2": {
+    "anim_type": "alpha",
+    "duration": 3,
+    "from":0,
+    "to":1,
+    "easing": "in_expo",
+    "next": "@pm_gamechooser.white_1_3"
+
+},
+"white_1_3": {
+    "anim_type": "wait",
+    "duration": 0.4,
+    "next": "@pm_gamechooser.white_1_4"
+},
+"white_1_4": {
+    "anim_type": "alpha",
+    "duration": 0.1,
+    "from":1,
+    "to":0
+},
+"choosing_game_anim_1_1": {
+    "anim_type": "alpha",
+    "from": 0,
+    "to": 1,
+    "duration": 0.5,
+    "next": "@pm_gamechooser.choosing_game_anim_1_2"
+},
+"choosing_game_anim_1_2": {
+    "anim_type": "wait",
+    "duration": 0.4,
+    "next":  "@pm_gamechooser.choosing_game_anim_1_3"
+},
+"choosing_game_anim_1_3": {
+    "anim_type": "offset",
+    "duration": 0.4,
+    "from": [0,0],
+    "to": [0,-13],
+    "easing": "out_quart"
+},
+
+"background_anim_1_1": {
+    "anim_type": "wait",
+    "duration": 1.1,
+    "next":  "@pm_gamechooser.background_anim_1_2"
+},
+
+"background_anim_1_2": {
+    "anim_type": "size",
+    "from": [0,0],
+    "to": [170,18],
+    "duration": 0.4,
+    "easing": "out_back"},
+
+"stack_anim_1_1": {
+    "anim_type": "wait",
+    "duration": 1.1,
+    "next":  "@pm_gamechooser.stack_anim_1_2"
+
+},
+"stack_anim_1_2": {
+    "anim_type": "alpha",
+    "from": 0,
+    "to": 1,
+    "duration": 0.5
+},
+"stack_anim_2_0": {
+    "anim_type": "wait",
+    "duration": 0.85,
+    "next":  "@pm_gamechooser.stack_anim_2_1"
+
+},
+"stack_anim_2_1": {
+    "anim_type": "offset",
+    "from": [0,0],
+    "to": [0,-20],
+    "duration": 0.69,
+    "next":  "@pm_gamechooser.stack_anim_2_2"
+
+},
+"stack_anim_2_2": {
+    "anim_type": "offset",
+    "from": [0,-20],
+    "to": [0,-40],
+    "duration": 0.92,
+    "next":  "@pm_gamechooser.stack_anim_2_3"
+
+},
+"stack_anim_2_3": {
+    "anim_type": "offset",
+    "from": [0,-40],
+    "to": [0,-60],
+    "duration": 0.92,
+    "next":  "@pm_gamechooser.stack_anim_2_4"
+
+},
+"stack_anim_2_4": {
+    "anim_type": "offset",
+    "from": [0,-60],
+    "to": [0,-80],
+    "duration": 0.47,
+    "next":  "@pm_gamechooser.stack_anim_2_5"
+
+},
+"stack_anim_2_5": {
+    "anim_type": "offset",
+    "from": [0,-80],
+    "to": [0,-100],
+    "duration": 0.46,
+    "next":  "@pm_gamechooser.stack_anim_2_6"
+},
+"stack_anim_2_6": {
+    "anim_type": "offset",
+    "from": [0,-100],
+    "to": [0,-120],
+    "duration": 0.46,
+    "next":  "@pm_gamechooser.stack_anim_2_7"
+
+},
+"stack_anim_2_7": {
+    "anim_type": "offset",
+    "from": [0,-120],
+    "to": [0,-140],
+    "duration": 0.23,
+    "next":  "@pm_gamechooser.stack_anim_2_8"
+},
+
+"stack_anim_2_8": {
+    "anim_type": "offset",
+    "from": [0,-140],
+    "to": [0,-160],
+    "duration": 0.23,
+    "next":  "@pm_gamechooser.stack_anim_2_9"
+
+},
+
+"stack_anim_2_9": {
+    "anim_type": "offset",
+    "from": [0,-160],
+    "to": [0,-180],
+    "duration": 0.23,
+    "next":  "@pm_gamechooser.stack_anim_2_10"
+},
+"stack_anim_2_10": {
+    "anim_type": "offset",
+    "from": [0,-180],
+    "to": [0,-200],
+    "duration": 0.23,
+    "next":  "@pm_gamechooser.stack_anim_2_11"
+},
+"stack_anim_2_11": {
+    "anim_type": "offset",
+    "from": [0,-200],
+    "to": [0,-220],
+    "duration": 0.115,
+    "next":  "@pm_gamechooser.stack_anim_2_12"
+},
+"stack_anim_2_12": {
+    "anim_type": "offset",
+    "from": [0,-220],
+    "to": [0,-240],
+    "duration": 0.115,
+    "next":  "@pm_gamechooser.stack_anim_2_13"
+},
+"stack_anim_2_13": {
+    "anim_type": "offset",
+    "from": [0,-240],
+    "to": [0,-260],
+    "duration": 0.115,
+    "next":  "@pm_gamechooser.stack_anim_2_14"
+},
+"stack_anim_2_14": {
+    "anim_type": "offset",
+    "from": [0,-260],
+    "to": [0,-280],
+    "duration": 0.115
+},
+  "choosing_game_text@rt20k.l": {
+    "shadow": true,
+    "text": "§eChoosing a game"
+  },
+
+  "gamemodes_stack1@rt20k.sp": {
+    "size": [180, "100%c"],
+    "propagate_alpha": true,
+    "alpha": 0,
+    "anims": ["@pm_gamechooser.stack_anim_1_1", "@pm_gamechooser.stack_anim_2_0"],
+    "controls": [
+      {
+        "gamemodes@gamemodes": {}
+      },
+      {
+        "gamemodes@gamemodes": {
+          "$which": 4
+        }
+      },
+      {
+        "gamemodes@gamemodes": {
+          "$which": 2
+        }
+      },
+      {
+        "gamemodes@gamemodes": {
+          "$which": 1
+        }
+      },
+      {
+        "gamemodes@gamemodes": {
+          "$which": 5
+        }
+      },
+      {
+        "gamemodes@gamemodes": {
+          "$which": 0
+        }
+      },
+      {
+        "gamemodes@gamemodes": {
+          "$which": 4
+        }
+      },
+      {
+        "gamemodes@gamemodes": {
+          "$which": 3
+        }
+      },
+      {
+        "gamemodes@gamemodes": {
+          "$which": 0
+        }
+      },
+      {
+        "gamemodes@gamemodes": {
+          "$which": 1
+        }
+      },
+      {
+        "gamemodes@gamemodes": {
+          "$which": 0
+        }
+      },
+      {
+        "gamemodes@gamemodes": {
+          "$which": 3
+        }
+      },
+      {
+        "gamemodes@gamemodes": {
+          "$which": 2
+        }
+      },
+      {
+        "gamemodes@gamemodes": {
+          "$which": 5
+        }
+      },
+      {
+        "gamemodes@gamemodes": {
+          "$which": 2
+        }
+      }
+    ]
+  },
+
+  "gamemodes@rt20k.p": {
+    "$which|default": 0,
+    "size": [180, 20],
+    "controls": [
+      {
+        "Boxfight@rt20k.l": {
+          "text": "§cBoxfight",
+          "font_scale_factor": 2,
+          "visible": "($which = 0)"
+        }
+      },
+      {
+        "Parkour@rt20k.l": {
+          "text": "§aParkour",
+          "font_scale_factor": 2,
+          "visible": "($which = 1)"
+        }
+      },
+      {
+        "Minefield@rt20k.l": {
+          "text": "§8Minefield",
+          "font_scale_factor": 2,
+          "visible": "($which = 2)"
+        }
+      },
+      {
+        "Buildbattle@rt20k.l": {
+          "text": "§uBuildbattle",
+          "font_scale_factor": 2,
+          "visible": "($which = 3)"
+        }
+      },
+
+      {
+        "Bouncybox@rt20k.l": {
+          "text": "§bBouncybox",
+          "font_scale_factor": 2,
+          "visible": "($which = 4)"
+        }
+      },
+      {
+        "Runecollector@rt20k.l": {
+          "text": "§6Runecollector",
+          "font_scale_factor": 2,
+          "visible": "($which = 5)"
+        }
+      }
+    ]
+  }
+}

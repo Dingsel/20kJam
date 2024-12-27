@@ -1,4 +1,4 @@
-import { BlockVolume, GameMode, Player, system } from "@minecraft/server";
+import { BlockVolume, DimensionLocation, GameMode, Player, system } from "@minecraft/server";
 import { GameEventData, GamemodeExport } from "../gamemodeTypes";
 import { useCountdown } from "../../hooks/useCountdown";
 import { dim, endRound } from "../../main";
@@ -122,6 +122,7 @@ export async function MinefieldGameMode({
         async onceActive() {
             for (const player of players) {
                 (await this).spawnPlayer(player);
+                player.setSpawnPoint({ dimension: dim, ...minefieldStartLocations[0] });
                 player.addEffect("blindness", 20 * 4, { showParticles: false });
             }
 

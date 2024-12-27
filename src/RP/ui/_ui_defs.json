@@ -14,6 +14,8 @@
     "ui/hud_elements/gamemodes/buildbattle.json",
     // Permanents -
     "ui/hud_elements/permanents/coins.json",
-    "ui/hud_elements/permanents/base_text.json"
+    "ui/hud_elements/permanents/base_text.json",
+    "ui/hud_elements/permanents/gamechooser.json"
+
   ]
 }

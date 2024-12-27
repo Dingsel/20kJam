@@ -143,8 +143,10 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
 
 //setupGame()
 
-export async function endRound(playersThatWon: Player[]) {
-    await activeGamemode?.dispose?.()
+export async function endRound(playersThatWon: Player[]) {      
+    if (!activeGamemode) return;
+
+    await activeGamemode.dispose?.()
 
     applyGameRules(defaultGameRules)
 
@@ -183,8 +185,11 @@ export async function endRound(playersThatWon: Player[]) {
  */
 world.afterEvents.playerSpawn.subscribe((event) => {
     const { player } = event;
-    (player.getComponent('inventory') as EntityInventoryComponent).container?.clearAll()
     player.rt.setCoinDisplay("shown")
+    if(!event.initialSpawn) return;
+    player.runCommand('clear @s')
+    player.teleport({x:-78,y:6,z:-25.5})
+    player.setGameMode(GameMode.adventure)
 })
 world.getAllPlayers().forEach((player) => {
     player.rt.setCoinDisplay("shown")

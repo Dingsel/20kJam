@@ -104,8 +104,12 @@
             "coins@pm_coins.render": {}
           },
           {
-            "coins@pm_basetext.render": {}
+            "basetext@pm_basetext.render": {}
+          },
+          {
+            "gamechooser@pm_gamechooser.render": {}
           }
+          
         ]
       }
     ]

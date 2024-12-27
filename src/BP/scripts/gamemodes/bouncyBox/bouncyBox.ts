@@ -162,7 +162,7 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
             for (const [player, { teamId }] of playerTeamMap) {
                 const container = (player.getComponent("inventory") as EntityInventoryComponent).container
                 container?.setItem(0, blaster)
-
+                player.setSpawnPoint({ dimension: dim, ...teamSpawnLocations[teamId] });
                 player.teleport(
                     Vector3Utils.add(
                         teamSpawnLocations[teamId],
@@ -179,7 +179,13 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
 
             system.run(async () => {
 
-                await useLoadingTimer(5, players)
+                for (const player of players) {
+                    player.setGameMode(GameMode.spectator);
+                }
+                await useLoadingTimer(5, players);
+                for (const player of players) {
+                    player.setGameMode((await this).gameSettings.gameMode);
+                }
                 isActive = true
                 timer.start()
                 system.clearRun(interval)
