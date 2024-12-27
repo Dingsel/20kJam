@@ -1,0 +1,22 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:attachable": {
+        "description": {
+            "identifier": "rt:knockback_rpg",
+            "materials": {
+                "default": "entity_alphatest",
+                "enchanted": "entity_alphatest_glint"
+            },
+            "textures": {
+                "default": "rt20k/bouncyboom"
+            },
+            "geometry": {
+                "default": "geometry.bouncyboom"
+            },
+            "scripts": {},
+            "render_controllers": [
+                "controller.render.default"
+            ]
+        }
+    }
+}

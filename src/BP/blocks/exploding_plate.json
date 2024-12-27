@@ -14,7 +14,7 @@
             "minecraft:destructible_by_mining": false,
             "minecraft:material_instances": {
                 "*": {
-                    "texture": "stone"
+                    "texture": "explode_plate"
                 }
             }
         }

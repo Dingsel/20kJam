@@ -4,7 +4,7 @@
         "description": {
             "identifier": "rt:knockback_projectile",
             "materials": {
-                "default": "entity_custom"
+                "default": "slime"
             },
             "textures": {
                 "default": "textures/models/knockback_projectile.texture"
