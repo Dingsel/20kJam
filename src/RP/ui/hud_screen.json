@@ -91,7 +91,7 @@
             "race@gm_race.render": {}
           },
           {
-            "race@gm_buildbattle.render": {}
+            "buildbattle@gm_buildbattle.render": {}
           },
           {
             "coins@pm_coins.render": {}
