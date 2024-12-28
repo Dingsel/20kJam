@@ -150,14 +150,7 @@ export async function MinefieldGameMode({
                 for (const player of players) {
                     player.setGameMode(GameMode.spectator);
                 }
-                
-                for (const player of players) {
-                    for(let i = 0; i<5; i++) {
-                        player.sendMessage("RTKJAM:stext" + '§aLoading§2' + ('.').repeat((i%3)+1))
-  
-                        await system.waitTicks(20)
-                    }
-                }
+                //Camera here
                 await useLoadingTimer(5, players);
                 for (const player of players) {
                     player.setGameMode((await this).gameSettings.gameMode);
@@ -203,7 +196,7 @@ export async function MinefieldGameMode({
                 })
 
                 player.rt.coins += Math.max(1250 - roundWinners.length * 125, 100);
-                 player.setGameMode(GameMode.spectator);
+                player.setGameMode(GameMode.spectator);
 
                 fixedPlacements.push(player);
                 roundWinners.push(player);

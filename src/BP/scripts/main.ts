@@ -1,10 +1,9 @@
 
-import { EntityInventoryComponent, GameMode, Player, system, Vector3, world } from "@minecraft/server"
+import { GameMode, Player, system, Vector3, world } from "@minecraft/server"
 import { GameEventData, GamemodeExport } from "./gamemodes/gamemodeTypes"
 import { MinefieldGameMode } from "./gamemodes/minefield/minefield"
 import { ParkourGameMode } from "./gamemodes/parkour/parkour"
 import BoxFightGameMode from "./gamemodes/boxfight/boxfight"
-import { EvadeGameMode } from "./gamemodes/evade/evade"
 import { anounceGamemode, chooseGamemode, shuffleArr } from "./utils"
 
 import "./customComponents/customComponentsHandler"
@@ -12,7 +11,7 @@ import "./prototypes/player"
 import "./deathSequences"
 import { BuildBattle } from "./gamemodes/buildBattle/buildBattle"
 import { BouncyBoxGameMode } from "./gamemodes/bouncyBox/bouncyBox"
-import { RuneCollectorGameMode } from "./gamemodes/rune_collector/rune_collector"
+import { RuneCollectorGameMode } from "./gamemodes/runeCollector/runeCollector"
 
 export const dim = world.getDimension("overworld")
 export let activeGamemode: GamemodeExport | null = null
