@@ -109,11 +109,11 @@ export async function ParkourGameMode({
                 timer.start();
             });
         },
-        spawnPlayer(player) {
+        async spawnPlayer(player) {
             player.teleport(parkourStartLocation, {
                 facingLocation: parkourFinishArea.from,
             });
-                        await system.waitTicks(100)
+            await system.waitTicks(100)
             cameraFunction(player)
         },
         whileActive() {

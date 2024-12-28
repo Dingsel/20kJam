@@ -1,0 +1,62 @@
+name: Build and Package
+
+on:
+    workflow_dispatch:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+jobs:
+    build:
+        runs-on: windows-latest
+
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "20"
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Run export
+              run: npm run export
+
+            - name: Zip BP
+              uses: vimtor/action-zip@v1
+              with:
+                  files: ./build/20kJam_bp
+                  dest: bp.mcpack
+
+            - name: Zip RP
+              uses: vimtor/action-zip@v1
+              with:
+                  files: ./build/20kJam_rp
+                  dest: rp.mcpack
+
+            - name: Zip Zipped Packs
+              uses: vimtor/action-zip@v1
+              with:
+                  files: ./rp.mcpack ./bp.mcpack
+                  dest: rt20k.mcaddon
+
+            - name: Upload RP
+              uses: actions/upload-artifact@v3
+              with:
+                  name: RP
+                  path: rp.mcpack
+
+            - name: Upload ArtifBPacts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: BP
+                  path: bp.mcpack
+
+            - name: Upload ADDON
+              uses: actions/upload-artifact@v3
+              with:
+                  name: RT20K
+                  path: rt20k.mcaddon
