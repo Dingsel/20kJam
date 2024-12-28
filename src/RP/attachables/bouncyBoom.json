@@ -13,10 +13,14 @@
             "geometry": {
                 "default": "geometry.bouncyboom"
             },
-            "scripts": {},
-            "render_controllers": [
-                "controller.render.default"
-            ]
+            "scripts": {
+                "animate": ["first_person"]
+            },
+            "animations": {
+                "third_person": "animation.bouncyboom.third_person",
+                "first_person": "animation.bouncyboom.first_person"
+            },
+            "render_controllers": ["controller.render.default"]
         }
     }
 }

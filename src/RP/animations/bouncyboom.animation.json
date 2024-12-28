@@ -1,0 +1,23 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.bouncyboom.third_person": {
+			"loop": true,
+			"bones": {
+				"blast": {
+					"rotation": [90, 0, 0],
+					"position": [0, 14.23007, -4.84821]
+				}
+			}
+		},
+		"animation.bouncyboom.first_person": {
+			"loop": true,
+			"bones": {
+				"blast": {
+					"rotation": [107.76428, 27.51235, -34.31583],
+					"position": [-2.34019, 5.02884, -3.19911]
+				}
+			}
+		}
+	}
+}

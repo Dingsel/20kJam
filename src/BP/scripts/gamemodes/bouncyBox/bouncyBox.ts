@@ -42,6 +42,35 @@ const BOUNCING_BLOCK = "rt:bouncy_block"
 const blaster = lockItem("rt:knockback_rpg")
 
 
+export async function useCamera(player: Player) {
+    player.camera.setCamera("minecraft:free", { rotation: { x: 20, y: 0 }, location: { x: 3985, y: 22, z: -15 }, facingLocation: centerLocation })
+    player.camera.setCamera("minecraft:free", { rotation: { x: 0, y: 0 }, location: { x: 3995, y: 18, z: -6 }, facingLocation: centerLocation, easeOptions: { easeTime: 5 } })
+
+    for (let i = 0; i < 5; i++) {
+        system.run(async () => {
+            for (let j = 0; j < 7; j++) {
+                const randomOffset = {
+                    x: Math.floor(Math.random() * 20 - 10),
+                    y: 10,
+                    z: Math.floor(Math.random() * 20 - 10)
+                }
+                const projectile = dim.spawnEntity("rt:knockback_projectile", Vector3Utils.add(centerLocation, randomOffset))
+                const randomDir = {
+                    x: Math.random() * 10 - 5,
+                    y: Math.random() * 10 - 5,
+                    z: Math.random() * 10 - 5
+                }
+                projectile.applyImpulse(randomDir)
+            }
+        })
+
+        player.onScreenDisplay.setActionBar('§aBe the last team standing!')
+        await system.waitTicks(20)
+    }
+    player.camera.clear()
+    dim.getEntities({ type: "rt:knockback_projectile" }).forEach(e => e.remove())
+}
+
 export async function BouncyBoxGameMode({ players }: GameEventData): Promise<GamemodeExport> {
     const { playerTeamMap } = splitupPlayers(2, players)
     const timer = useCountdown(180 * 20)
@@ -86,7 +115,7 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
 
             if (entity.typeId === "rt:knockback_projectile") {
                 const playersAround = entity.dimension.getPlayers({ location: entity.location, maxDistance: 3 })
-                if (playersAround.length > 0) {
+                if (playersAround.length > 0 && isActive) {
                     const viewDir = entity.getViewDirection()
                     for (const player of playersAround) {
                         player.applyKnockback(viewDir.x, viewDir.z, 5, 1)
@@ -105,7 +134,7 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
         const teams = [0, 1];
 
         for (const teamId of teams) {
-            if (/*!isDev &&*/ !alivePlayers.some(p => playerTeamMap.get(p)?.teamId === teamId) && isActive) {
+            if (!isDev && !alivePlayers.some(p => playerTeamMap.get(p)?.teamId === teamId) && isActive) {
                 isActive = false;
                 const winningTeam = teamId === 0 ? 1 : 0;
                 const winningTeamMembers = alivePlayers.filter(p => playerTeamMap.get(p)?.teamId === winningTeam)
@@ -131,12 +160,16 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
             source.getItemCooldown("rt:knockback_rpg") > 0
         ) return
 
-        const proj = source.dimension.spawnEntity("rt:knockback_projectile", source.getHeadLocation())
+        const proj = source.dimension.spawnEntity("rt:knockback_projectile", Vector3Utils.add(source.getHeadLocation(), source.getViewDirection()))
+        proj.dimension.spawnParticle("minecraft:sonic_explosion", proj.location)
+
         source.playSound("mob.wither.shoot", { pitch: 1.5 })
         system.runTimeout(() => {
             source.playSound("mob.wither.shoot", { pitch: 1.3, volume: 0.5 })
         }, 3)
+
         source.startItemCooldown("rt:knockback_rpg", 10)
+
         proj.setRotation(source.getRotation())
         proj.applyImpulse(Vector3Utils.scale(source.getViewDirection(), 4))
     })
@@ -178,19 +211,14 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
             }, 20)
 
             system.run(async () => {
-
-                for (const player of players) {
+                players.forEach(async player => {
                     player.setGameMode(GameMode.spectator);
-                }
-                
-                for (const player of players) {
-                    for(let i = 0; i<5; i++) {
-                        player.sendMessage("RTKJAM:stext" + '§aLoading§2' + ('.').repeat((i%3)+1))
-  
-                        await system.waitTicks(20)
-                    }
-                }
+                    await system.waitTicks(100)
+                    useCamera(player)
+                })
+
                 await useLoadingTimer(5, players);
+
                 for (const player of players) {
                     player.setGameMode((await this).gameSettings.gameMode);
                 }

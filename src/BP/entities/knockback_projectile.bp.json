@@ -25,8 +25,8 @@
                 ]
             },
             "minecraft:collision_box": {
-                "height": 1,
-                "width": 1
+                "height": 0,
+                "width": 0
             },
             "minecraft:timer": {
                 "time": 5,
