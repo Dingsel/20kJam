@@ -1,10 +1,30 @@
-import { EntityInventoryComponent, GameMode, Player, world } from "@minecraft/server";
+import { EntityInventoryComponent, GameMode, Player, system, world } from "@minecraft/server";
 import { useCountdown } from "../../hooks/useCountdown";
 import { GameEventData, GamemodeExport } from "../gamemodeTypes";
 import { generateMap } from "./pregame";
 import { activeGamemode, endRound } from "../../main";
-import { lockItem } from "../../utils";
+import { lockItem, useLoadingTimer } from "../../utils";
 import { useBuildBattleDisplay } from "./buildBattleDisplay";
+
+async function useCamera(player: Player): Promise<void> {
+    system.run(async () => {
+        player.camera.setCamera("minecraft:free", { rotation: { x: 0, y: 60 }, location: { x: 1010, y: 6, z: 1016 } })
+        player.camera.setCamera("minecraft:free", { rotation: { x: 0, y: 60 }, location: { x: 1010, y: 7, z: 1014 }, easeOptions: { easeTime: 2.5 } })
+        await system.waitTicks(50)
+
+        player.camera.setCamera("minecraft:free", { rotation: { x: 0, y: 60 }, location: { x: 1024, y: 5, z: 1013 } })
+        player.camera.setCamera("minecraft:free", { rotation: { x: 0, y: 60 }, location: { x: 1024, y: 7, z: 1011 }, easeOptions: { easeTime: 3 } })
+
+    })
+
+    for (let i = 0; i < 5; i++) {
+        player.onScreenDisplay.setActionBar('§aBe the first to reach the exit!')
+        await system.waitTicks(20)
+    }
+
+    player.camera.clear()
+
+}
 
 const shear = lockItem("minecraft:shears")
 const pickaxe = lockItem("minecraft:iron_pickaxe")
@@ -72,19 +92,27 @@ export async function BuildBattle(game: GameEventData): Promise<GamemodeExport> 
             deathSequence: "instantRespawn"
         },
 
-        onceActive() {
+        async onceActive() {
             for (const player of players) {
                 const info = playerMapSettings.get(player)
                 const container = (player.getComponent("inventory") as EntityInventoryComponent).container
-                if (!info || !container) {
-                    player.setGameMode(GameMode.spectator)
-                    continue
-                }
+                player.setGameMode(GameMode.spectator)
+                if (!info || !container) continue
                 container.setItem(0, pickaxe)
                 container.setItem(1, shear)
                 player.teleport(info.spawnLocation)
             }
-            timer.start()
+
+            system.run(async () => {
+                useLoadingTimer(5, players)
+                await system.waitTicks(100)
+                players.forEach(useCamera)
+                await system.waitTicks(100)
+    
+                players.forEach(async player => player.setGameMode((await this).gameSettings.gameMode))
+    
+                timer.start()
+            })
         },
 
         whileActive() {

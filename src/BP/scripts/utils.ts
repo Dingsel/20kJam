@@ -1,5 +1,6 @@
 import { ItemLockMode, ItemStack, ItemType, Player, Structure, system, world } from "@minecraft/server";
 import { GamemodeExport } from "./gamemodes/gamemodeTypes";
+import { DisplayHandler } from "./display/displayHandler";
 
 export function shuffleArr<T extends any[]>(array: T): T {
     for (let i = array.length - 1; i > 0; i--) {
@@ -88,14 +89,15 @@ export function structure([structureId]: TemplateStringsArray): Structure {
 }
 
 export async function useLoadingTimer(seconds: number, targetPlayers: Player[]): Promise<void> {
-    for (const player of targetPlayers) {
+    targetPlayers.forEach(async (player) => {
         player.inputPermissions.movementEnabled = false
         for (let i = 0; i < 5; i++) {
             player.sendMessage("RTKJAM:stext" + '§aLoading§2' + ('.').repeat((i % 3) + 1))
-
             await system.waitTicks(20)
         }
-    }
+    })
+
+    await system.waitTicks(100)
     await titleCountdown(seconds, targetPlayers, { endSound: "random.orb", endText: "§aGO", tickSound: "random.click", extraText: "§2Starting in §a", actionbar: false, pitch: 1 })
     targetPlayers.forEach((player) => player.inputPermissions.movementEnabled = true)
 }

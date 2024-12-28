@@ -133,7 +133,7 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
         const teams = [0, 1];
 
         for (const teamId of teams) {
-            if (!isDev && !alivePlayers.some(p => playerTeamMap.get(p)?.teamId === teamId) && isActive) {
+            if (!alivePlayers.some(p => playerTeamMap.get(p)?.teamId === teamId) && isActive) {
                 isActive = false;
                 const winningTeam = teamId === 0 ? 1 : 0;
                 const winningTeamMembers = alivePlayers.filter(p => playerTeamMap.get(p)?.teamId === winningTeam)
@@ -202,12 +202,13 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
                     ),
                     { facingLocation: centerLocation }
                 )
-            }
 
-            display.updateDisplay()
-            const interval = system.runInterval(() => {
-                display.updateDisplay()
-            }, 20)
+                if (teamId === 0) {
+                    player.nameTag = `§u[PURPLE] ${player.name}`
+                } else {
+                    player.nameTag = `§6[ORANGE] ${player.name}`
+                }
+            }
 
             system.run(async () => {
                 players.forEach(async player => {
@@ -223,7 +224,6 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
                 }
                 isActive = true
                 timer.start()
-                system.clearRun(interval)
             })
         },
 
@@ -241,6 +241,10 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
             system.clearRun(interval)
             world.afterEvents.entityDie.unsubscribe(killEvent)
             world.afterEvents.itemUse.unsubscribe(itemUseEvent)
+            players.forEach((player) => {
+                if (!player.isValid()) return
+                player.nameTag = player.name
+            })
         },
     }
 }

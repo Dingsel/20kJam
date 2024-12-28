@@ -7,6 +7,20 @@ import { useMinefieldDisplay } from "./minefieldDisplay";
 import { VECTOR3_ZERO, Vector3Utils } from "@minecraft/math";
 import { playerKillParticle } from "../../commonParticles";
 
+
+async function useCamera(player: Player): Promise<void> {
+    player.camera.setCamera("minecraft:free", { rotation: { x: 0, y: 25 }, location: { x: 2003, y: 7, z: 1 } })
+    player.camera.setCamera("minecraft:free", { rotation: { x: 20, y: 145 }, location: { x: 2003, y: 6.5, z: 1 }, easeOptions: { easeTime: 5 } })
+
+    for (let i = 0; i < 5; i++) {
+        player.onScreenDisplay.setActionBar('§aBe the first to reach the exit!')
+        await system.waitTicks(20)
+    }
+
+    player.camera.clear()
+
+}
+
 const minefieldFinishArea = new BlockVolume(
     {
         x: 1979,
@@ -54,7 +68,7 @@ const minefieldStartLocations = [
     },
     {
         x: 1997,
-        y: 3,
+        y: 1,
         z: 34,
     },
 ];
@@ -138,7 +152,7 @@ export async function MinefieldGameMode({
 
                         for (const itterator of itterators) {
                             for (const location of itterator) {
-                                const isMine = Math.random() < 0.5;
+                                const isMine = Math.random() < 0.65;
                                 isMine && dim.setBlockType(location, "rt:explode_plate");
                                 yield;
                             }
@@ -146,12 +160,17 @@ export async function MinefieldGameMode({
                     })()
                 );
             }, 20 * 3);
+
             system.run(async () => {
                 for (const player of players) {
                     player.setGameMode(GameMode.spectator);
+                    system.runTimeout(() => {
+                        useCamera(player);
+                    }, 100)
                 }
-                //Camera here
+
                 await useLoadingTimer(5, players);
+
                 for (const player of players) {
                     player.setGameMode((await this).gameSettings.gameMode);
                 }
