@@ -41,7 +41,7 @@ export class BoxfightDisplayHandler extends DisplayHandler {
 
         const timeInSec = this.timer.getRemaining().seconds;
         const minutes = Math.floor(Number(timeInSec) / 60).toString().padStart(2, "0");
-        const remainingSeconds = (Number(timeInSec) % 60).toString().padStart(2, "0");
+        const remainingSeconds = Math.floor(Number(timeInSec) % 60).toString().padStart(2, "0");
 
         return `TMR${minutes}:${remainingSeconds}` + this.playerAliveComponents.join("")
     }

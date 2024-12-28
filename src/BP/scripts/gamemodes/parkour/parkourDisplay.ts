@@ -30,7 +30,7 @@ export class ParkourDisplay extends DisplayHandler {
     public getDisplayText(player: Player): string {
         const timeInSec = this.timer.getRemaining().seconds;
         const minutes = Math.floor(Number(timeInSec) / 60).toString().padStart(2, "0");
-        const remainingSeconds = (Number(timeInSec) % 60).toString().padStart(2, "0");
+        const remainingSeconds = Math.floor(Number(timeInSec) % 60).toString().padStart(2, "0");
 
         const player1String = (this.gamePlacementMap.get(0)?.name ?? "").padEnd(17, ",");
         const player2String = (this.gamePlacementMap.get(1)?.name ?? "").padEnd(17, ",");
