@@ -54,11 +54,11 @@ const spawnLocation: Vector3 = {
 
 const gameModes: Gamemodes = [
     BoxFightGameMode,
-    RuneCollectorGameMode,
     ParkourGameMode,
     MinefieldGameMode,
     BuildBattle,
-    BouncyBoxGameMode
+    BouncyBoxGameMode,
+    RuneCollectorGameMode,
 ]
 
 function checkIfWin() {
@@ -123,6 +123,7 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
 
     //TODO: Only valid players
     const upcomingGamemode = await selectedGamemode({ players: world.getAllPlayers() })
+    if (activeGamemode) endRound([])
 
     activeGamemode = upcomingGamemode
 
@@ -178,6 +179,7 @@ export async function endRound(playersThatWon: Player[]) {
     world.getAllPlayers().forEach((player) => {
         player.setGameMode(GameMode.adventure)
         player.addEffect("instant_health", 20, { showParticles: false })
+
         player.teleport(spawnLocation)
     })
 }
