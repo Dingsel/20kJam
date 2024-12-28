@@ -9,7 +9,7 @@ export function shuffleArr<T extends any[]>(array: T): T {
     return array
 }
 
-export async  function anounceGamemode(gamemode: GamemodeExport): Promise<void> {
+export async function anounceGamemode(gamemode: GamemodeExport): Promise<void> {
     world.getAllPlayers().forEach(async (player) => {
         player.playSound("random.levelup")
         await system.waitTicks(20)
@@ -21,6 +21,24 @@ export async  function anounceGamemode(gamemode: GamemodeExport): Promise<void> 
     await system.waitTicks(20)
     world.sendMessage(`here would some fancy anouncement go for ${gamemode.displayName}`)
     return system.waitTicks(60)
+}
+
+export async function chooseGamemode(gamemodeIndex: number): Promise<void> {
+    const players = world.getAllPlayers()
+    const random = Math.floor(Math.random() * 3)
+
+    players.forEach((player) => {
+        player.playSound("rt:spin")
+    })
+
+    await system.waitTicks(17)
+
+    players.forEach((player) => {
+        if (!player.isValid()) return
+        player.sendMessage(`RTKJAM:cgamea${gamemodeIndex}b${random}`)
+    })
+
+    await system.waitTicks(9 * 20)
 }
 
 export async function titleCountdown(
@@ -37,15 +55,15 @@ export async function titleCountdown(
 ): Promise<void> {
     targetPlayers?.forEach((player) => {
         if (remainingSeconds <= 0) {
-            player.playSound(soundSettings.endSound, {volume:10000000})
+            player.playSound(soundSettings.endSound, { volume: 10000000 })
             player.onScreenDisplay.setActionBar(soundSettings.endText)
             player.sendMessage("RTKJAM:stext")
 
         } else {
-            if(soundSettings.actionbar) {
+            if (soundSettings.actionbar) {
                 player.onScreenDisplay.setActionBar(soundSettings.extraText + (String(remainingSeconds)))
             } else {
-                player.sendMessage("RTKJAM:stext" + soundSettings.extraText+ (String(remainingSeconds)))
+                player.sendMessage("RTKJAM:stext" + soundSettings.extraText + (String(remainingSeconds)))
             }
             player.playSound(soundSettings.tickSound, {volume: 100000,pitch: soundSettings.pitch})
         }
@@ -73,4 +91,9 @@ export async function useLoadingTimer(seconds: number, targetPlayers: Player[]):
     targetPlayers.forEach((player) => player.inputPermissions.movementEnabled = false)
     await titleCountdown(seconds, targetPlayers, { endSound: "random.orb", endText: "§aGO", tickSound: "random.click", extraText: "§2Starting in §a",actionbar:false, pitch:1 })
     targetPlayers.forEach((player) => player.inputPermissions.movementEnabled = true)
+}
+
+export function sendError(player: Player, message: string): void {
+    player.playSound("entity.villager.no")
+    player.sendMessage(`§cError: ${message}`)
 }

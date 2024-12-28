@@ -5,13 +5,14 @@ import { MinefieldGameMode } from "./gamemodes/minefield/minefield"
 import { ParkourGameMode } from "./gamemodes/parkour/parkour"
 import BoxFightGameMode from "./gamemodes/boxfight/boxfight"
 import { EvadeGameMode } from "./gamemodes/evade/evade"
-import { anounceGamemode, shuffleArr } from "./utils"
+import { anounceGamemode, chooseGamemode, shuffleArr } from "./utils"
 
 import "./customComponents/customComponentsHandler"
 import "./prototypes/player"
 import "./deathSequences"
 import { BuildBattle } from "./gamemodes/buildBattle/buildBattle"
 import { BouncyBoxGameMode } from "./gamemodes/bouncyBox/bouncyBox"
+import { RuneCollectorGameMode } from "./gamemodes/rune_collector/rune_collector"
 
 export const dim = world.getDimension("overworld")
 export let activeGamemode: GamemodeExport | null = null
@@ -53,7 +54,7 @@ const spawnLocation: Vector3 = {
 
 const gameModes: Gamemodes = [
     BoxFightGameMode,
-    EvadeGameMode,
+    RuneCollectorGameMode,
     ParkourGameMode,
     MinefieldGameMode,
     BuildBattle,
@@ -77,6 +78,8 @@ function setupGame() {
 
     async function gameLoop() {
         const gamemodeElementIndex = gamemodeIndex % randomGamemodes.length
+        await chooseGamemode(gamemodeElementIndex)
+
         const upcomingGamemode = await randomGamemodes[gamemodeElementIndex]({ players: world.getAllPlayers() })
         activeGamemode = upcomingGamemode
 
@@ -112,8 +115,10 @@ function setupGame() {
 system.afterEvents.scriptEventReceive.subscribe(async (event) => {
     const { id, message } = event
     if (id !== "rt:forceGame") return
+    const gamemodeElementIndex = parseInt(message)
+    await chooseGamemode(gamemodeElementIndex)
 
-    const selectedGamemode = gameModes[parseInt(message)]
+    const selectedGamemode = gameModes[gamemodeElementIndex]
     if (!selectedGamemode) return
 
     //TODO: Only valid players
@@ -143,7 +148,7 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
 
 //setupGame()
 
-export async function endRound(playersThatWon: Player[]) {      
+export async function endRound(playersThatWon: Player[]) {
     if (!activeGamemode) return;
 
     await activeGamemode.dispose?.()
@@ -186,9 +191,9 @@ export async function endRound(playersThatWon: Player[]) {
 world.afterEvents.playerSpawn.subscribe((event) => {
     const { player } = event;
     player.rt.setCoinDisplay("shown")
-    if(!event.initialSpawn) return;
+    if (!event.initialSpawn) return;
     player.runCommand('clear @s')
-    player.teleport({x:-78,y:6,z:-25.5})
+    player.teleport({ x: -78, y: 6, z: -25.5 })
     player.setGameMode(GameMode.adventure)
 })
 world.getAllPlayers().forEach((player) => {
