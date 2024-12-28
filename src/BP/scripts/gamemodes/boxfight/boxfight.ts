@@ -166,12 +166,13 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
             }
         },
 
-        spawnPlayer(player) {
+        async spawnPlayer(player) {
             const teamData = playerTeamMap.get(player)
             if (!teamData) return
             const spawnLoc = teamSpawnLocations[teamData.teamId] || teamSpawnLocations[0]
             player.setSpawnPoint({ ...spawnLoc, dimension: player.dimension })
             player.teleport(spawnLoc, { facingLocation: start })
+            await system.waitTicks(100)
             cameraFunction(player)
         },
 
@@ -185,10 +186,14 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
 
                 if (teamId === 0) {
                     player.nameTag = `§u[PURPLE] ${player.name}`
-                    container?.setItem(8, new ItemStack(TEAM_0_BLOCK, 64))
+                    const item = new ItemStack(TEAM_0_BLOCK, 64)
+                    item.nameTag = "§r§dPurple §fConcrete Powder"
+                    container?.setItem(8, item)
                 } else {
                     player.nameTag = `§6[ORANGE] ${player.name}`
-                    container?.setItem(8, new ItemStack(TEAM_1_BLOCK, 64))
+                    const item = new ItemStack(TEAM_1_BLOCK, 64)
+                    item.nameTag = "§r§6Orange §fConcrete Powder"
+                    container?.setItem(8, item)
                 }
 
                 const { kitItems } = getSelectedKit(player)
@@ -234,6 +239,13 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
 
                 for (const player of players) {
                     player.setGameMode(GameMode.spectator);
+                }
+                for (const player of players) {
+                    for(let i = 0; i<5; i++) {
+                        player.sendMessage("RTKJAM:stext" + '§aLoading§2' + ('.').repeat((i%3)+1))
+  
+                        await system.waitTicks(20)
+                    }
                 }
                 await useLoadingTimer(5, players);
                 for (const player of players) {

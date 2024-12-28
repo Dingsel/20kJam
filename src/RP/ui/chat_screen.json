@@ -1,0 +1,7 @@
+{
+  "namespace": "chat",
+
+  "chat_screen@common.base_screen": {
+    "render_game_behind": true
+  }
+}

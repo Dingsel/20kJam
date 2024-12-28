@@ -15,7 +15,7 @@ export async function anounceGamemode(gamemode: GamemodeExport): Promise<void> {
         await system.waitTicks(20)
         player.playSound("rt:jingle", { volume: 9999 })
         await system.waitTicks(30)
-        player.camera.fade({ fadeColor: { red: 0, blue: 0, green: 0 }, fadeTime: { fadeInTime: 0.5, fadeOutTime: 1, holdTime: 2 } })
+        player.camera.fade({fadeColor: {red:0,blue:0,green:0},fadeTime:{fadeInTime: 0.5,fadeOutTime: 0.5,holdTime:7}})
     })
 
     await system.waitTicks(20)
@@ -49,7 +49,8 @@ export async function titleCountdown(
         actionbar: false,
         endSound: "note.pling",
         endText: "§aGO",
-        extraText: "§2Respawning in §a"
+        extraText: "§2Respawning in §a",
+        pitch: 1
     }
 ): Promise<void> {
     targetPlayers?.forEach((player) => {
@@ -64,7 +65,7 @@ export async function titleCountdown(
             } else {
                 player.sendMessage("RTKJAM:stext" + soundSettings.extraText + (String(remainingSeconds)))
             }
-            player.playSound(soundSettings.tickSound, { volume: 100000 })
+            player.playSound(soundSettings.tickSound, {volume: 100000,pitch: soundSettings.pitch})
         }
     })
 
@@ -88,7 +89,7 @@ export function structure([structureId]: TemplateStringsArray): Structure {
 
 export async function useLoadingTimer(seconds: number, targetPlayers: Player[]): Promise<void> {
     targetPlayers.forEach((player) => player.inputPermissions.movementEnabled = false)
-    await titleCountdown(seconds, targetPlayers, { endSound: "random.orb", endText: "§aGO", tickSound: "random.click", extraText: "§2Starting in §a", actionbar: false })
+    await titleCountdown(seconds, targetPlayers, { endSound: "random.orb", endText: "§aGO", tickSound: "random.click", extraText: "§2Starting in §a",actionbar:false, pitch:1 })
     targetPlayers.forEach((player) => player.inputPermissions.movementEnabled = true)
 }
 
