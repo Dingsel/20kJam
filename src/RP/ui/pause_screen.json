@@ -1,6 +1,8 @@
 {
     "namespace": "pause",
     "pause_screen@common.base_screen": {
+        "cache_screen": true,
+        "force_render_below": true,
         "render_game_behind": true
       }
   }

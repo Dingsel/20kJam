@@ -1,13 +1,6 @@
 {
   "namespace": "hud",
   "hud_screen@common.base_screen": {
-    "is_showing_menu": false,
-    "should_steal_mouse": true,
-    "low_frequency_rendering": false,
-    "cache_screen": true,
-    "load_screen_immediately": true,
-    "absorbs_input": false,
-    "send_telemetry": false
   },
   "chat_grid_item": {
     "type": "panel",
