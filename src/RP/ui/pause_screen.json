@@ -1,0 +1,7 @@
+{
+    "namespace": "pause",
+    "pause_screen@common.base_screen": {
+        "render_game_behind": true
+      }
+  }
+  
