@@ -1,27 +1,23 @@
-import { BlockVolume, BlockVolumeBase, EasingType, Entity, EntityEquippableComponent, EntityInventoryComponent, EquipmentSlot, GameMode, ItemStack, Player, system, Vector3, world } from "@minecraft/server"
+import { BlockVolume, EntityEquippableComponent, EntityInventoryComponent, EquipmentSlot, GameMode, ItemStack, Player, system, world } from "@minecraft/server"
 import { GameEventData, GamemodeExport } from "../gamemodeTypes"
 import { activeGamemode, dim, endRound } from "../../main"
 import { useCountdown } from "../../hooks/useCountdown"
 import { useBoxfightDisplay } from "./boxfigtDisplay"
 import { BoxfightPregame } from "./pregame"
-import { useLoadingTimer } from "../../utils"
+import { sendError, useLoadingTimer } from "../../utils"
 import { Vector3Utils } from "@minecraft/math"
 import { playerKillParticle } from "../../commonParticles"
 
 
 async function cameraFunction(player: Player) {
-    player.onScreenDisplay.setActionBar('§aBe the first team to fill in the middle!')
-    player.camera.setCamera("minecraft:free",{rotation: {x:90,y:0},location: {x: 982.5,y: 22,z: -10.5} })
-    player.camera.setCamera("minecraft:free",{rotation: {x:90,y:40},location: {x: 982.5,y: 20,z: -10.5},easeOptions: {easeTime:5} })
-    await system.waitTicks(20)
-    player.onScreenDisplay.setActionBar('§aBe the first team to fill in the middle!')
-    await system.waitTicks(20)
-    player.onScreenDisplay.setActionBar('§aBe the first team to fill in the middle!')
-    await system.waitTicks(20)
-    player.onScreenDisplay.setActionBar('§aBe the first team to fill in the middle!')
-    await system.waitTicks(20)
-    player.onScreenDisplay.setActionBar('§aBe the first team to fill in the middle!')
-    await system.waitTicks(20)
+    player.camera.setCamera("minecraft:free", { rotation: { x: 90, y: 0 }, location: { x: 982.5, y: 22, z: -10.5 } })
+    player.camera.setCamera("minecraft:free", { rotation: { x: 90, y: 40 }, location: { x: 982.5, y: 20, z: -10.5 }, easeOptions: { easeTime: 5 } })
+
+    for (let i = 0; i < 5; i++) {
+        player.onScreenDisplay.setActionBar('§aBe the first team to fill in the middle!')
+        await system.waitTicks(20)
+    }
+
     player.camera.clear()
 
 }
@@ -75,7 +71,10 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
     const event = world.afterEvents.playerPlaceBlock.subscribe((event) => {
         const { block, player } = event
         if (activeGamemode?.typeId !== "rt:boxfight") return
-        if (!vol.isInside(block.location)) block.setType("minecraft:air")
+        if (!vol.isInside(block.location)) {
+            sendError(player, "You Must Replace The Blocks, Not Build On Top Of Them!")
+            block.setType("minecraft:air")
+        }
         checkIfGameWon()
     })
 
@@ -177,8 +176,6 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
         },
 
         async onceActive() {
-
-            
             for (const [player, { teamId }] of playerTeamMap.entries()) {
                 if (!player || !player.isValid()) return
 
@@ -211,7 +208,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 });
 
                 (await this).spawnPlayer(player)
-                   
+
             }
             system.run(async () => {
                 system.runTimeout(() => {
