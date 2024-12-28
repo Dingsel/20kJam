@@ -25,20 +25,38 @@ jobs:
             - name: Run export
               run: npm run export
 
-            - name: Zip Packs
+            - name: Zip BP
               uses: vimtor/action-zip@v1
               with:
-                  files: ./build/20kJam_rp ./build/20kJam_bp
-                  dest: bp.zip
+                  files: ./build/20kJam_bp
+                  dest: bp.mcpack
 
-            - name: Upload Artifacts
+            - name: Zip RP
+              uses: vimtor/action-zip@v1
+              with:
+                  files: ./build/20kJam_rp
+                  dest: rp.mcpack
+
+            - name: Zip Zipped Packs
+              uses: vimtor/action-zip@v1
+              with:
+                  files: ./rp.mcpack ./bp.mcpack
+                  dest: rt20k.mcaddon
+
+            - name: Upload RP
               uses: actions/upload-artifact@v3
               with:
                   name: RP
                   path: rp.mcpack
 
-            - name: Upload Artifacts
+            - name: Upload ArtifBPacts
               uses: actions/upload-artifact@v3
               with:
                   name: BP
                   path: bp.mcpack
+
+            - name: Upload ADDON
+              uses: actions/upload-artifact@v3
+              with:
+                  name: RT20K
+                  path: rt20k.mcaddon
