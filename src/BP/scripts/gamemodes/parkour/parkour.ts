@@ -115,6 +115,7 @@ export async function ParkourGameMode({
             });
         },
         async spawnPlayer(player) {
+            player.setSpawnPoint({ dimension: dim, ...parkourStartLocation });
             player.teleport(parkourStartLocation, {
                 facingLocation: parkourFinishArea.from,
             });
