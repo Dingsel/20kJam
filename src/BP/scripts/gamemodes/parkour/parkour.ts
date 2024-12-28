@@ -7,9 +7,9 @@ import { VECTOR3_ZERO, Vector3Utils } from "@minecraft/math";
 import { useLoadingTimer } from "../../utils";
 import { playerKillParticle } from "../../commonParticles";
 
-async function cameraFunction(player: Player) {
+async function useCamera(player: Player) {
     player.camera.setCamera("minecraft:free", { rotation: { x: 20, y: 0 }, location: { x: 3012, y: 15, z: 10 } })
-    player.camera.setCamera("minecraft:free", { rotation: { x: 0, y: 00 }, location: { x: 3012, y: 14, z: 20 }, easeOptions: { easeTime: 5 } })
+    player.camera.setCamera("minecraft:free", { rotation: { x: 0, y: 0 }, location: { x: 3012, y: 14, z: 20 }, easeOptions: { easeTime: 5 } })
 
     for (let i = 0; i < 5; i++) {
         player.onScreenDisplay.setActionBar('§aBe the first to finish the parkour!')
@@ -17,7 +17,6 @@ async function cameraFunction(player: Player) {
     }
 
     player.camera.clear()
-
 }
 
 const parkourFinishArea = new BlockVolume(
@@ -97,6 +96,7 @@ export async function ParkourGameMode({
         async onceActive() {
             for (const player of players) {
                 (await this).spawnPlayer(player);
+                useCamera(player);
             }
             system.run(async () => {
                 for (const player of players) {
@@ -122,7 +122,6 @@ export async function ParkourGameMode({
                 facingLocation: parkourFinishArea.from,
             });
             await system.waitTicks(100)
-            cameraFunction(player)
         },
         whileActive() {
             updatePlacements();
