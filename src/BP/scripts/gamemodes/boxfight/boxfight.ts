@@ -231,10 +231,10 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
 
                     dim.fillBlocks(clearVol, "minecraft:air")
 
-                    dim.spawnParticle('rt:boxfight_glow', Vector3Utils.add(start, { x: 1.5, y: 1.3, z: -2 }))
-                    dim.spawnParticle('rt:boxfight_glow', Vector3Utils.add(start, { x: 1.5, y: 1.3, z: 1 }))
-                    dim.spawnParticle('rt:boxfight_glow2', Vector3Utils.add(start, { x: 0, y: 1.3, z: -0.5 }))
-                    dim.spawnParticle('rt:boxfight_glow2', Vector3Utils.add(start, { x: 3, y: 1.3, z: -0.5 }))
+                    dim.spawnParticle('rt:boxfight_glow', Vector3Utils.add(start, { x: 1.5, y: 1.3, z: -2 + 0.01 }))
+                    dim.spawnParticle('rt:boxfight_glow', Vector3Utils.add(start, { x: 1.5, y: 1.3, z: 1 - 0.01 }))
+                    dim.spawnParticle('rt:boxfight_glow2', Vector3Utils.add(start, { x: 0 + 0.01, y: 1.3, z: -0.5 }))
+                    dim.spawnParticle('rt:boxfight_glow2', Vector3Utils.add(start, { x: 3 - 0.01, y: 1.3, z: -0.5 }))
                 }, 60)
 
                 for (const player of players) {

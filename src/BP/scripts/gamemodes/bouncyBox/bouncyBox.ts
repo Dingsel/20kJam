@@ -41,9 +41,8 @@ const scanDirections = [
 const BOUNCING_BLOCK = "rt:bouncy_block"
 const blaster = lockItem("rt:knockback_rpg")
 
-
 export async function useCamera(player: Player) {
-    player.camera.setCamera("minecraft:free", { rotation: { x: 20, y: 0 }, location: { x: 3985, y: 22, z: -15 }, facingLocation: centerLocation })
+    player.camera.setCamera("minecraft:free", { rotation: { x: 10, y: 0 }, location: { x: 3985, y: 22, z: -15 }, facingLocation: centerLocation })
     player.camera.setCamera("minecraft:free", { rotation: { x: 0, y: 0 }, location: { x: 3995, y: 18, z: -6 }, facingLocation: centerLocation, easeOptions: { easeTime: 5 } })
 
     for (let i = 0; i < 5; i++) {
