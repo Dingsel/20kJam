@@ -3,6 +3,14 @@
 
   "render": {
     "type": "panel",
+    "$offset": [0,20],
+        "variables": [
+      {
+        "requires": "($desktop_screen and not $education_edition)",
+        "$offset": [0,0]
+      }
+    ],
+    "offset": "$offset",
     "factory": {
       "name": "hud_title_text_factory",
       "control_ids": {

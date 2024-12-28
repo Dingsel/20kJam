@@ -67,6 +67,172 @@
       }
     ]
   },
+  
+    "hotbar_chooser": {
+    "type": "panel",
+    "size": [ "100%c", "100%c" ],
+    "$ignore_desktop": true,
+    "$ignore_pocket": false,
+    "variables": [
+      {
+        "requires": "($desktop_screen and not $education_edition)",
+        "$ignore_desktop": false,
+        "$ignore_pocket": true
+      }
+    ],
+
+    "controls": [
+      {
+        "desktop_hotbar@hotbar_panel": {
+        "size": [180,20],
+          "ignored": "$ignore_desktop",
+          "offset": [ -4, 0 ]
+        }
+      },
+      {
+        "pocket_hotbar@hotbar_panel": {
+               "size": [180,20],
+          "ignored": "$ignore_pocket",
+          "offset": [ -4, 0 ]
+        }
+      }
+    ]
+  },
+  
+  "hotbar_panel_pocket": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ 180, 40 ],
+    "offset": [ 10, 0 ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "use_anchored_offset": true,
+    "property_bag": {
+      "#anchored_offset_value_x": 0.0,
+      "#anchored_offset_value_y": 0.0,
+      "#size_binding_x": 0.0,
+      "#size_binding_y": 0.0
+    },
+    "controls": [
+      {
+        "hotbar_start_cap_frame": {
+          "type": "panel",
+          "size": [ 1, "100%" ],
+          "controls": [
+            {
+              "hotbar_start_cap@hud.hotbar_start_cap": {
+                "offset": [ 0, "-2.5%" ],
+                "$cap_size": [ 1, "105%" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "hotbar_elipses_panel_left": {
+          "type": "panel",
+          "size": [ 20, "100%" ],
+          "controls": [
+            {
+              "hotbar_elipses_panel_left@hud.hotbar_elipses_panel_left_art": {
+                "$hotbar_elipses_panel_left_art_size": [ "105%", "105%" ],
+                "$hotbar_elipses_button_size": [ "77%", "77%" ],
+                "$elipses_image_size": [ "75%", "75%" ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#hotbar_elipses_left_visible",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      },
+      {
+        "hotbar_grid@hud.hotbar_grid": {
+          "size": [ 180, "100%" ],
+          "grid_item_template": "hud.gui_hotbar_grid_item_pocket"
+        }
+      },
+      {
+        "hotbar_elipses_panel_right": {
+          "type": "panel",
+          "size": [ 20, "100%" ],
+          "controls": [
+            {
+              "hotbar_elipses_panel_right@hud.hotbar_elipses_panel_right_art": {
+                "$hotbar_elipses_panel_right_art_size": [ "105%", "105%" ],
+                "$hotbar_elipses_button_size": [ "77%", "77%" ],
+                "$elipses_image_size": [ "75%", "75%" ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#hotbar_elipses_right_visible",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      },
+      {
+        "hotbar_end_cap_frame": {
+          "type": "panel",
+          "size": [ 1, "100%" ],
+          "controls": [
+            {
+              "hotbar_end_cap@hud.hotbar_end_cap": {
+                "offset": [ 0, "-2.5%" ],
+                "$cap_size": [ 1, "105%" ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#hotbar_offset_x",
+        "binding_name_override": "#anchored_offset_value_x"
+      },
+      {
+        "binding_name": "#hotbar_offset_y",
+        "binding_name_override": "#anchored_offset_value_y"
+      },
+      {
+        "binding_name": "#hotbar_size_x",
+        "binding_name_override": "#size_binding_x"
+      },
+      {
+        "binding_name": "#hotbar_size_y",
+        "binding_name_override": "#size_binding_y"
+      }
+    ]
+  },
+
+  
+    "hotbar_elipses_panel_right_art": {
+    "type": "panel",
+    "$hotbar_elipses_panel_right_art_size|default": [ 20, 22 ],
+    "size": [20,22],
+    "layer": 4,
+    "controls": [
+      {
+        "slot@hud.hotbar_slot_image": {
+          "$hotbar_slot_image_size": "$hotbar_elipses_panel_right_art_size",
+          // The layering is for cover the grid cap/black border when this panel is visible
+          "layer": 2,
+          //Grab the right hand end of the hotbar
+          "texture": "textures/ui/hotbar_8"
+        }
+      },
+      { "button@hud.hotbar_elipses_button": {} }
+    ]
+  },
+
 
   "hud_title_text": {
     "type": "stack_panel",
