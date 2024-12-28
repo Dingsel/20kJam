@@ -23,6 +23,24 @@ export async function anounceGamemode(gamemode: GamemodeExport): Promise<void> {
     return system.waitTicks(60)
 }
 
+export async function chooseGamemode(gamemodeIndex: number): Promise<void> {
+    const players = world.getAllPlayers()
+    const random = Math.floor(Math.random() * 3)
+
+    players.forEach((player) => {
+        player.playSound("rt:spin")
+    })
+
+    await system.waitTicks(17)
+
+    players.forEach((player) => {
+        if (!player.isValid()) return
+        player.sendMessage(`RTKJAM:cgamea${gamemodeIndex}b${random}`)
+    })
+
+    await system.waitTicks(9 * 20)
+}
+
 export async function titleCountdown(
     remainingSeconds: number,
     targetPlayers?: Player[],
