@@ -9,7 +9,7 @@ import { Vector3Utils } from "@minecraft/math"
 import { playerKillParticle } from "../../commonParticles"
 
 
-async function cameraFunction(player: Player) {
+async function useCamera(player: Player): Promise<void> {
     player.camera.setCamera("minecraft:free", { rotation: { x: 90, y: 0 }, location: { x: 982.5, y: 22, z: -10.5 } })
     player.camera.setCamera("minecraft:free", { rotation: { x: 90, y: 40 }, location: { x: 982.5, y: 20, z: -10.5 }, easeOptions: { easeTime: 5 } })
 
@@ -173,7 +173,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
             player.setSpawnPoint({ ...spawnLoc, dimension: player.dimension })
             player.teleport(spawnLoc, { facingLocation: start })
             await system.waitTicks(100)
-            cameraFunction(player)
+            useCamera(player)
         },
 
         async onceActive() {
@@ -239,13 +239,6 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
 
                 for (const player of players) {
                     player.setGameMode(GameMode.spectator);
-                }
-                for (const player of players) {
-                    for(let i = 0; i<5; i++) {
-                        player.sendMessage("RTKJAM:stext" + '§aLoading§2' + ('.').repeat((i%3)+1))
-  
-                        await system.waitTicks(20)
-                    }
                 }
                 await useLoadingTimer(5, players);
                 for (const player of players) {

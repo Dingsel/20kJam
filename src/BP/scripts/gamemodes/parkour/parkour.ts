@@ -94,18 +94,23 @@ export async function ParkourGameMode({
             deathSequence: "timedRespawn",
         },
         async onceActive() {
-            for (const player of players) {
-                (await this).spawnPlayer(player);
-                useCamera(player);
-            }
             system.run(async () => {
+
                 for (const player of players) {
+                    (await this).spawnPlayer(player);
                     player.setGameMode(GameMode.spectator);
+
+                    system.runTimeout(() => {
+                        useCamera(player);
+                    }, 20 * 5)
                 }
+
                 await useLoadingTimer(5, players);
+
                 for (const player of players) {
                     player.setGameMode((await this).gameSettings.gameMode);
                 }
+
                 timer.start();
             });
         },

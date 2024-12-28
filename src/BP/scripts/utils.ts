@@ -15,7 +15,7 @@ export async function anounceGamemode(gamemode: GamemodeExport): Promise<void> {
         await system.waitTicks(20)
         player.playSound("rt:jingle", { volume: 9999 })
         await system.waitTicks(30)
-        player.camera.fade({fadeColor: {red:0,blue:0,green:0},fadeTime:{fadeInTime: 0.5,fadeOutTime: 0.5,holdTime:7}})
+        player.camera.fade({ fadeColor: { red: 0, blue: 0, green: 0 }, fadeTime: { fadeInTime: 0.5, fadeOutTime: 0.5, holdTime: 7 } })
     })
 
     await system.waitTicks(20)
@@ -65,7 +65,7 @@ export async function titleCountdown(
             } else {
                 player.sendMessage("RTKJAM:stext" + soundSettings.extraText + (String(remainingSeconds)))
             }
-            player.playSound(soundSettings.tickSound, {volume: 100000,pitch: soundSettings.pitch})
+            player.playSound(soundSettings.tickSound, { volume: 100000, pitch: soundSettings.pitch })
         }
     })
 
@@ -88,12 +88,19 @@ export function structure([structureId]: TemplateStringsArray): Structure {
 }
 
 export async function useLoadingTimer(seconds: number, targetPlayers: Player[]): Promise<void> {
-    targetPlayers.forEach((player) => player.inputPermissions.movementEnabled = false)
-    await titleCountdown(seconds, targetPlayers, { endSound: "random.orb", endText: "§aGO", tickSound: "random.click", extraText: "§2Starting in §a",actionbar:false, pitch:1 })
+    for (const player of targetPlayers) {
+        player.inputPermissions.movementEnabled = false
+        for (let i = 0; i < 5; i++) {
+            player.sendMessage("RTKJAM:stext" + '§aLoading§2' + ('.').repeat((i % 3) + 1))
+
+            await system.waitTicks(20)
+        }
+    }
+    await titleCountdown(seconds, targetPlayers, { endSound: "random.orb", endText: "§aGO", tickSound: "random.click", extraText: "§2Starting in §a", actionbar: false, pitch: 1 })
     targetPlayers.forEach((player) => player.inputPermissions.movementEnabled = true)
 }
 
 export function sendError(player: Player, message: string): void {
-    player.playSound("entity.villager.no")
-    player.sendMessage(`§cError: ${message}`)
+    player.playSound("mob.villager.no")
+    player.sendMessage(`§c${message}`)
 }
