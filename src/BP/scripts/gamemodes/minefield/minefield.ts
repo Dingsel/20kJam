@@ -123,7 +123,6 @@ export async function MinefieldGameMode({
             for (const player of players) {
                 (await this).spawnPlayer(player);
                 player.setSpawnPoint({ dimension: dim, ...minefieldStartLocations[0] });
-                player.addEffect("blindness", 20 * 4, { showParticles: false });
             }
 
             system.runTimeout(() => {

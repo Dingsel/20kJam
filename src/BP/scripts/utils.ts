@@ -9,11 +9,13 @@ export function shuffleArr<T extends any[]>(array: T): T {
     return array
 }
 
-export async function anounceGamemode(gamemode: GamemodeExport): Promise<void> {
+export async  function anounceGamemode(gamemode: GamemodeExport): Promise<void> {
     world.getAllPlayers().forEach(async (player) => {
         player.playSound("random.levelup")
         await system.waitTicks(20)
         player.playSound("rt:jingle", { volume: 9999 })
+        await system.waitTicks(30)
+        player.camera.fade({fadeColor: {red:0,blue:0,green:0},fadeTime:{fadeInTime: 0.5,fadeOutTime: 1,holdTime:2}})
     })
 
     await system.waitTicks(20)
@@ -34,7 +36,7 @@ export async function titleCountdown(
 ): Promise<void> {
     targetPlayers?.forEach((player) => {
         if (remainingSeconds <= 0) {
-            player.playSound(soundSettings.endSound)
+            player.playSound(soundSettings.endSound, {volume:10000000})
             player.onScreenDisplay.setActionBar(soundSettings.endText)
             player.sendMessage("RTKJAM:stext")
 
@@ -44,7 +46,7 @@ export async function titleCountdown(
             } else {
                 player.sendMessage("RTKJAM:stext" + soundSettings.extraText+ (String(remainingSeconds)))
             }
-            player.playSound(soundSettings.tickSound)
+            player.playSound(soundSettings.tickSound, {volume: 100000})
         }
     })
 

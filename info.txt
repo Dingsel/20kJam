@@ -16,3 +16,11 @@ Race
 
 BuildBattle
 -Example: BLDTMR00:00TMR2/2
+
+
+
+playsound rt:spin @a     await 17 ticks
+
+RTKJAM:cgamea0b1
+
+RTKJAM:cgame(a0-5 -> gamemode)(b0-3 -> randomize)

@@ -1,4 +1,4 @@
-import { BlockVolume, BlockVolumeBase, Entity, EntityEquippableComponent, EntityInventoryComponent, EquipmentSlot, GameMode, ItemStack, Player, system, Vector3, world } from "@minecraft/server"
+import { BlockVolume, BlockVolumeBase, EasingType, Entity, EntityEquippableComponent, EntityInventoryComponent, EquipmentSlot, GameMode, ItemStack, Player, system, Vector3, world } from "@minecraft/server"
 import { GameEventData, GamemodeExport } from "../gamemodeTypes"
 import { activeGamemode, dim, endRound } from "../../main"
 import { useCountdown } from "../../hooks/useCountdown"
@@ -8,6 +8,23 @@ import { useLoadingTimer } from "../../utils"
 import { Vector3Utils } from "@minecraft/math"
 import { playerKillParticle } from "../../commonParticles"
 
+
+async function cameraFunction(player: Player) {
+    player.onScreenDisplay.setActionBar('§aBe the first team to fill in the middle!')
+    player.camera.setCamera("minecraft:free",{rotation: {x:90,y:0},location: {x: 982.5,y: 22,z: -10.5} })
+    player.camera.setCamera("minecraft:free",{rotation: {x:90,y:40},location: {x: 982.5,y: 20,z: -10.5},easeOptions: {easeTime:5} })
+    await system.waitTicks(20)
+    player.onScreenDisplay.setActionBar('§aBe the first team to fill in the middle!')
+    await system.waitTicks(20)
+    player.onScreenDisplay.setActionBar('§aBe the first team to fill in the middle!')
+    await system.waitTicks(20)
+    player.onScreenDisplay.setActionBar('§aBe the first team to fill in the middle!')
+    await system.waitTicks(20)
+    player.onScreenDisplay.setActionBar('§aBe the first team to fill in the middle!')
+    await system.waitTicks(20)
+    player.camera.clear()
+
+}
 
 const { start, end } = {
     start: {
@@ -156,11 +173,12 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
             const spawnLoc = teamSpawnLocations[teamData.teamId] || teamSpawnLocations[0]
             player.setSpawnPoint({ ...spawnLoc, dimension: player.dimension })
             player.teleport(spawnLoc, { facingLocation: start })
+            cameraFunction(player)
         },
 
         async onceActive() {
 
-
+            
             for (const [player, { teamId }] of playerTeamMap.entries()) {
                 if (!player || !player.isValid()) return
 
@@ -193,7 +211,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 });
 
                 (await this).spawnPlayer(player)
-
+                   
             }
             system.run(async () => {
                 system.runTimeout(() => {
