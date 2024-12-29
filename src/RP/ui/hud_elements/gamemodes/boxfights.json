@@ -3,11 +3,12 @@
 
     "render": {
         "type": "panel",
-        "$offset": [0, 20],
+        
+        "$offset": [0, 0],
         "variables": [
             {
-                "requires": "($desktop_screen and not $education_edition)",
-                "$offset": [0, 0]
+                "requires": "((not $desktop_screen and not $education_edition) or ($is_android or $is_ios))",
+                "$offset": [0, 20]
             }
         ],
         "offset": "$offset",

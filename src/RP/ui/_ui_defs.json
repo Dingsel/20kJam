@@ -12,6 +12,7 @@
     "ui/hud_elements/gamemodes/boxfights.json",
     "ui/hud_elements/gamemodes/race.json",
     "ui/hud_elements/gamemodes/buildbattle.json",
+    "ui/hud_elements/gamemodes/runecollector.json",
     // Permanents -
     "ui/hud_elements/permanents/coins.json",
     "ui/hud_elements/permanents/base_text.json",

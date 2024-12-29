@@ -267,6 +267,9 @@
           },
           {
             "gamechooser@pm_gamechooser.render": {}
+          },
+          {
+          "runecollector@gm_runecollector.render": {}
           }
           
         ]

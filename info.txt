@@ -22,3 +22,7 @@ playsound rt:spin @a     await 17 ticks
 RTKJAM:cgamea0b1
 
 RTKJAM:cgame(a0-5 -> gamemode)(b0-3 -> randomize)
+
+
+Runecollector 
+- example: RCLTMR00:00TMR1213
