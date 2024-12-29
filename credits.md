@@ -2,7 +2,7 @@
 
 ## 👥 The Crew
 
--   ⚔️Schwerty (Pablo) - UI Engenier, Texture Designer, Developer & Builder
+-   ⚔️Schwerty (Pablo) - UI Engenier, Developer
 -   🏗️YassinArb - Builder, Modler & Texture Designer
 -   🐺Dingsel - Lead Developer & Sound Design & UI Fixes
 
