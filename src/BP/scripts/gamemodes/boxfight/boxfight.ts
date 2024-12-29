@@ -40,7 +40,7 @@ const BLOCK_NEEDED_FOR_WIN = vol.getCapacity()
 
 const TEAM_0_BLOCK = "minecraft:purple_concrete_powder"
 const TEAM_1_BLOCK = "minecraft:orange_concrete_powder"
-const winCond = [{ block: TEAM_0_BLOCK, teamId: 0 }, { block: TEAM_1_BLOCK, teamId: 1 }]
+const winConds = [{ block: TEAM_0_BLOCK, teamId: 0 }, { block: TEAM_1_BLOCK, teamId: 1 }] as const
 
 const teamSpawnLocations = [
     {
@@ -110,7 +110,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
     })
 
     function checkIfGameWon() {
-        for (const { block, teamId } of winCond) {
+        for (const { block, teamId } of winConds) {
             if (dim.getBlocks(vol, { includeTypes: [block] }, true).getCapacity() < BLOCK_NEEDED_FOR_WIN) continue
             const winningPlayers = players.filter(x => {
                 return (
@@ -130,7 +130,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
         let winningTeam = -1
         let winningTeamScore = -1
 
-        for (const { block, teamId } of winCond) {
+        for (const { block, teamId } of winConds) {
             const capactiy = dim.getBlocks(vol, { includeTypes: [block] }, true).getCapacity()
             if (capactiy >= 0 && capactiy >= winningTeamScore) {
                 winningTeamScore = capactiy

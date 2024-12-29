@@ -10,10 +10,10 @@
         "components": {
             "minecraft:use_animation": "bow",
             "minecraft:max_stack_size": 1,
-            "minecraft:icon": "stick",
+            "minecraft:icon": "rt_bouncy_blaster",
             "minecraft:hand_equipped": true,
             "minecraft:display_name": {
-                "value": "§2Knockback §bRPG"
+                "value": "§2Knockback §bBlaster"
             },
             "minecraft:cooldown": {
                 "category": "rt:knockback_rpg",

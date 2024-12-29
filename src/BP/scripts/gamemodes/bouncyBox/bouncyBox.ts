@@ -133,7 +133,7 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
         const teams = [0, 1];
 
         for (const teamId of teams) {
-            if (!alivePlayers.some(p => playerTeamMap.get(p)?.teamId === teamId) && isActive) {
+            if (/* false && */!alivePlayers.some(p => playerTeamMap.get(p)?.teamId === teamId) && isActive) {
                 isActive = false;
                 const winningTeam = teamId === 0 ? 1 : 0;
                 const winningTeamMembers = alivePlayers.filter(p => playerTeamMap.get(p)?.teamId === winningTeam)
@@ -146,6 +146,11 @@ export async function BouncyBoxGameMode({ players }: GameEventData): Promise<Gam
     const killEvent = world.afterEvents.entityDie.subscribe((event) => {
         const { damageSource, deadEntity } = event
         if (!(deadEntity instanceof Player)) return
+
+        const deadTeam = playerTeamMap.get(deadEntity)?.teamId
+        const oposingTeam = players.filter(p => playerTeamMap.get(p)?.teamId !== deadTeam && p.isValid())
+        oposingTeam.forEach(p => p.rt.coins += 250)
+
         checkIfGameWon()
     })
 

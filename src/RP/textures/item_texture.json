@@ -1,0 +1,8 @@
+{
+    "resource_pack_name": "rt20k",
+    "texture_data": {
+        "rt_bouncy_blaster": {
+            "textures": ["textures/items/bouncy_blaster"]
+        }
+    }
+}

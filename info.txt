@@ -17,8 +17,6 @@ Race
 BuildBattle
 -Example: BLDTMR00:00TMR2/2
 
-
-
 playsound rt:spin @a     await 17 ticks
 
 RTKJAM:cgamea0b1
