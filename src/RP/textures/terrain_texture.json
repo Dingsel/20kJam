@@ -4,7 +4,7 @@
     "resource_pack_name" : "rt",
     "texture_data" : {
         "explode_plate": {
-            "textures": ["rt20k/pressure_bomb"]
+            "textures": ["textures/blocks/pressure_bomb.texture"]
         }
     }
 }

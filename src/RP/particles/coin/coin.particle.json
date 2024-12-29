@@ -5,7 +5,7 @@
 			"identifier": "rt:coins",
 			"basic_render_parameters": {
 				"material": "particles_alpha",
-				"texture": "rt20k/coin"
+				"texture": "rt20k/coin/coin_anim.texture"
 			}
 		},
 		"curves": {
