@@ -21,6 +21,7 @@ export class BoxfightDisplayHandler extends DisplayHandler {
         let offset2 = 0;
 
         this.teamMap.forEach(({ teamId }, player) => {
+            if (!player.isValid()) return;
             const liveStatusPrefix = player.isDead ? "PLD" : "PLA";
             const paddedName = player.name.padEnd(17, ",");
 

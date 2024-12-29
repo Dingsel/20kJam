@@ -220,10 +220,10 @@
     },
 
     "getPlayerPic": {
+        "$name_at|default": 11,
         "type": "grid",
         "size": [16, 0],
-        "$name_at|default": 11,
-        "grid_item_template": "gm_boxfights.getPlayerPic_item",
+        "grid_item_template": "gm_race.getPlayerPic_item",
         "grid_dimension_binding": "#players_grid_dimension",
         "collection_name": "players_collection",
         "bindings": [
