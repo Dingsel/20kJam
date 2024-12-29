@@ -19,7 +19,7 @@
         }
     },
 
-    "main": {
+    "main@rt20k.p": {
         "anims": ["@gm_race.out_anim_main"],
 
         "bindings": [
@@ -80,7 +80,7 @@
         "size": [16, 0],
         "controls": [
             {
-                "a@gm_boxfights.getPlayerPic_item": {}
+                "player_pic@gm_boxfights.getPlayerPic_item": {}
             }
         ]
 

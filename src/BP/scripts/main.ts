@@ -119,10 +119,10 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
 
     const selectedGamemode = gameModes[gamemodeElementIndex]
     if (!selectedGamemode) return
+    if (activeGamemode) endRound([])
 
     //TODO: Only valid players
     const upcomingGamemode = await selectedGamemode({ players: world.getAllPlayers() })
-    if (activeGamemode) endRound([])
 
     activeGamemode = upcomingGamemode
 
@@ -150,11 +150,9 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
 
 export async function endRound(playersThatWon: Player[]) {
     if (!activeGamemode) return;
-
     await activeGamemode.dispose?.()
 
     applyGameRules(defaultGameRules)
-
 
     world.getAllPlayers().forEach((player) => {
         if (playersThatWon.includes(player)) {

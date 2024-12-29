@@ -123,21 +123,21 @@ export async function ParkourGameMode({
         },
         whileActive() {
             updatePlacements();
+            display.updateDisplay();
 
             for (const player of roundWinners) {
                 if (!player.isValid()) continue;
                 player.sendMessage("RTKJAM:stext" + "§eYou are §6Finished");
             }
 
-            display.updateDisplay();
             for (const player of players) {
                 if (
                     !player.isValid() ||
                     !parkourFinishArea.isInside(player.location) ||
                     roundWinners.includes(player) ||
                     player.isDead
-                )
-                    continue;
+                ) continue;
+
                 player.sendMessage("You finished the parkour!");
                 player.setGameMode(GameMode.spectator);
 
