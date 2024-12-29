@@ -151,7 +151,6 @@ export async function ParkourGameMode({
                     }
                 })
 
-
                 player.rt.coins += Math.max(1250 - roundWinners.length * 125, 100);
                 fixedPlacements.push(player);
                 roundWinners.push(player);
