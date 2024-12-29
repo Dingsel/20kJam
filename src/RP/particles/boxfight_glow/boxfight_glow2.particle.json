@@ -5,7 +5,7 @@
 			"identifier": "rt:boxfight_glow2",
 			"basic_render_parameters": {
 				"material": "particles_blend",
-				"texture": "particles/boxfight_glow/gradient"
+				"texture": "particles/boxfight_glow/gradient.texture"
 			}
 		},
 		"components": {

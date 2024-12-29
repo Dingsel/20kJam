@@ -1,78 +1,78 @@
 {
-  "namespace": "gm_buildbattle",
+    "namespace": "gm_buildbattle",
 
-  "render": {
-    "type": "panel",
-    
-    "$offset": [0,20],
+    "render": {
+        "type": "panel",
+
+        "$offset": [0, 20],
         "variables": [
-      {
-        "requires": "($desktop_screen and not $education_edition)",
-        "$offset": [0,0]
-      }
-    ],
-    "offset": "$offset",
-    "factory": {
-      "name": "hud_title_text_factory",
-      "control_ids": {
-        "hud_title_text": "main@gm_buildbattle.main"
-      }
-    }
-  },
-
-  "main@rt20k.p": {
-    "anims": ["@gm_race.out_anim_main"],
-
-    "bindings": [
-      {
-        "binding_name": "#hud_title_text_string"
-      },
-      {
-        "binding_type": "view",
-        "source_property_name": "('%.3s' * #hud_title_text_string)",
-        "target_property_name": "#text_name"
-      },
-      {
-        "binding_type": "view",
-        "source_property_name": "(#text_name = 'BLD')",
-        "target_property_name": "#visible"
-      }
-    ],
-    "controls": [
-      {
-        "top@rt20k.sp": {
-          "size": ["100%c", 16],
-          "offset": [0, 2],
-          "orientation": "horizontal",
-          "anchor_from": "top_middle",
-          "anchor_to": "top_middle",
-          "controls": [
             {
-              "timer@gm_boxfights.timer": {
-                "$which_at": 11,
-                "size": ["100%c + 6px", 16],
-                "$font_scale": 1.5,
-                "$color": [0.2,0.9,0.3],
-                "$length": 3,
-                "$inside_base": "9/9",
-                "$extra_addition": ""
-              }
-            },
-            {
-              "pad@rt20k.p": {
-                "size": [4, 16]
-              }
-            },
-            {
-              "timer@gm_boxfights.timer": {
-                "size": ["100%c + 6px", 16],
-                "$which_at": 3,
-                "$font_scale": 1.5
-              }
+                "requires": "($desktop_screen and not $education_edition)",
+                "$offset": [0, 0]
             }
-          ]
+        ],
+        "offset": "$offset",
+        "factory": {
+            "name": "hud_title_text_factory",
+            "control_ids": {
+                "hud_title_text": "main@gm_buildbattle.main"
+            }
         }
-      }
-    ]
-  }
+    },
+
+    "main@rt20k.p": {
+        "anims": ["@gm_race.out_anim_main"],
+
+        "bindings": [
+            {
+                "binding_name": "#hud_title_text_string"
+            },
+            {
+                "binding_type": "view",
+                "source_property_name": "('%.3s' * #hud_title_text_string)",
+                "target_property_name": "#text_name"
+            },
+            {
+                "binding_type": "view",
+                "source_property_name": "(#text_name = 'BLD')",
+                "target_property_name": "#visible"
+            }
+        ],
+        "controls": [
+            {
+                "top@rt20k.sp": {
+                    "size": ["100%c", 16],
+                    "offset": [0, 2],
+                    "orientation": "horizontal",
+                    "anchor_from": "top_middle",
+                    "anchor_to": "top_middle",
+                    "controls": [
+                        {
+                            "timer@gm_boxfights.timer": {
+                                "$which_at": 11,
+                                "size": ["100%c + 6px", 16],
+                                "$font_scale": 1.5,
+                                "$color": [0.2, 0.9, 0.3],
+                                "$length": 3,
+                                "$inside_base": "9/9",
+                                "$extra_addition": ""
+                            }
+                        },
+                        {
+                            "pad@rt20k.p": {
+                                "size": [4, 16]
+                            }
+                        },
+                        {
+                            "timer@gm_boxfights.timer": {
+                                "size": ["100%c + 6px", 16],
+                                "$which_at": 3,
+                                "$font_scale": 1.5
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
 }

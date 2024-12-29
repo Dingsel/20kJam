@@ -75,27 +75,17 @@
     },
 
     "getPlayerPic": {
-        "type": "panel",
-        "$name_at|default": 8,
-        "size": [16, 0],
-        "controls": [
-            {
-                "player_pic@gm_boxfights.getPlayerPic_item": {}
-            }
-        ]
-
-        /*         "$name_at|default": 8,
         "type": "grid",
         "size": [16, 0],
+        "$name_at|default": 8,
         "grid_item_template": "gm_boxfights.getPlayerPic_item",
         "grid_dimension_binding": "#players_grid_dimension",
         "collection_name": "players_collection",
         "bindings": [
             {
-                "binding_name": "#players_grid_dimension",
-                "binding_condition": "always"
+                "binding_name": "#players_grid_dimension"
             }
-        ] */
+        ]
     },
 
     "getPlayerPic_item@rt20k.p": {
