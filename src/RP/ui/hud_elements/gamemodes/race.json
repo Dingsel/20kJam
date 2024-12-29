@@ -228,7 +228,8 @@
         "collection_name": "players_collection",
         "bindings": [
             {
-                "binding_name": "#players_grid_dimension"
+                "binding_name": "#players_grid_dimension",
+                "binding_condition": "visibility_changed"
             }
         ]
     },
