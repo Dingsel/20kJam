@@ -11,9 +11,15 @@ export const RandomizeCoins: CustomComponent = {
             const { block } = event
             if (block.permutation.getState("rt:coin_tier") !== 0) return
 
-            block.setPermutation(BlockPermutation.resolve(block.typeId, {
-                "rt:coin_tier": Math.floor(Math.random() * maxState) + 1
-            }))
+            const rand = Math.random()
+
+            if (rand >= 0.6) {
+                block.setPermutation(BlockPermutation.resolve(block.typeId, {
+                    "rt:coin_tier": Math.floor(Math.random() * maxState) + 1
+                }))
+            } else {
+                block.setType("minecraft:air")
+            }
         }
     }
 }

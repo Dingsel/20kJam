@@ -32,7 +32,8 @@ export function BoxfightPregame({ players }: { players: Player[] }): Promise<Box
 
     players.forEach((p) => {
         const container = (p.getComponent("inventory") as EntityInventoryComponent).container
-        container?.setItem(8, KitSelectorItem)
+        container?.setItem(4, KitSelectorItem)
+        p.selectedSlotIndex = 4
     })
 
     const event = world.afterEvents.itemUse.subscribe(async (ev) => {
@@ -50,6 +51,8 @@ export function BoxfightPregame({ players }: { players: Player[] }): Promise<Box
         const kit = kits[selectedKitIndex]
         if (kit) {
             source.selectedKitIndex = selectedKitIndex
+            source.playSound("random.orb", { pitch: 2 })
+            source.sendMessage(`§eYou selected the §6${kit.displayName} §eKit!`)
         }
     })
 
@@ -62,7 +65,7 @@ export function BoxfightPregame({ players }: { players: Player[] }): Promise<Box
     }
 
     return new Promise(async (resolve) => {
-        await titleCountdown(20, players, { endSound: "", endText: "", tickSound: "random.click", actionbar: true, extraText: '§2Pick your Kit §a', pitch: 2})
+        await titleCountdown(20, players, { endSound: "", endText: "", tickSound: "random.click", actionbar: true, extraText: '§2Pick your Kit §a', pitch: 2 })
 
         players.forEach((p) => {
             if (!p.isValid()) return

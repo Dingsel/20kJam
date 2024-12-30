@@ -4,10 +4,12 @@ import { Countdown } from "../../hooks/useCountdown";
 
 class RuneCollectorDisplay extends DisplayHandler {
     private timers: Map<Player, Countdown>;
+    private playerCoinMap: Map<Player, number>;
 
-    constructor(players: Player[], timers: Map<Player, Countdown>) {
+    constructor(players: Player[], timers: Map<Player, Countdown>, playerCoinMap: Map<Player, number>) {
         super(players);
         this.timers = timers;
+        this.playerCoinMap = playerCoinMap;
     }
 
     public getDisplayText(player: Player): string {
@@ -18,10 +20,11 @@ class RuneCollectorDisplay extends DisplayHandler {
         const minutes = Math.floor(Number(timeInSec) / 60).toString().padStart(2, "0");
         const remainingSeconds = Math.floor(Number(timeInSec) % 60).toString().padStart(2, "0");
 
-        return `BLDTMR${minutes}:${remainingSeconds}TMR2/2`
+        //ADD COLLECTED COIN AMOUNT HERE
+        return `RCLTMR${minutes}:${remainingSeconds}TMR${this.playerCoinMap.get(player)}`
     }
 }
 
-export function useRuneCollectorDisplay({ players, timers }: { players: Player[], timers: Map<Player, Countdown> }) {
-    return new RuneCollectorDisplay(players, timers)
+export function useRuneCollectorDisplay({ players, timers, playerCoinMap }: { players: Player[], timers: Map<Player, Countdown>, playerCoinMap: Map<Player, number> }) {
+    return new RuneCollectorDisplay(players, timers, playerCoinMap)
 }

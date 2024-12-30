@@ -11,7 +11,7 @@
             "minecraft:display_name": {
                 "value": "Box Fight Kit Selector"
             },
-            "minecraft:icon": "stick"
+            "minecraft:icon": "rt_kit_selector"
         }
     }
 }

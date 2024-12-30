@@ -2,8 +2,29 @@
     "resource_pack_name": "rt20k",
     "texture_name": "atlas.items",
     "texture_data": {
+        "rt_kit_selector": {
+            "textures": ["textures/items/kit_selector.texture"]
+        },
+        "rt_sand_dagger": {
+            "textures": ["textures/items/sand_dagger.texture"]
+        },
         "rt_bouncy_blaster": {
             "textures": ["textures/items/bouncy_blaster.texture"]
+        },
+        "rt_rune_1": {
+            "textures": ["textures/items/runes/rune1.texture"]
+        },
+        "rt_rune_2": {
+            "textures": ["textures/items/runes/rune2.texture"]
+        },
+        "rt_rune_3": {
+            "textures": ["textures/items/runes/rune3.texture"]
+        },
+        "rt_rune_4": {
+            "textures": ["textures/items/runes/rune4.texture"]
+        },
+        "rt_rune_5": {
+            "textures": ["textures/items/runes/rune5.texture"]
         }
     }
 }

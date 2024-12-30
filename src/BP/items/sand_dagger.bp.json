@@ -1,0 +1,24 @@
+{
+    "format_version": "1.20.80",
+    "minecraft:item": {
+        "description": {
+            "identifier": "rt:sand_dagger",
+            "menu_category": {
+                "category": "items"
+            }
+        },
+        "components": {
+            "minecraft:icon": "rt_sand_dagger",
+            "minecraft:display_name": {
+                "value": "§eSand Dagger"
+            },
+            "minecraft:max_stack_size": 1,
+            "minecraft:hand_equipped": {
+                "value": true
+            },
+            "minecraft:damage": {
+                "value": 4
+            }
+        }
+    }
+}

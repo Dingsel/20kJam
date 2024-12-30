@@ -1,0 +1,17 @@
+{
+    "format_version": "1.20.80",
+    "minecraft:item": {
+        "description": {
+            "identifier": "rt:rune_of_destiny",
+            "menu_category": {
+                "category": "items"
+            }
+        },
+        "components": {
+            "minecraft:icon": "rt_rune_2",
+            "minecraft:display_name": {
+                "value": "§cRune of Destiny"
+            }
+        }
+    }
+}

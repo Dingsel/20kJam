@@ -18,6 +18,9 @@
             "minecraft:geometry": {
                 "identifier": "minecraft:geometry.full_block"
             },
+            "minecraft:collision_box": {
+                "size": [8, 6, 8]
+            },
             "minecraft:material_instances": {
                 "*": {
                     "texture": "stone"

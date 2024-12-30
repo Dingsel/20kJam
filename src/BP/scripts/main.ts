@@ -181,12 +181,12 @@ export async function endRound(playersThatWon: Player[]) {
     })
 }
 
-/* system.runInterval(() => {
+system.runInterval(() => {
     world.getAllPlayers().forEach((player) => {
-        player.setSpawnPoint({ dimension: dim, ...player.location })
+        player.addEffect("saturation", 999, { showParticles: false })
     })
-}, 5)
- */
+}, 60)
+
 world.afterEvents.playerSpawn.subscribe((event) => {
     const { player } = event;
     player.rt.setCoinDisplay("shown")
