@@ -71,6 +71,19 @@ function applyGameRules(rules: GameRuleSettings) {
     })
 }
 
+async function anounceTopPlayers() {
+    const players = world.getAllPlayers().sort((a, b) => b.rt.coins - a.rt.coins)
+    const topPlayers = players.slice(0, 3)
+
+    for (let i = Math.min(2, topPlayers.length - 1); i >= 0; i--) {
+        const player = topPlayers[i]
+        const place = i + 1
+        world.sendMessage(`§a#${place} ${player.name} with ${player.rt.coins} coins`)
+        dim.runCommand(`playsound note.pling @a ~ ~ ~ 1 ${1 + (3 - place) * 0.1}`)
+        await system.waitTicks(20)
+    }
+}
+
 function setupGame() {
     const randomGamemodes: Gamemodes = shuffleArr([...gameModes])
     let gamemodeIndex = 0
@@ -104,14 +117,17 @@ function setupGame() {
 
         //Score of a player over 20k
         if (checkIfWin()) {
+            world.getAllPlayers().forEach((player) => { player.rt.coins = 0 })
             world.sendMessage("Hurray you won the Event")
         } else {
-            await system.waitTicks(200)
+            await system.waitTicks(100)
+            anounceTopPlayers()
+            await system.waitTicks(100)
             gameLoop()
         }
     }
 
-    //gameLoop()
+    gameLoop()
 }
 
 //TEMPORARY

@@ -69,6 +69,7 @@ export function BoxfightPregame({ players }: { players: Player[] }): Promise<Box
 
         players.forEach((p) => {
             if (!p.isValid()) return
+            p.runCommand("clear @s")
             uiManager.closeAllForms(p)
         })
 
