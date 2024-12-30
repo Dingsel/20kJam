@@ -1,0 +1,152 @@
+{
+    "format_version": "1.20.80",
+    "minecraft:block": {
+        "description": {
+            "identifier": "rt:coin_pile",
+            "states": {
+                "rt:coin_tier": {
+                    "values": {
+                        "min": 0,
+                        "max": 6
+                    }
+                }
+            }
+        },
+        "components": {
+            "minecraft:destructible_by_explosion": false,
+            "minecraft:destructible_by_mining": false,
+            "minecraft:geometry": {
+                "identifier": "minecraft:geometry.full_block"
+            },
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "stone"
+                }
+            },
+            "minecraft:tick": {
+                "interval_range": [5, 20],
+                "looping": true
+            },
+            "minecraft:custom_components": [
+                "rt:usable",
+                "rt:randomize_coin_pile"
+            ]
+        },
+        "permutations": [
+            {
+                "components": {
+                    "minecraft:geometry": {
+                        "identifier": "geometry.coinpile1"
+                    },
+                    "minecraft:material_instances": {
+                        "*": {
+                            "ambient_occlusion": false,
+                            "texture": "rt_coin_pile_1"
+                        }
+                    },
+                    "minecraft:custom_components": ["rt:usable"],
+                    "minecraft:tick": {
+                        "interval_range": [5, 20],
+                        "looping": false
+                    }
+                },
+                "condition": "q.block_state('rt:coin_tier') == 1"
+            },
+            {
+                "components": {
+                    "minecraft:geometry": {
+                        "identifier": "geometry.coinpile2"
+                    },
+                    "minecraft:material_instances": {
+                        "*": {
+                            "ambient_occlusion": false,
+                            "texture": "rt_coin_pile_2"
+                        }
+                    },
+                    "minecraft:custom_components": ["rt:usable"],
+                    "minecraft:tick": {
+                        "interval_range": [5, 20],
+                        "looping": false
+                    }
+                },
+                "condition": "q.block_state('rt:coin_tier') == 2"
+            },
+            {
+                "components": {
+                    "minecraft:geometry": {
+                        "identifier": "geometry.coinpile3"
+                    },
+                    "minecraft:material_instances": {
+                        "*": {
+                            "ambient_occlusion": false,
+                            "texture": "rt_coin_pile_3"
+                        }
+                    },
+                    "minecraft:custom_components": ["rt:usable"],
+                    "minecraft:tick": {
+                        "interval_range": [5, 20],
+                        "looping": false
+                    }
+                },
+                "condition": "q.block_state('rt:coin_tier') == 3"
+            },
+            {
+                "components": {
+                    "minecraft:geometry": {
+                        "identifier": "geometry.coinpile4"
+                    },
+                    "minecraft:material_instances": {
+                        "*": {
+                            "ambient_occlusion": false,
+                            "texture": "rt_coin_pile_4"
+                        }
+                    },
+                    "minecraft:custom_components": ["rt:usable"],
+                    "minecraft:tick": {
+                        "interval_range": [5, 20],
+                        "looping": false
+                    }
+                },
+                "condition": "q.block_state('rt:coin_tier') == 4"
+            },
+            {
+                "components": {
+                    "minecraft:geometry": {
+                        "identifier": "geometry.coinpile5"
+                    },
+                    "minecraft:material_instances": {
+                        "*": {
+                            "ambient_occlusion": false,
+                            "texture": "rt_coin_pile_5"
+                        }
+                    },
+                    "minecraft:custom_components": ["rt:usable"],
+                    "minecraft:tick": {
+                        "interval_range": [5, 20],
+                        "looping": false
+                    }
+                },
+                "condition": "q.block_state('rt:coin_tier') == 5"
+            },
+            {
+                "components": {
+                    "minecraft:geometry": {
+                        "identifier": "geometry.coinpile6"
+                    },
+                    "minecraft:material_instances": {
+                        "*": {
+                            "ambient_occlusion": false,
+                            "texture": "rt_coin_pile_6"
+                        }
+                    },
+                    "minecraft:custom_components": ["rt:usable"],
+                    "minecraft:tick": {
+                        "interval_range": [5, 20],
+                        "looping": false
+                    }
+                },
+                "condition": "q.block_state('rt:coin_tier') == 6"
+            }
+        ]
+    }
+}

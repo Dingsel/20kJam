@@ -57,7 +57,7 @@ const gameModes: Gamemodes = [
     MinefieldGameMode,
     BuildBattle,
     BouncyBoxGameMode,
-    //RuneCollectorGameMode,
+    RuneCollectorGameMode
 ]
 
 function checkIfWin() {

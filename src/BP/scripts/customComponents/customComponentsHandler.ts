@@ -1,5 +1,7 @@
 import { BlockCustomComponent, world } from "@minecraft/server";
 import { ExplosionTriggerStep } from "./explosionTriggerStep";
+import { Usable } from "./usable";
+import { RandomizeCoins } from "./randomizeCoin";
 
 export interface CustomComponent {
     typeId: string
@@ -7,7 +9,9 @@ export interface CustomComponent {
 }
 
 const customComponents: CustomComponent[] = [
-    ExplosionTriggerStep
+    ExplosionTriggerStep,
+    RandomizeCoins,
+    Usable
 ]
 
 world.beforeEvents.worldInitialize.subscribe((event) => {

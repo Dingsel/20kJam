@@ -1,10 +1,28 @@
 {
-    "num_mip_levels" : 4,
-    "padding" : 8,
-    "resource_pack_name" : "rt",
-    "texture_data" : {
+    "num_mip_levels": 4,
+    "padding": 8,
+    "resource_pack_name": "rt",
+    "texture_data": {
         "explode_plate": {
             "textures": ["textures/blocks/pressure_bomb.texture"]
+        },
+        "rt_coin_pile_1": {
+            "textures": ["textures/blocks/coin_piles/coin_pile_1.texture"]
+        },
+        "rt_coin_pile_2": {
+            "textures": ["textures/blocks/coin_piles/coin_pile_2.texture"]
+        },
+        "rt_coin_pile_3": {
+            "textures": ["textures/blocks/coin_piles/coin_pile_3.texture"]
+        },
+        "rt_coin_pile_4": {
+            "textures": ["textures/blocks/coin_piles/coin_pile_4.texture"]
+        },
+        "rt_coin_pile_5": {
+            "textures": ["textures/blocks/coin_piles/coin_pile_5.texture"]
+        },
+        "rt_coin_pile_6": {
+            "textures": ["textures/blocks/coin_piles/coin_pile_6.texture"]
         }
     }
 }

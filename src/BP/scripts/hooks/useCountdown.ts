@@ -37,11 +37,11 @@ export function useCountdown(targetTimeInTicks: number): Countdown {
 
             endTime += timeInTicks
 
-            system.clearRun(timerId!)
+            if (timerId !== undefined) system.clearRun(timerId)
             timerId = system.runTimeout(() => {
                 if (!cbStack) throw new Error("Timer Already Expired")
                 cbStack.forEach(x => x())
-            }, endTime - currentTime)
+            }, Math.max(endTime - currentTime, 0))
 
             return this
         },
