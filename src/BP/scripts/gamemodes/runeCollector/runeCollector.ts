@@ -1,4 +1,4 @@
-import { EntityInventoryComponent, GameMode, Player, system, Vector3, world } from "@minecraft/server";
+import { BlockPermutation, EntityInventoryComponent, GameMode, Player, system, Vector3, world } from "@minecraft/server";
 import { GameEventData, GamemodeExport } from "../gamemodeTypes";
 import { Countdown, useCountdown } from "../../hooks/useCountdown";
 import { dim, endRound } from "../../main";
@@ -71,11 +71,6 @@ export async function RuneCollectorGameMode({ players }: GameEventData): Promise
         const { block, player } = event
 
         switch (block.typeId) {
-            case timerIncreasingBlock:
-                const timer = timers.get(player)
-                timer?.addTime(5 * 20)
-                block.setType("minecraft:air")
-                break;
             case coinBlock:
                 const isTrap = Math.random() <= 0.33
                 if (isTrap) {
@@ -88,7 +83,7 @@ export async function RuneCollectorGameMode({ players }: GameEventData): Promise
                     playerCoinMap.set(player, playerCoinMap.get(player)! + coins)
                     player.rt.coins += coins
                 }
-                block.setType("minecraft:air")
+                block.setPermutation(BlockPermutation.resolve(coinBlock, { "rt:coin_tier": -1 }))
                 break;
         }
     })

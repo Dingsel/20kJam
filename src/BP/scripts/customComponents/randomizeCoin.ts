@@ -1,4 +1,4 @@
-import { BlockPermutation } from "@minecraft/server";
+import { BlockPermutation, world } from "@minecraft/server";
 import { CustomComponent } from "./customComponentsHandler";
 import { activeGamemode } from "../main";
 
@@ -9,12 +9,14 @@ export const RandomizeCoins: CustomComponent = {
         onTick(event) {
             if (activeGamemode?.typeId !== "rt:rune_collector") return
             const { block } = event
-            if (block.permutation.getState("rt:coin_tier") !== 0) return
+            if (block.permutation.getState("rt:coin_tier") as number > 0) return
 
             const rand = Math.random()
 
-            if (rand >= 0.6) {
-                block.setPermutation(BlockPermutation.resolve(block.typeId, {
+            const playerCount = world.getAllPlayers().length / 8
+
+            if (rand <= playerCount) {
+                block.setPermutation(BlockPermutation.resolve("rt:coin_pile", {
                     "rt:coin_tier": Math.floor(Math.random() * maxState) + 1
                 }))
             } else {

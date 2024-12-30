@@ -6,6 +6,9 @@
         "explode_plate": {
             "textures": ["textures/blocks/pressure_bomb.texture"]
         },
+        "empty": {
+            "textures": ["textures/blocks/nothing.texture"]
+        },
         "rt_coin_pile_1": {
             "textures": ["textures/blocks/coin_piles/coin_pile_1.texture"]
         },

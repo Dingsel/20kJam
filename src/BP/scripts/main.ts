@@ -61,7 +61,7 @@ const gameModes: Gamemodes = [
 ]
 
 function checkIfWin() {
-    return true
+    return world.getAllPlayers().some((player) => player.rt.coins >= 20000)
 }
 
 function applyGameRules(rules: GameRuleSettings) {
@@ -72,12 +72,12 @@ function applyGameRules(rules: GameRuleSettings) {
 }
 
 function setupGame() {
-    const randomGamemodes: Gamemodes = shuffleArr(gameModes)
+    const randomGamemodes: Gamemodes = shuffleArr([...gameModes])
     let gamemodeIndex = 0
 
     async function gameLoop() {
         const gamemodeElementIndex = gamemodeIndex % randomGamemodes.length
-        await chooseGamemode(gamemodeElementIndex)
+        await chooseGamemode(gameModes.findIndex(x => x === randomGamemodes[gamemodeElementIndex]))
 
         const upcomingGamemode = await randomGamemodes[gamemodeElementIndex]({ players: world.getAllPlayers() })
         activeGamemode = upcomingGamemode
@@ -97,6 +97,7 @@ function setupGame() {
                 upcomingGamemode.whileActive?.()
                 if (activeGamemode !== null) return
                 system.clearRun(runId)
+                gamemodeIndex++
                 res()
             }, 20)
         })
@@ -104,10 +105,13 @@ function setupGame() {
         //Score of a player over 20k
         if (checkIfWin()) {
             world.sendMessage("Hurray you won the Event")
-        } else gameLoop()
+        } else {
+            await system.waitTicks(200)
+            gameLoop()
+        }
     }
 
-    gameLoop()
+    //gameLoop()
 }
 
 //TEMPORARY
@@ -146,7 +150,7 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
     })
 })
 
-//setupGame()
+setupGame()
 
 export async function endRound(playersThatWon: Player[]) {
     if (!activeGamemode) return;

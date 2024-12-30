@@ -6,7 +6,7 @@
             "states": {
                 "rt:coin_tier": {
                     "values": {
-                        "min": 0,
+                        "min": -1,
                         "max": 6
                     }
                 }
@@ -20,6 +20,10 @@
             },
             "minecraft:collision_box": {
                 "size": [8, 6, 8]
+            },
+            "minecraft:selection_box": {
+                "size": [8, 6, 8],
+                "origin": [-4, 0, -4]
             },
             "minecraft:material_instances": {
                 "*": {
@@ -36,6 +40,28 @@
             ]
         },
         "permutations": [
+            {
+                "components": {
+                    "minecraft:geometry": {
+                        "identifier": "minecraft:geometry.full_block"
+                    },
+                    "minecraft:material_instances": {
+                        "*": {
+                            "render_method": "blend",
+                            "ambient_occlusion": false,
+                            "texture": "empty"
+                        }
+                    },
+                    "minecraft:collision_box": false,
+                    "minecraft:selection_box": false,
+                    "minecraft:custom_components": ["rt:randomize_coin_pile"],
+                    "minecraft:tick": {
+                        "interval_range": [400, 700],
+                        "looping": false
+                    }
+                },
+                "condition": "q.block_state('rt:coin_tier') == -1"
+            },
             {
                 "components": {
                     "minecraft:geometry": {

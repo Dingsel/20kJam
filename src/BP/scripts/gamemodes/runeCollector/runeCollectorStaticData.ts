@@ -16,9 +16,9 @@ function createRuneItemStack(typeId: RuneType, description: string, colour: stri
 
     item.setLore([
         "",
-        `§7${description}`,
+        `§r§7${description}`,
         "",
-        `§l§${colour}SPECIAL COLLECTABLE RUNE`
+        `§r§l${colour}SPECIAL COLLECTABLE RUNE`
     ])
 
     return item
