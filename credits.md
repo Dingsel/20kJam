@@ -13,6 +13,6 @@
 
 ## 🧠 Inspired By
 
--   The MCC Server and Event
+-   Our Brains because we are Selfmade Hustlers
 
 And also thanks to whoever made the Minecraft5 Font!
