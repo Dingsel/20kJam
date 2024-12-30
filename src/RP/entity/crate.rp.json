@@ -1,0 +1,23 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "rt:crate",
+            "materials": {
+                "default": "entity_alphatest"
+            },
+            "textures": {
+                "default": "textures/models/crate.texture"
+            },
+            "geometry": {
+                "default": "geometry.crate"
+            },
+            "scripts": {},
+            "render_controllers": ["controller.render.default"],
+            "spawn_egg": {
+                "base_color": "#288483",
+                "overlay_color": "#2B7135"
+            }
+        }
+    }
+}
