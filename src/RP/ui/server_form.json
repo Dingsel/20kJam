@@ -48,12 +48,6 @@
         "anchor_to": "center",
         "controls": [
             {
-                "intro@form_type": {
-                    "$text": "RT20K.intro",
-                    "$content": "forms_intro.main"
-                }
-            },
-            {
                 "kits@form_type": {
                     "$text": "RT20K.kits",
                     "$content": "forms_kits.main"

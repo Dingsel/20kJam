@@ -14,6 +14,7 @@ import "./npcs"
 import { BuildBattle } from "./gamemodes/buildBattle/buildBattle"
 import { BouncyBoxGameMode } from "./gamemodes/bouncyBox/bouncyBox"
 import { RuneCollectorGameMode } from "./gamemodes/runeCollector/runeCollector"
+import { doWinningSequence } from "./winningSequence"
 
 export const dim = world.getDimension("overworld")
 export let activeGamemode: GamemodeExport | null = null
@@ -115,8 +116,7 @@ function setupGame() {
 
         //Score of a player over 20k
         if (checkIfWin()) {
-            world.getAllPlayers().forEach((player) => { player.rt.coins = 0 })
-            world.sendMessage("Hurray you won the Event")
+            doWinningSequence()
         } else {
             await system.waitTicks(100)
             anounceTopPlayers()
