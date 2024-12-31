@@ -123,15 +123,15 @@ type TypeWriterOptions = {
     //holdingCharacters?: string[]
 }
 
-export async function useTypeWriter(textToType: string, onText: (str: string) => any, typeWriterOptions: TypeWriterOptions) {
+export async function useTypeWriter(textToType: string, onText: (str: string, isSkippable: boolean) => any, typeWriterOptions: TypeWriterOptions) {
     let finalText = ""
     for (const char of textToType) {
         finalText += char
         if (typeWriterOptions.skippedCharacters?.includes(char)) {
-            onText(finalText)
+            onText(finalText, true)
             continue
         }
-        onText(finalText)
+        onText(finalText, false)
         await system.waitTicks(typeWriterOptions.timeoutDuration || 1)
     }
 

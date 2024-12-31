@@ -14,10 +14,7 @@ const voiceLineInfo: { [key: string]: string[] } = {
         "Coconuts kill over 150 people per year",
         "Step back",
         "i hate watermelons",
-        "im on vacation",
-        
-
-
+        "im on vacation"
     ],
 }
 
@@ -30,14 +27,14 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
 
     const voiceLine = entityVoiceLines[Math.floor(Math.random() * entityVoiceLines.length)]
 
-    useTypeWriter(voiceLine, (str) => {
+    useTypeWriter(voiceLine, (str, isSkippable) => {
         switch (hitEntity.typeId) {
             case "rt:mrcoconut":
-                damagingEntity.playSound("rt:doung", { pitch: 1 + Math.random() * 0.6 - 0.3 })
+                !isSkippable && damagingEntity.playSound("rt:doung", { pitch: 1 + Math.random() * 0.6 - 0.3 })
                 damagingEntity.onScreenDisplay.setActionBar(`speach_coconut${str}`)
                 break
             case "rt:pirate":
-                damagingEntity.playSound("random.pop", { pitch: 1.2 + Math.random() * 0.6 - 0.3 })
+                !isSkippable && damagingEntity.playSound("random.pop", { pitch: 1.2 + Math.random() * 0.6 - 0.3 })
                 damagingEntity.onScreenDisplay.setActionBar(`speach_pirate${str}`)
                 break
 
