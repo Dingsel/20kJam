@@ -2,6 +2,13 @@
   "namespace": "hud",
   "hud_screen@common.base_screen": {
   },
+  
+  
+  "hud_actionbar_text": {
+            "$actionbar": "$actionbar_text",
+"visible": "(not(('%.7s' * $actionbar) = 'speach_'))"
+  },
+  
   "chat_grid_item": {
     "type": "panel",
     "layer": 1,
@@ -270,7 +277,14 @@
           },
           {
           "runecollector@gm_runecollector.render": {}
+          },
+          {
+          "pirate@sp_pirate.render": {}
+          },
+          {
+          "coconut@sp_coconut.render": {}
           }
+          
           
         ]
       }

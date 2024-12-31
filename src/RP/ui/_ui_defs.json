@@ -16,7 +16,10 @@
     // Permanents -
     "ui/hud_elements/permanents/coins.json",
     "ui/hud_elements/permanents/base_text.json",
-    "ui/hud_elements/permanents/gamechooser.json"
+    "ui/hud_elements/permanents/gamechooser.json",
+    // Speach -
+    "ui/hud_elements/speach/pirate.json",
+     "ui/hud_elements/speach/mrcoconut.json"
 
   ]
 }

@@ -1,0 +1,114 @@
+{
+  "namespace": "sp_pirate",
+  "render": {
+    "type": "panel",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "factory": {
+      "name": "hud_actionbar_text_factory",
+      "control_ids": {
+        "hud_actionbar_text": "textbox@sp_pirate.textbox"
+      }
+    }
+  },
+  "textbox@rt20k.p": {
+            "$actionbar": "$actionbar_text",
+"visible": "(('%.13s' * $actionbar) = 'speach_pirate')",
+    
+    "size": [
+      160,
+      20
+    ],
+    
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "offset": [
+      0,
+      -50
+    ],
+    "controls": [
+      {
+        "name@rt20k.img": {
+          "size": [
+            31,
+            9
+          ],
+          "anims": ["@sp_pirate.all_out_anim_1"],
+          "texture": "rt20k/speach/pirate_name",
+          "layer": 3,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "offset": [
+            6,
+            -3
+          ]
+        }
+      },
+      {
+        "white_outline@rt20k.img": {
+          "size": [
+            "100%c+2px",
+            "100%c+2px"
+          ], 
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "anims": ["@sp_pirate.all_out_anim_1"],
+          "alpha": 1,
+          "texture": "rt20k/white_outline",
+          "controls": [
+            {
+              "background@rt20k.img": {
+                "size": [
+                  160,
+                  "100%c+6px"
+                ],
+                "anims": ["@sp_pirate.background_out_anim_1"],
+                "alpha": 0.4,
+                "texture": "textures/ui/hud_tip_text_background",
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "controls": [
+                  {
+                    "text_inside@rt20k.l": {
+                    "$final": "($actionbar - 'speach_pirate')",
+                    "max_size": [150,100], 
+                    "contained": true,
+                      "anims": ["@sp_pirate.all_out_anim_1"],
+                      "layer": 1,
+                      "text": "$final"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "all_out_anim_1": {
+    "anim_type": "wait",
+    "duration": 2.5,
+    "next": "@sp_pirate.all_out_anim_2"
+  },
+  "all_out_anim_2": {
+    "anim_type": "alpha",
+    "from": 1,
+    "to": 0,
+    "duration": 0.4
+  },
+  "background_out_anim_1": {
+    "anim_type": "wait",
+    "duration": 2.5,
+    "next": "@sp_pirate.background_out_anim_2"
+  },
+  "background_out_anim_2": {
+    "anim_type": "alpha",
+    "from": 0.4,
+    "to": 0,
+    "duration": 0.4
+  }
+}
