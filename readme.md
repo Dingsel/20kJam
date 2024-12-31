@@ -7,8 +7,8 @@ get to 20K points. It was created for the Bedrock Addons 20K Members JAM.
 
 ## 📖 Info
 
-1. [TEAM](credits)
-2. [LICENSE](LICENCE)
+1. [TEAM](credits.md)
+2. [LICENSE](LICENCE.md)
 3. [BUILD STATUS](https://github.com/Dingsel/20kJam/actions)
 
 ## 🛠 Development
