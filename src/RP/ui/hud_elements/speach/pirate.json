@@ -1,0 +1,12 @@
+{
+        „hud_actionbar_text_area: {
+          „type“: „panel“,
+          „factory“: {
+            „name“: „hud_actionbar_text_factory“,
+            „control_ids“: {
+              „hud_actionbar_text“: „hud_actionbar_text@hud.hud_actionbar_text“
+            }
+          }
+        }
+      ,
+}
