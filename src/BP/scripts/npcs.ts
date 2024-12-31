@@ -3,7 +3,7 @@ import { useTypeWriter } from "./utils";
 
 const pirateTexts = [
     "Arrr, welcome, lad!\nSo ye be after me treasure, eh?",
-    "A fool ye must be to try me challenge! Ive scattered it EVERYWHERE, ye hear me ?!",
+    "A fool ye must be to try me challenge!\nIve scattered it everywhere! EVERYWHERE, ye hear me ?!",
     "Twenty thousand gold coins, ripe fer the takin but they wont be so easy to claim!",
     "So give yer best shot, cabin boy! Do yer worst... if ye can! Yarrrr!"
 ]
@@ -31,7 +31,7 @@ world.afterEvents.entityHitEntity.subscribe(async (event) => {
     const entityVoiceLines = voiceLineInfo[hitEntity.typeId]
     if ((!entityVoiceLines && hitEntity.typeId !== "rt:pirate") || damagingEntity.inDialouge) return
 
-    const voiceLine = entityVoiceLines[Math.floor(Math.random() * (entityVoiceLines || []).length)]
+    const voiceLine = hitEntity.typeId === "rt:pirate" ? entityVoiceLines[Math.floor(Math.random() * entityVoiceLines.length)] : ""
     damagingEntity.inDialouge = true
 
     switch (hitEntity.typeId) {
@@ -47,7 +47,6 @@ world.afterEvents.entityHitEntity.subscribe(async (event) => {
             damagingEntity.playSound("rt:random.pirate")
 
             for (const text of pirateTexts) {
-
                 await new Promise<void>((res) => {
                     useTypeWriter(text, (str, isSkippable) => {
                         !isSkippable && damagingEntity.playSound("random.click", { pitch: 2.5 + Math.random() * 2 - 1 })
