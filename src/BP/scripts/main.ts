@@ -169,10 +169,6 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
     })
 })
 
-world.afterEvents.playerEmote.subscribe((event) => {
-    event.player.rt.coins += 20000
-})
-
 export async function endRound(playersThatWon: Player[]) {
     if (!activeGamemode) return;
     await activeGamemode.dispose?.()
