@@ -91,7 +91,7 @@ export function structure([structureId]: TemplateStringsArray): Structure {
 
 export async function useLoadingTimer(seconds: number, targetPlayers: Player[]): Promise<void> {
     targetPlayers.forEach(async (player) => {
-        player.inputPermissions.movementEnabled = false
+        player.runCommand("inputpermission set @s movement disabled")//player.inputPermissions.movementEnabled = false is legit broken
         for (let i = 0; i < 5; i++) {
             player.sendMessage("RTKJAM:stext" + '§aLoading§2' + ('.').repeat((i % 3) + 1))
             await system.waitTicks(20)
@@ -100,7 +100,7 @@ export async function useLoadingTimer(seconds: number, targetPlayers: Player[]):
 
     await system.waitTicks(100)
     await titleCountdown(seconds, targetPlayers, { endSound: "random.orb", endText: "§aGO", tickSound: "random.click", extraText: "§2Starting in §a", actionbar: false, pitch: 1 })
-    targetPlayers.forEach((player) => player.inputPermissions.movementEnabled = true)
+    targetPlayers.forEach((player) => player.runCommand("inputpermission set @s movement enabled"))
 }
 
 export function applyGameRules(rules: GameRuleSettings) {

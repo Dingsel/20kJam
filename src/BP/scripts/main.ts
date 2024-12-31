@@ -178,8 +178,6 @@ export async function endRound(playersThatWon: Player[]) {
         player.isDead = false
         player.runCommand("clear @s")
         player.setGameMode(GameMode.spectator)
-        //TODO SOUND :)
-        player.playSound("")
     })
 
     activeGamemode = null
@@ -188,7 +186,7 @@ export async function endRound(playersThatWon: Player[]) {
 
     world.getAllPlayers().forEach((player) => {
         player.setGameMode(GameMode.adventure)
-        player.addEffect("instant_health", 20, { showParticles: false })
+        player.addEffect("instant_health", 20, { showParticles: false, amplifier: 255 })
 
         player.teleport(spawnLocation)
     })
@@ -205,6 +203,11 @@ world.afterEvents.playerSpawn.subscribe((event) => {
     player.rt.setCoinDisplay("shown")
     if (!event.initialSpawn) return;
     if (!hostingPlayer) hostingPlayer = player
+
+    if (activeGamemode) {
+        player.isDead = true
+        player.setGameMode(GameMode.spectator)
+    }
 
     player.rt.coins = 0
     player.runCommand('clear @s')

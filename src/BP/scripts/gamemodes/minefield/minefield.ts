@@ -198,6 +198,7 @@ export async function MinefieldGameMode({
             isActive && display.updateDisplay();
             for (const player of players) {
                 if (
+                    !player.isValid() ||
                     !minefieldFinishArea.isInside(player.location) ||
                     roundWinners.includes(player)
                 )

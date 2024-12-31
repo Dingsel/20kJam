@@ -4,14 +4,16 @@
         "rt:coins": {
             "sounds": ["sounds/coins"]
         },
+        "rt:doung": {
+            "category": "ui",
+            "sounds": ["sounds/doung"]
+        },
         "rt:jingle": {
             "category": "ui",
-            "max_distance": 99999,
             "sounds": ["sounds/jingle"]
         },
         "rt:spin": {
             "category": "ui",
-            "max_distance": 99999,
             "sounds": ["sounds/spin"]
         }
     }

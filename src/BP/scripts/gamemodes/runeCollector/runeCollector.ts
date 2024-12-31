@@ -175,6 +175,10 @@ export async function RuneCollectorGameMode({ players }: GameEventData): Promise
 
         whileActive() {
             display.updateDisplay()
+
+            if (expiredPlayers.length === players.filter((x) => x.isValid() && !x.isDead).length) {
+                endRound([])
+            }
         },
 
         spawnPlayer(player) {
