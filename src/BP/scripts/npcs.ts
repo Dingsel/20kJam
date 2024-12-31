@@ -9,12 +9,14 @@ const pirateTexts = [
 ]
 
 const voiceLineInfo: { [key: string]: string[] } = {
-    "rt:pirate": [],
+    "rt:pirate": [ 
+        "Arrr, welcome, lad! So ye be after me treasure, eh? A fool ye must be to try me challenge! Ive scattered it everywhere! EVERYWHERE, ye hear me?! 20 thousand gold coins, ripe fer the takin but they wont be so easy to claim! So give yer best shot, cabin boy! Do yer worst... if ye can! Yarrrr!"
+    ],
     "rt:mrcoconut": [
         "let me sleep",
         "get out of the sun",
         "ZZZzzzz",
-        "*sleeping*",
+        "sleeping",
         "silence",
         "you know coconuts are deadly",
         "The most deadly",
