@@ -114,3 +114,21 @@ export function sendError(player: Player, message: string): void {
     player.playSound("mob.villager.no")
     player.sendMessage(`§c${message}`)
 }
+
+
+type TypeWriterOptions = {
+    timeoutDuration?: number
+    skippedCharacters?: string[]
+    //holdingCharacters?: string[]
+}
+
+export async function useTypeWriter(textToType: string, onText: (str: string) => any, typeWriterOptions: TypeWriterOptions) {
+    for (const char of textToType) {
+        if (typeWriterOptions.skippedCharacters?.includes(char)) {
+            onText(char)
+            continue
+        }
+        onText(char)
+        await system.waitTicks(typeWriterOptions.timeoutDuration || 1)
+    }
+}
