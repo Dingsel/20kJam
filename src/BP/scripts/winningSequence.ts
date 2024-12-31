@@ -29,7 +29,7 @@ export function doWinningSequence() {
 
     winningPlayers.forEach((player, i) => {
         player.teleport(winingPlayerLocation)
-        player.sendMessage("")
+        player.sendMessage("§aCongratulations! You won!")
     })
 
     losingPlayers.forEach((player, i) => {
