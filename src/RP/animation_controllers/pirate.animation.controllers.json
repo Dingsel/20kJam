@@ -1,0 +1,27 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.pirate": {
+            "initial_state": "idle",
+            "states": {
+                "idle": {
+                    "animations": ["idle"],
+                    "transitions": [
+                        {
+                            "binoculars": "false"
+                        }
+                    ]
+                },
+                "binoculars": {
+                    "blend_transition": 1,
+                    "animations": ["idle", "binoculars"],
+                    "transitions": [
+                        {
+                            "idle": "query.all_animations_finished"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

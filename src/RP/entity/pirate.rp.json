@@ -12,7 +12,16 @@
             "geometry": {
                 "default": "geometry.pirate"
             },
-            "scripts": {},
+            "animations": {
+                "controller": "controller.animation.pirate",
+                "idle": "animation.pirate.idle",
+                "stand": "animation.pirate.stand",
+                "binoculars": "animation.pirate.random.binoculars",
+                "hide": "animation.pirate.hide_all"
+            },
+            "scripts": {
+                "animate": ["stand", "controller"]
+            },
             "render_controllers": ["controller.render.default"],
             "spawn_egg": {
                 "base_color": "#288483",

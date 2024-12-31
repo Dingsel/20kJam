@@ -127,7 +127,7 @@ function setupGame() {
         }
     }
 
-    gameLoop()
+    //gameLoop()
 }
 
 //TEMPORARY
