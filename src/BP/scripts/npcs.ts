@@ -1,5 +1,12 @@
-import { Player, world } from "@minecraft/server";
+import { Player, system, world } from "@minecraft/server";
 import { useTypeWriter } from "./utils";
+
+const pirateTexts = [
+    "Arrr, welcome, lad!\nSo ye be after me treasure, eh?",
+    "A fool ye must be to try me challenge!\nIve scattered it everywhere! EVERYWHERE, ye hear me ?!",
+    "20 thousand gold coins, ripe fer the takin but they wont be so easy to claim!",
+    "So give yer best shot, cabin boy! Do yer worst... if ye can! Yarrrr!"
+]
 
 const voiceLineInfo: { [key: string]: string[] } = {
     "rt:pirate": [],
@@ -18,7 +25,7 @@ const voiceLineInfo: { [key: string]: string[] } = {
     ],
 }
 
-world.afterEvents.entityHitEntity.subscribe((event) => {
+world.afterEvents.entityHitEntity.subscribe(async (event) => {
     const { damagingEntity, hitEntity } = event
     if (!(damagingEntity instanceof Player)) return
 
@@ -26,24 +33,32 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
     if (!entityVoiceLines || damagingEntity.inDialouge) return
 
     const voiceLine = entityVoiceLines[Math.floor(Math.random() * entityVoiceLines.length)]
-
     damagingEntity.inDialouge = true
-    useTypeWriter(voiceLine, (str, isSkippable) => {
-        switch (hitEntity.typeId) {
-            case "rt:mrcoconut":
+
+    switch (hitEntity.typeId) {
+        case "rt:mrcoconut":
+            useTypeWriter(voiceLine, (str, isSkippable) => {
                 !isSkippable && damagingEntity.playSound("rt:doung", { pitch: 1 + Math.random() * 0.6 - 0.3 })
                 damagingEntity.onScreenDisplay.setActionBar(`speach_coconut${str}`)
-                break
-            case "rt:pirate":
-                !isSkippable && damagingEntity.playSound("random.pop", { pitch: 1.2 + Math.random() * 0.6 - 0.3 })
-                damagingEntity.onScreenDisplay.setActionBar(`speach_pirate${str}`)
-                break
 
-        }
+            }, { timeoutDuration: 2, skippedCharacters: [" "], onComplete() { damagingEntity.inDialouge = false } })
+            break
 
-    }, {
-        timeoutDuration: 2, skippedCharacters: [" "], onComplete() {
-            damagingEntity.inDialouge = false
-        },
-    })
+        case "rt:pirate":
+            damagingEntity.playSound("rt:random.pirate")
+
+            for (const text of pirateTexts) {
+
+                await new Promise<void>((res) => {
+                    useTypeWriter(text, (str, isSkippable) => {
+                        damagingEntity.onScreenDisplay.setActionBar(`speach_pirate${str}`)
+                    }, { onComplete() { res() }, skippedCharacters: [" "], timeoutDuration: 1 })
+                })
+
+                await system.waitTicks(60)
+            }
+
+            damagingEntity.inDialouge = false 
+            break
+    }
 })

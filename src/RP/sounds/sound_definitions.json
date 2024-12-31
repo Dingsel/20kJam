@@ -15,6 +15,16 @@
         "rt:spin": {
             "category": "ui",
             "sounds": ["sounds/spin"]
+        },
+
+        "rt:random.pirate": {
+            "category": "ui",
+            "sounds": [
+                "sounds/pirate/pirate_1",
+                "sounds/pirate/pirate_2",
+                "sounds/pirate/pirate_3",
+                "sounds/pirate/pirate_4"
+            ]
         }
     }
 }
