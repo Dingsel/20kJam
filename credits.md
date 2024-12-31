@@ -11,8 +11,4 @@
 -   CTabdul15
 -   Minato
 
-## 🧠 Inspired By
-
--   Our Brains because we are Selfmade Hustlers
-
 And also thanks to whoever made the Minecraft5 Font!
