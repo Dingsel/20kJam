@@ -4,7 +4,7 @@ import { useTypeWriter } from "./utils";
 const pirateTexts = [
     "Arrr, welcome, lad!\nSo ye be after me treasure, eh?",
     "A fool ye must be to try me challenge!\nIve scattered it everywhere! EVERYWHERE, ye hear me ?!",
-    "20 thousand gold coins, ripe fer the takin but they wont be so easy to claim!",
+    "Twenty thousand gold coins, ripe fer the takin but they wont be so easy to claim!",
     "So give yer best shot, cabin boy! Do yer worst... if ye can! Yarrrr!"
 ]
 
