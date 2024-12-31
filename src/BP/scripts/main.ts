@@ -24,7 +24,7 @@ export type Gamemodes = ((eventData: GameEventData) => GamemodeExport | Promise<
 export type GameRuleSettings = { [key in keyof typeof world.gameRules]?: typeof world.gameRules[key] }
 export const isDev: boolean = true;
 
-const gameStarterItem = lockItem("rt:game_starter")
+export const gameStarterItem = lockItem("rt:game_starter")
 let disHostSeeWarning: boolean = false;
 
 const defaultGameRules: GameRuleSettings = {
@@ -77,7 +77,7 @@ async function anounceTopPlayers() {
     for (let i = Math.min(2, topPlayers.length - 1); i >= 0; i--) {
         const player = topPlayers[i]
         const place = i + 1
-        world.sendMessage(`§e#§6${place} §a${aplayer.name} §7with §e${player.rt.coins} §7coins`)
+        world.sendMessage(`§e#§6${place} §a${player.name} §7with §e${player.rt.coins} §7coins`)
         world.getAllPlayers().forEach((p) => { p.playSound("random.pop", { pitch: 1 + (3 - place) * 0.1 }) })
         await system.waitTicks(20)
     }
@@ -86,6 +86,11 @@ async function anounceTopPlayers() {
 function setupGame() {
     const randomGamemodes: Gamemodes = shuffleArr([...gameModes])
     let gamemodeIndex = 0
+
+    world.getAllPlayers().forEach((player) => {
+        player.rt.coins = 0
+        player.runCommand("clear @s")
+    })
 
     async function gameLoop() {
         const gamemodeElementIndex = gamemodeIndex % randomGamemodes.length

@@ -10,7 +10,6 @@ const leatherHelmet = lockItem("minecraft:leather_helmet");
 
 const shield = lockItem("minecraft:shield");
 (shield.getComponent("durability") as ItemDurabilityComponent).damage = 270;
-const ironSword = lockItem("minecraft:iron_sword");
 const leatherBoots = lockItem("minecraft:leather_boots");
 const goldenApple = lockItem("minecraft:golden_apple", 1);
 
@@ -52,7 +51,7 @@ export const kits: BoxFightKit[] = [
       Feet: leatherBoots,
       items: [
         {
-          item: ironSword,
+          item: woodenSword,
           slot: 0,
         },
         {
@@ -123,7 +122,7 @@ kitForm.button('Crossbow', 'textures/items/crossbow_standby');
 kitForm.button('Arrows §7x8', 'textures/items/arrow');
 kitForm.button('Leather helmet', 'textures/buttons/leather_helmet');
 kitForm.button('', '');
-kitForm.button('Iron sword', 'textures/items/iron_sword');
+kitForm.button('Wooden sword', 'textures/items/wood_sword');
 kitForm.button('Shield', 'textures/buttons/shield');
 kitForm.button('Golden Apple', 'textures/items/apple_golden');
 kitForm.button('Leather Boots', 'textures/buttons/leather_boots');
