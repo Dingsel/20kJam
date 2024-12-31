@@ -235,13 +235,14 @@
     },
 
     "getPlayerPic_item@rt20k.p": {
-        "size": [0, 0],
+        "size": [16, 0],
         "controls": [
             {
                 "pic@rt20k.img": {
                     "texture": "#texture",
                     "size": [12, 12],
-                    "offset": [8, 6],
+    
+                    "offset": [0, 6],
                     "layer": 4,
                     "texture_file_system": "#texture_source",
                     "bindings": [
