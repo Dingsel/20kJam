@@ -60,6 +60,8 @@ export async function RuneCollectorGameMode({ players }: GameEventData): Promise
 
     timers.forEach(async (timer, player) => {
         timer.onTimeDown(() => {
+            player.sendMessage("§cYour time is up!")
+            player.setGameMode(GameMode.spectator)
             expiredPlayers.push(player)
             if (expiredPlayers.length === players.length) {
                 endRound([])

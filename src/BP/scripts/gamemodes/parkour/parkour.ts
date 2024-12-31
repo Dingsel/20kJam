@@ -127,7 +127,7 @@ export async function ParkourGameMode({
 
             for (const player of roundWinners) {
                 if (!player.isValid()) continue;
-                player.sendMessage("RTKJAM:stext" + "§eYou are §6Finished");
+                player.sendMessage("RTKJAM:stext" + "§eYou §6Finished");
             }
 
             for (const player of players) {
@@ -135,6 +135,7 @@ export async function ParkourGameMode({
                     !player.isValid() ||
                     !parkourFinishArea.isInside(player.location) ||
                     roundWinners.includes(player) ||
+                    parseInt(timer.getRemaining().seconds) <= 0 ||
                     player.isDead
                 ) continue;
 

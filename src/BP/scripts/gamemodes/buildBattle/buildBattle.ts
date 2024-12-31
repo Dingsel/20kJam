@@ -33,7 +33,7 @@ export async function BuildBattle(game: GameEventData): Promise<GamemodeExport> 
     const { players } = game
     const { dispose, playerMapSettings } = await generateMap(game)
 
-    const timer = useCountdown(150 * 20)
+    const timer = useCountdown(60 * 20)
     const display = useBuildBattleDisplay({ players, timer, playerMapSettings })
 
     const winningPlayers: Player[] = []

@@ -192,7 +192,7 @@ export async function MinefieldGameMode({
 
             for (const player of roundWinners) {
                 if (!player.isValid()) continue;
-                player.sendMessage("RTKJAM:stext" + "§eYou are §6Finished");
+                player.sendMessage("RTKJAM:stext" + "§eYou §6Finished");
             }
 
             isActive && display.updateDisplay();

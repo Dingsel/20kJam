@@ -21,7 +21,7 @@ export async function anounceGamemode(gamemode: GamemodeExport): Promise<void> {
     })
 
     await system.waitTicks(20)
-    world.sendMessage(`here would some fancy anouncement go for ${gamemode.displayName}`)
+    world.sendMessage(`§aNext up: ${gamemode.displayName}`)
     return system.waitTicks(60)
 }
 
