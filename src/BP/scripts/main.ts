@@ -76,7 +76,7 @@ async function anounceTopPlayers() {
     for (let i = Math.min(2, topPlayers.length - 1); i >= 0; i--) {
         const player = topPlayers[i]
         const place = i + 1
-        world.sendMessage(`§a#${place} ${player.name} with ${player.rt.coins} coins`)
+        world.sendMessage(`§e#§6${place} §a${aplayer.name} §7with §e${player.rt.coins} §7coins`)
         world.getAllPlayers().forEach((p) => { p.playSound("random.pop", { pitch: 1 + (3 - place) * 0.1 }) })
         await system.waitTicks(20)
     }
