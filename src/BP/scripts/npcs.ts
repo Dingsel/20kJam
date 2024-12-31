@@ -9,9 +9,6 @@ const pirateTexts = [
 ]
 
 const voiceLineInfo: { [key: string]: string[] } = {
-    "rt:pirate": [ 
-        "Arrr, welcome, lad! So ye be after me treasure, eh? A fool ye must be to try me challenge! Ive scattered it everywhere! EVERYWHERE, ye hear me?! 20 thousand gold coins, ripe fer the takin but they wont be so easy to claim! So give yer best shot, cabin boy! Do yer worst... if ye can! Yarrrr!"
-    ],
     "rt:mrcoconut": [
         "let me sleep",
         "get out of the sun",
@@ -32,7 +29,7 @@ world.afterEvents.entityHitEntity.subscribe(async (event) => {
     if (!(damagingEntity instanceof Player)) return
 
     const entityVoiceLines = voiceLineInfo[hitEntity.typeId]
-    if (!entityVoiceLines || damagingEntity.inDialouge) return
+    if ((!entityVoiceLines && hitEntity.typeId !== "rt:pirate") || damagingEntity.inDialouge) return
 
     const voiceLine = entityVoiceLines[Math.floor(Math.random() * entityVoiceLines.length)]
     damagingEntity.inDialouge = true
@@ -53,6 +50,7 @@ world.afterEvents.entityHitEntity.subscribe(async (event) => {
 
                 await new Promise<void>((res) => {
                     useTypeWriter(text, (str, isSkippable) => {
+                        !isSkippable && damagingEntity.playSound("random.click", { pitch: 2.5 + Math.random() * 2 - 1 })
                         damagingEntity.onScreenDisplay.setActionBar(`speach_pirate${str}`)
                     }, { onComplete() { res() }, skippedCharacters: [" "], timeoutDuration: 1 })
                 })
@@ -60,7 +58,7 @@ world.afterEvents.entityHitEntity.subscribe(async (event) => {
                 await system.waitTicks(60)
             }
 
-            damagingEntity.inDialouge = false 
+            damagingEntity.inDialouge = false
             break
     }
 })
