@@ -5,19 +5,23 @@
             "initial_state": "idle",
             "states": {
                 "idle": {
+                    "blend_via_shortest_path": true,
                     "animations": ["idle"],
+                    "blend_transition": 1,
                     "transitions": [
                         {
-                            "binoculars": "false"
+                            "binoculars": "math.random(0.0, 5.0) >= 4.999"
                         }
                     ]
                 },
+
                 "binoculars": {
+                    "blend_via_shortest_path": true,
                     "blend_transition": 1,
-                    "animations": ["idle", "binoculars"],
+                    "animations": ["binoculars", "idle"],
                     "transitions": [
                         {
-                            "idle": "query.all_animations_finished"
+                            "idle": "q.all_animations_finished"
                         }
                     ]
                 }

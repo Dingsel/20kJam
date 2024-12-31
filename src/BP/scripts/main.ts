@@ -1,10 +1,10 @@
 
-import { GameMode, Player, system, Vector3, world } from "@minecraft/server"
+import { EntityInventoryComponent, GameMode, ItemStack, Player, system, Vector3, world } from "@minecraft/server"
 import { GameEventData, GamemodeExport } from "./gamemodes/gamemodeTypes"
 import { MinefieldGameMode } from "./gamemodes/minefield/minefield"
 import { ParkourGameMode } from "./gamemodes/parkour/parkour"
 import BoxFightGameMode from "./gamemodes/boxfight/boxfight"
-import { anounceGamemode, chooseGamemode, shuffleArr } from "./utils"
+import { anounceGamemode, chooseGamemode, lockItem, shuffleArr } from "./utils"
 
 import "./customComponents/customComponentsHandler"
 import "./prototypes/player"
@@ -15,11 +15,12 @@ import { RuneCollectorGameMode } from "./gamemodes/runeCollector/runeCollector"
 
 export const dim = world.getDimension("overworld")
 export let activeGamemode: GamemodeExport | null = null
+export let hostingPlayer: Player | null = null
 
 export type Gamemodes = ((eventData: GameEventData) => GamemodeExport | Promise<GamemodeExport>)[]
 export type GameRuleSettings = { [key in keyof typeof world.gameRules]?: typeof world.gameRules[key] }
 
-export const isDev = true;
+export const isDev: boolean = true;
 
 const defaultGameRules: GameRuleSettings = {
     doFireTick: false,
@@ -127,7 +128,7 @@ function setupGame() {
         }
     }
 
-    //gameLoop()
+    gameLoop()
 }
 
 //TEMPORARY
@@ -166,7 +167,6 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
     })
 })
 
-setupGame()
 
 export async function endRound(playersThatWon: Player[]) {
     if (!activeGamemode) return;
@@ -207,14 +207,30 @@ system.runInterval(() => {
     })
 }, 60)
 
+const gameStarterItem = lockItem("rt:game_starter")
+
 world.afterEvents.playerSpawn.subscribe((event) => {
     const { player } = event;
     player.rt.setCoinDisplay("shown")
     if (!event.initialSpawn) return;
+    if (!hostingPlayer) hostingPlayer = player
     player.runCommand('clear @s')
     player.teleport({ x: -78, y: 6, z: -25.5 })
     player.setGameMode(GameMode.adventure)
+
+    const container = (hostingPlayer.getComponent("inventory") as EntityInventoryComponent).container!
+    container.setItem(4, gameStarterItem)
 })
+
+world.afterEvents.itemUse.subscribe((event) => {
+    const { itemStack, source } = event
+    if (itemStack.typeId !== gameStarterItem.typeId) return
+    if (source !== hostingPlayer) return
+    
+    source.runCommand('clear @s')
+    setupGame()
+})
+
 world.getAllPlayers().forEach((player) => {
     player.rt.setCoinDisplay("shown")
     applyGameRules(defaultGameRules)
