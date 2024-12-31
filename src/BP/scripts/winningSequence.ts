@@ -1,5 +1,5 @@
-import { system, Vector3, world } from "@minecraft/server";
-import { dim } from "./main";
+import { EntityInventoryComponent, system, Vector3, world } from "@minecraft/server";
+import { dim, gameStarterItem } from "./main";
 import { Vector3Utils } from "@minecraft/math";
 
 const winingPlayerLocation: Vector3 = {
@@ -30,6 +30,9 @@ export function doWinningSequence() {
     winningPlayers.forEach((player, i) => {
         player.teleport(winingPlayerLocation)
         player.sendMessage("§aCongratulations! You won!")
+
+        const container = (player.getComponent("inventory") as EntityInventoryComponent).container!
+        container.setItem(4, gameStarterItem)
     })
 
     losingPlayers.forEach((player, i) => {

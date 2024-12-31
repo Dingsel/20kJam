@@ -50,7 +50,7 @@ const teamSpawnLocations = [
     },
     {
         x: 982,
-        y: 8,
+        y: 9,
         z: -42
     }
 ] as const
