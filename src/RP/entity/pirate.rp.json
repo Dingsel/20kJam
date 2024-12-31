@@ -20,7 +20,7 @@
                 "hide": "animation.pirate.hide_all"
             },
             "scripts": {
-                "animate": ["stand", "controller"]
+                "animate": ["hide", "stand", "controller"]
             },
             "render_controllers": ["controller.render.default"],
             "spawn_egg": {
