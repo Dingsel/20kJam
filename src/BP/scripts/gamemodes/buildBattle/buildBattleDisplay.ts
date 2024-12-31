@@ -2,6 +2,7 @@ import { Player } from "@minecraft/server";
 import { DisplayHandler } from "../../display/displayHandler";
 import { PlayerMapSettings } from "./pregame";
 import { Countdown } from "../../hooks/useCountdown";
+import { patternsToBuild } from "./staticData";
 
 class BuildBattleDisplay extends DisplayHandler {
     private playerMapSettings: Map<Player, PlayerMapSettings>;
@@ -23,7 +24,7 @@ class BuildBattleDisplay extends DisplayHandler {
 
         const progress = info.patternOrder.length
 
-        return `BLDTMR${minutes}:${remainingSeconds}TMR${2 - progress}/2`
+        return `BLDTMR${minutes}:${remainingSeconds}TMR${patternsToBuild - progress}/${patternsToBuild}`
     }
 }
 

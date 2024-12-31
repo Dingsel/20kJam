@@ -18,7 +18,7 @@ async function useCamera(player: Player): Promise<void> {
     })
 
     for (let i = 0; i < 5; i++) {
-        player.onScreenDisplay.setActionBar('§aBe the first to reach the exit!')
+        player.onScreenDisplay.setActionBar('§aCopy the pattern to the nether side!')
         await system.waitTicks(20)
     }
 
@@ -108,9 +108,9 @@ export async function BuildBattle(game: GameEventData): Promise<GamemodeExport> 
                 await system.waitTicks(100)
                 players.forEach(useCamera)
                 await system.waitTicks(100)
-    
+
                 players.forEach(async player => player.setGameMode((await this).gameSettings.gameMode))
-    
+
                 timer.start()
             })
         },

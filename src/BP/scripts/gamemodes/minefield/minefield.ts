@@ -152,7 +152,7 @@ export async function MinefieldGameMode({
 
                         for (const itterator of itterators) {
                             for (const location of itterator) {
-                                const isMine = Math.random() < 0.65;
+                                const isMine = Math.random() < 0.5;
                                 isMine && dim.setBlockType(location, "rt:explode_plate");
                                 yield;
                             }

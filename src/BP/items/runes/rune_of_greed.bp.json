@@ -9,7 +9,6 @@
         },
         "components": {
             "minecraft:icon": "rt_rune_4",
-            "minecraft:max_stack_size": 1,
             "minecraft:display_name": {
                 "value": "§eRune of Greed"
             }

@@ -9,7 +9,10 @@
         },
         "components": {
             "minecraft:max_stack_size": 1,
-            "minecraft:icon": "stick"
+            "minecraft:icon": "rt_start",
+            "minecraft:display_name": {
+                "value": "§eGame Starter"
+            }
         }
     }
 }

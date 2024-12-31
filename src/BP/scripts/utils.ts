@@ -1,6 +1,7 @@
 import { ItemLockMode, ItemStack, ItemType, Player, Structure, system, world } from "@minecraft/server";
 import { GamemodeExport } from "./gamemodes/gamemodeTypes";
 import { DisplayHandler } from "./display/displayHandler";
+import { GameRuleSettings } from "./main";
 
 export function shuffleArr<T extends any[]>(array: T): T {
     for (let i = array.length - 1; i > 0; i--) {
@@ -100,6 +101,13 @@ export async function useLoadingTimer(seconds: number, targetPlayers: Player[]):
     await system.waitTicks(100)
     await titleCountdown(seconds, targetPlayers, { endSound: "random.orb", endText: "§aGO", tickSound: "random.click", extraText: "§2Starting in §a", actionbar: false, pitch: 1 })
     targetPlayers.forEach((player) => player.inputPermissions.movementEnabled = true)
+}
+
+export function applyGameRules(rules: GameRuleSettings) {
+    Object.entries(rules).forEach(([key, value]) => {
+        // @ts-expect-error
+        world.gameRules[key] = value
+    })
 }
 
 export function sendError(player: Player, message: string): void {

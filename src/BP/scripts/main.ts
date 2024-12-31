@@ -4,7 +4,7 @@ import { GameEventData, GamemodeExport } from "./gamemodes/gamemodeTypes"
 import { MinefieldGameMode } from "./gamemodes/minefield/minefield"
 import { ParkourGameMode } from "./gamemodes/parkour/parkour"
 import BoxFightGameMode from "./gamemodes/boxfight/boxfight"
-import { anounceGamemode, chooseGamemode, lockItem, shuffleArr } from "./utils"
+import { anounceGamemode, applyGameRules, chooseGamemode, lockItem, shuffleArr, titleCountdown } from "./utils"
 
 import "./customComponents/customComponentsHandler"
 import "./prototypes/player"
@@ -19,8 +19,10 @@ export let hostingPlayer: Player | null = null
 
 export type Gamemodes = ((eventData: GameEventData) => GamemodeExport | Promise<GamemodeExport>)[]
 export type GameRuleSettings = { [key in keyof typeof world.gameRules]?: typeof world.gameRules[key] }
-
 export const isDev: boolean = true;
+
+const gameStarterItem = lockItem("rt:game_starter")
+let disHostSeeWarning: boolean = false;
 
 const defaultGameRules: GameRuleSettings = {
     doFireTick: false,
@@ -65,13 +67,6 @@ function checkIfWin() {
     return world.getAllPlayers().some((player) => player.rt.coins >= 20000)
 }
 
-function applyGameRules(rules: GameRuleSettings) {
-    Object.entries(rules).forEach(([key, value]) => {
-        // @ts-expect-error
-        world.gameRules[key] = value
-    })
-}
-
 async function anounceTopPlayers() {
     const players = world.getAllPlayers().sort((a, b) => b.rt.coins - a.rt.coins)
     const topPlayers = players.slice(0, 3)
@@ -80,7 +75,7 @@ async function anounceTopPlayers() {
         const player = topPlayers[i]
         const place = i + 1
         world.sendMessage(`§a#${place} ${player.name} with ${player.rt.coins} coins`)
-        dim.runCommand(`playsound note.pling @a ~ ~ ~ 1 ${1 + (3 - place) * 0.1}`)
+        world.getAllPlayers().forEach((p) => { p.playSound("random.pop", { pitch: 1 + (3 - place) * 0.1 }) })
         await system.waitTicks(20)
     }
 }
@@ -127,7 +122,6 @@ function setupGame() {
             gameLoop()
         }
     }
-
     gameLoop()
 }
 
@@ -166,7 +160,6 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
         }, 20)
     })
 })
-
 
 export async function endRound(playersThatWon: Player[]) {
     if (!activeGamemode) return;
@@ -207,14 +200,15 @@ system.runInterval(() => {
     })
 }, 60)
 
-const gameStarterItem = lockItem("rt:game_starter")
-
 world.afterEvents.playerSpawn.subscribe((event) => {
     const { player } = event;
     player.rt.setCoinDisplay("shown")
     if (!event.initialSpawn) return;
     if (!hostingPlayer) hostingPlayer = player
+
+    player.rt.coins = 0
     player.runCommand('clear @s')
+
     player.teleport({ x: -78, y: 6, z: -25.5 })
     player.setGameMode(GameMode.adventure)
 
@@ -222,16 +216,45 @@ world.afterEvents.playerSpawn.subscribe((event) => {
     container.setItem(4, gameStarterItem)
 })
 
-world.afterEvents.itemUse.subscribe((event) => {
+world.afterEvents.itemUse.subscribe(async (event) => {
     const { itemStack, source } = event
     if (itemStack.typeId !== gameStarterItem.typeId) return
     if (source !== hostingPlayer) return
-    
+
+    const playerCount = world.getAllPlayers().length
+
+    if ((playerCount < 2 || playerCount > 8) && !disHostSeeWarning) {
+        source.playSound("mob.villager.no")
+
+        source.sendMessage("§e§lWarning: §r§cThe game needs to have between 2 and 8 players to start.")
+        source.sendMessage("§l§eYou can still start the game by right clicking the item again but please note that some gamemodes might not work properly.")
+
+        disHostSeeWarning = true
+        return
+    }
+
     source.runCommand('clear @s')
+    world.sendMessage(`§cWARNING: This map may contain flashing lights and loud noises. Please be cautious if you have epilepsy or are sensitive to flashing lights.`)
+    await system.waitTicks(50)
+    source.playSound("random.levelup", { pitch: 1.5 })
+
+    source.sendMessage("§aThe Road To 20k: A Bedrock Add-Ons JAM Project.")
+    await system.waitTicks(50)
+
+    await titleCountdown(5, world.getAllPlayers(), {
+        endSound: "", endText: "§aHave Fun!", actionbar: true, extraText: "§2Starting in §a", pitch: 1, tickSound: "random.click"
+    })
+
     setupGame()
 })
 
 world.getAllPlayers().forEach((player) => {
     player.rt.setCoinDisplay("shown")
     applyGameRules(defaultGameRules)
+
+    if (!hostingPlayer) hostingPlayer = player
+    player.runCommand('clear @s')
+
+    const container = (hostingPlayer.getComponent("inventory") as EntityInventoryComponent).container!
+    container.setItem(4, gameStarterItem)
 })
