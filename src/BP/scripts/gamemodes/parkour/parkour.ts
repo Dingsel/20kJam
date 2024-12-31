@@ -152,7 +152,7 @@ export async function ParkourGameMode({
                     }
                 })
 
-                player.rt.coins += Math.max(1250 - roundWinners.length * 125, 100);
+                player.rt.coins += Math.max(3250 - roundWinners.length * 425, 100);
                 fixedPlacements.push(player);
                 roundWinners.push(player);
                 if (roundWinners.length === players.length) {

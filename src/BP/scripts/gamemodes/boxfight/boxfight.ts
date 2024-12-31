@@ -87,7 +87,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
         if (playerTeamMap.get(deadEntity)?.teamId === playerTeamMap.get(damigingEntity)?.teamId) {
             damigingEntity.sendMessage(`§cYou Monster.`)
             damigingEntity.playSound("mob.cat.meow", { pitch: 0.5 })
-            damigingEntity.rt.coins -= 250
+            damigingEntity.rt.coins -= 550
         } else {
             const teamColour = playerTeamMap.get(deadEntity)?.teamId === 1 ? {
                 r: 255,
@@ -105,7 +105,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 location: deadEntity.location,
                 dynamicParticleVars: teamColour
             })
-            damigingEntity.rt.coins += 250
+            damigingEntity.rt.coins += 550
         }
     })
 
@@ -119,7 +119,7 @@ export async function BoxFightGameMode({ players }: GameEventData): Promise<Game
                 )
             })
             for (const player of winningPlayers) {
-                player.rt.coins += 1000
+                player.rt.coins += 3050
             }
             endRound(winningPlayers)
             return

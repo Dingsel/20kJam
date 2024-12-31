@@ -65,7 +65,7 @@ export async function BuildBattle(game: GameEventData): Promise<GamemodeExport> 
         info.patternOrder.shift()
         player.dimension.fillBlocks(info.targetPatternVolume, "minecraft:air")
 
-        player.rt.coins += 750
+        player.rt.coins += 3500
 
         if (info.patternOrder.length <= 0) {
             winningPlayers.push(player)

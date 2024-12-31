@@ -215,7 +215,7 @@ export async function MinefieldGameMode({
                     }
                 })
 
-                player.rt.coins += Math.max(1250 - roundWinners.length * 125, 100);
+                player.rt.coins += Math.max(3250 - roundWinners.length * 425, 100);
                 player.setGameMode(GameMode.spectator);
 
                 fixedPlacements.push(player);

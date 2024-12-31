@@ -80,7 +80,7 @@ export async function RuneCollectorGameMode({ players }: GameEventData): Promise
                     player.sendMessage("§cOh no! You triggered a trap!")
                     spawnRandomMobs(3, block.location)
                 } else {
-                    const coins = block.permutation.getState("rt:coin_tier") as number * 50
+                    const coins = block.permutation.getState("rt:coin_tier") as number * 75
                     block.dimension.spawnParticle("rt:coins", block.location)
                     playerCoinMap.set(player, playerCoinMap.get(player)! + coins)
                     player.rt.coins += coins
@@ -115,9 +115,9 @@ export async function RuneCollectorGameMode({ players }: GameEventData): Promise
         const runeMap = getActiveRunes(player)
 
         if (runeMap["rt:rune_of_greed"]) {
-            player.rt.coins += 155
-            playerCoinMap.set(player, playerCoinMap.get(player)! + 155)
-            player.sendMessage("§a+155 Coins §7§l(RUNE OF GREED)")
+            player.rt.coins += 175
+            playerCoinMap.set(player, playerCoinMap.get(player)! + 175)
+            player.sendMessage("§a+175 Coins §7§l(RUNE OF GREED)")
         }
 
         if (runeMap["rt:rune_of_destiny"]) {
