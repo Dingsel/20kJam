@@ -44,9 +44,8 @@ world.afterEvents.entityHitEntity.subscribe(async (event) => {
             break
 
         case "rt:pirate":
-            damagingEntity.playSound("rt:random.pirate")
-
             for (const text of pirateTexts) {
+                damagingEntity.playSound("rt:random.pirate")
                 await new Promise<void>((res) => {
                     useTypeWriter(text, (str, isSkippable) => {
                         !isSkippable && damagingEntity.playSound("random.click", { pitch: 2.5 + Math.random() * 2 - 1 })
