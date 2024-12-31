@@ -190,6 +190,11 @@ export async function RuneCollectorGameMode({ players }: GameEventData): Promise
             world.afterEvents.entityHurt.unsubscribe(hurtEvent)
             world.afterEvents.entityDie.unsubscribe(deadEvent)
             timers.forEach((timer) => timer.dispose())
+
+            dim.runCommand("difficulty peaceful")
+            system.run(() => {
+                dim.runCommand("difficulty easy")
+            })
         },
     }
 }
