@@ -60,6 +60,8 @@ export async function RuneCollectorGameMode({ players }: GameEventData): Promise
 
     timers.forEach(async (timer, player) => {
         timer.onTimeDown(() => {
+            player.sendMessage("§cYour time is up!")
+            player.setGameMode(GameMode.spectator)
             expiredPlayers.push(player)
             if (expiredPlayers.length === players.length) {
                 endRound([])
@@ -173,6 +175,10 @@ export async function RuneCollectorGameMode({ players }: GameEventData): Promise
 
         whileActive() {
             display.updateDisplay()
+
+            if (expiredPlayers.length === players.filter((x) => x.isValid() && !x.isDead).length) {
+                endRound([])
+            }
         },
 
         spawnPlayer(player) {
@@ -190,6 +196,11 @@ export async function RuneCollectorGameMode({ players }: GameEventData): Promise
             world.afterEvents.entityHurt.unsubscribe(hurtEvent)
             world.afterEvents.entityDie.unsubscribe(deadEvent)
             timers.forEach((timer) => timer.dispose())
+
+            dim.runCommand("difficulty peaceful")
+            system.run(() => {
+                dim.runCommand("difficulty easy")
+            })
         },
     }
 }

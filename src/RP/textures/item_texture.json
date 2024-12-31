@@ -2,6 +2,9 @@
     "resource_pack_name": "rt20k",
     "texture_name": "atlas.items",
     "texture_data": {
+        "rt_start": {
+            "textures": ["textures/items/start.texture"]
+        },
         "rt_kit_selector": {
             "textures": ["textures/items/kit_selector.texture"]
         },

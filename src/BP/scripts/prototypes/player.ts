@@ -9,6 +9,7 @@ interface RTPlayer {
 
 declare module "@minecraft/server" {
     interface Player {
+        inDialouge: boolean | undefined;
         selectedKitIndex: number | undefined;
         lastHitBy: Player | undefined
         rt: RTPlayer

@@ -1,6 +1,7 @@
 import { ItemLockMode, ItemStack, ItemType, Player, Structure, system, world } from "@minecraft/server";
 import { GamemodeExport } from "./gamemodes/gamemodeTypes";
 import { DisplayHandler } from "./display/displayHandler";
+import { GameRuleSettings } from "./main";
 
 export function shuffleArr<T extends any[]>(array: T): T {
     for (let i = array.length - 1; i > 0; i--) {
@@ -20,7 +21,7 @@ export async function anounceGamemode(gamemode: GamemodeExport): Promise<void> {
     })
 
     await system.waitTicks(20)
-    world.sendMessage(`here would some fancy anouncement go for ${gamemode.displayName}`)
+    world.sendMessage(`§aNext up: ${gamemode.displayName}`)
     return system.waitTicks(60)
 }
 
@@ -90,7 +91,7 @@ export function structure([structureId]: TemplateStringsArray): Structure {
 
 export async function useLoadingTimer(seconds: number, targetPlayers: Player[]): Promise<void> {
     targetPlayers.forEach(async (player) => {
-        player.inputPermissions.movementEnabled = false
+        player.runCommand("inputpermission set @s movement disabled")//player.inputPermissions.movementEnabled = false is legit broken
         for (let i = 0; i < 5; i++) {
             player.sendMessage("RTKJAM:stext" + '§aLoading§2' + ('.').repeat((i % 3) + 1))
             await system.waitTicks(20)
@@ -99,10 +100,40 @@ export async function useLoadingTimer(seconds: number, targetPlayers: Player[]):
 
     await system.waitTicks(100)
     await titleCountdown(seconds, targetPlayers, { endSound: "random.orb", endText: "§aGO", tickSound: "random.click", extraText: "§2Starting in §a", actionbar: false, pitch: 1 })
-    targetPlayers.forEach((player) => player.inputPermissions.movementEnabled = true)
+    targetPlayers.forEach((player) => player.runCommand("inputpermission set @s movement enabled"))
+}
+
+export function applyGameRules(rules: GameRuleSettings) {
+    Object.entries(rules).forEach(([key, value]) => {
+        // @ts-expect-error
+        world.gameRules[key] = value
+    })
 }
 
 export function sendError(player: Player, message: string): void {
     player.playSound("mob.villager.no")
     player.sendMessage(`§c${message}`)
+}
+
+
+type TypeWriterOptions = {
+    timeoutDuration?: number
+    skippedCharacters?: string[]
+    onComplete?: () => any
+    //holdingCharacters?: string[]
+}
+
+export async function useTypeWriter(textToType: string, onText: (str: string, isSkippable: boolean) => any, typeWriterOptions: TypeWriterOptions) {
+    let finalText = ""
+    for (const char of textToType) {
+        finalText += char
+        if (typeWriterOptions.skippedCharacters?.includes(char)) {
+            onText(finalText, true)
+            continue
+        }
+        onText(finalText, false)
+        await system.waitTicks(typeWriterOptions.timeoutDuration || 1)
+    }
+
+    typeWriterOptions?.onComplete?.()
 }

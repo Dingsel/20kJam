@@ -26,7 +26,7 @@
     "anchor_to": "bottom_middle",
     "offset": [
       0,
-      -50
+      -62
     ],
     "controls": [
       {
@@ -42,7 +42,7 @@
           "anchor_to": "top_left",
           "offset": [
             6,
-            -3
+            -5
           ]
         }
       },

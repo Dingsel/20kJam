@@ -16,12 +16,6 @@
 				},
 				"right_arm": {
 					"rotation": [0, 0, "(math.sin(q.anim_time * 180) + 2) * 2"]
-				},
-				"crown": {
-					"scale": 0
-				},
-				"binoculars": {
-					"scale": 0
 				}
 			}
 		},
@@ -340,25 +334,24 @@
 			"loop": true,
 			"bones": {
 				"body": {
-					"rotation": [0, 0, -5]
+					"rotation": [7.47178, -0.65182, -2.54256]
 				},
 				"left_leg": {
-					"rotation": [-77.5, 0, 0],
+					"rotation": [-97, 0, 0],
 					"position": [0, 0, 0]
 				},
 				"right_leg": {
 					"rotation": [20, 0, 0]
 				},
 				"left_foot": {
-					"rotation": [77.5, 0, 0],
-					"position": [0, -1.00372, -0.38731]
+					"rotation": [87.5, 0, 0],
+					"position": [0, -1.00372, 0.31269]
 				}
 			}
 		},
 		"animation.pirate.hide_all": {
 			"loop": true,
 			"animation_length": 0.25,
-			"override_previous_animation": true,
 			"bones": {
 				"binoculars": {
 					"scale": 0
