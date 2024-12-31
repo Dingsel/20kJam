@@ -9,6 +9,8 @@ import { anounceGamemode, applyGameRules, chooseGamemode, lockItem, shuffleArr, 
 import "./customComponents/customComponentsHandler"
 import "./prototypes/player"
 import "./deathSequences"
+import "./npcs"
+
 import { BuildBattle } from "./gamemodes/buildBattle/buildBattle"
 import { BouncyBoxGameMode } from "./gamemodes/bouncyBox/bouncyBox"
 import { RuneCollectorGameMode } from "./gamemodes/runeCollector/runeCollector"
@@ -261,3 +263,10 @@ world.getAllPlayers().forEach((player) => {
     const container = (hostingPlayer.getComponent("inventory") as EntityInventoryComponent).container!
     container.setItem(4, gameStarterItem)
 })
+
+
+system.runInterval(() => {
+    world.getAllPlayers().forEach((player) => {
+        //player.playSound("rt:doung", { pitch: 1 + Math.random() * 0.6 - 0.3 })
+    })
+}, 3)
