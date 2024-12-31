@@ -270,6 +270,9 @@
           },
           {
           "runecollector@gm_runecollector.render": {}
+          },
+          {
+          "pirate@sp_pirate.render": {}
           }
           
         ]
