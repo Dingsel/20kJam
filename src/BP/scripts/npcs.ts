@@ -23,10 +23,11 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
     if (!(damagingEntity instanceof Player)) return
 
     const entityVoiceLines = voiceLineInfo[hitEntity.typeId]
-    if (!entityVoiceLines) return
+    if (!entityVoiceLines || damagingEntity.inDialouge) return
 
     const voiceLine = entityVoiceLines[Math.floor(Math.random() * entityVoiceLines.length)]
 
+    damagingEntity.inDialouge = true
     useTypeWriter(voiceLine, (str, isSkippable) => {
         switch (hitEntity.typeId) {
             case "rt:mrcoconut":
@@ -40,5 +41,9 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
 
         }
 
-    }, { timeoutDuration: 3, skippedCharacters: [" "] })
+    }, {
+        timeoutDuration: 2, skippedCharacters: [" "], onComplete() {
+            damagingEntity.inDialouge = false
+        },
+    })
 })
