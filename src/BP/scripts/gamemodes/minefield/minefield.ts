@@ -198,11 +198,12 @@ export async function MinefieldGameMode({
             isActive && display.updateDisplay();
             for (const player of players) {
                 if (
+                    player.isDead ||
                     !player.isValid() ||
                     !minefieldFinishArea.isInside(player.location) ||
                     roundWinners.includes(player)
-                )
-                    continue;
+                ) continue;
+
                 player.sendMessage("You finished the minefield!");
 
                 playerKillParticle.spawn({
@@ -223,7 +224,7 @@ export async function MinefieldGameMode({
             }
 
             if (
-                roundWinners.length ===
+                roundWinners.length >=
                 players.filter((x) => x.isValid() && !x.isDead).length
             ) {
                 isActive = false;

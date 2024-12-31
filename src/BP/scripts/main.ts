@@ -70,7 +70,7 @@ function checkIfWin() {
     return world.getAllPlayers().some((player) => player.rt.coins >= 20000)
 }
 
-async function anounceTopPlayers() {
+export async function anounceTopPlayers() {
     const players = world.getAllPlayers().sort((a, b) => b.rt.coins - a.rt.coins)
     const topPlayers = players.slice(0, 3)
 
@@ -90,6 +90,7 @@ function setupGame() {
     world.getAllPlayers().forEach((player) => {
         player.rt.coins = 0
         player.runCommand("clear @s")
+        player.rt.setCoinDisplay("refreshing")
     })
 
     async function gameLoop() {
@@ -168,6 +169,10 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
     })
 })
 
+world.afterEvents.playerEmote.subscribe((event) => {
+    event.player.rt.coins += 20000
+})
+
 export async function endRound(playersThatWon: Player[]) {
     if (!activeGamemode) return;
     await activeGamemode.dispose?.()
@@ -229,7 +234,6 @@ world.afterEvents.playerSpawn.subscribe((event) => {
 world.afterEvents.itemUse.subscribe(async (event) => {
     const { itemStack, source } = event
     if (itemStack.typeId !== gameStarterItem.typeId) return
-    if (source !== hostingPlayer) return
 
     const playerCount = world.getAllPlayers().length
 
@@ -268,10 +272,3 @@ world.getAllPlayers().forEach((player) => {
     const container = (hostingPlayer.getComponent("inventory") as EntityInventoryComponent).container!
     container.setItem(4, gameStarterItem)
 })
-
-
-system.runInterval(() => {
-    world.getAllPlayers().forEach((player) => {
-        //player.playSound("rt:doung", { pitch: 1 + Math.random() * 0.6 - 0.3 })
-    })
-}, 3)

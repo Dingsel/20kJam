@@ -22,6 +22,8 @@ export async function generateMap(game: GameEventData): Promise<BuildBattlePrega
     const { players } = game
     dim.runCommand(`tickingarea add ${buildBattleBasePos.x} ${buildBattleBasePos.y} ${buildBattleBasePos.z} ${buildbattleMaxPos.x} ${buildbattleMaxPos.y} ${buildbattleMaxPos.z} rt:buildbattle`)
 
+    const patternOrder = shuffleArr([...buildPattern]).slice(0, patternsToBuild)
+
     const playerMapSettings = new Map<Player, PlayerMapSettings>(players.map((player, i) => {
         const row = i % 2
         const col = Math.floor(i / 2)
@@ -33,7 +35,6 @@ export async function generateMap(game: GameEventData): Promise<BuildBattlePrega
             z: col * 32
         })
 
-        const patternOrder = shuffleArr([...buildPattern]).slice(0, patternsToBuild)
 
         const buildPatternStart = Vector3Utils.add(buildAreaStart, buildPatternStartOffset)
         const buildPatternEnd = Vector3Utils.add(buildPatternStart, { x: 0, y: 4, z: 4 })

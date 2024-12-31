@@ -1,5 +1,5 @@
 import { EntityInventoryComponent, system, Vector3, world } from "@minecraft/server";
-import { dim, gameStarterItem } from "./main";
+import { anounceTopPlayers, dim, gameStarterItem } from "./main";
 import { Vector3Utils } from "@minecraft/math";
 
 const winingPlayerLocation: Vector3 = {
@@ -21,13 +21,27 @@ const loosingPlayerLocations: Vector3[] = [
     }
 ]
 
-export function doWinningSequence() {
-    const players = world.getAllPlayers()
+export async function doWinningSequence() {
+
+    let players = world.getAllPlayers()
+    players.forEach((player) => { player.camera.fade({ fadeColor: { red: 0, green: 0, blue: 0 }, fadeTime: { fadeInTime: 0.5, holdTime: 4, fadeOutTime: 0.5 } }) })
+
+    await system.waitTicks(20 * 4)
+
+    players = world.getAllPlayers()
 
     const winningPlayers = players.filter((player) => player.rt.coins >= 20000)
     const losingPlayers = players.filter((player) => player.rt.coins < 20000)
 
+    await anounceTopPlayers()
+
+    players.forEach((player) => {
+        if (!player.isValid()) return
+        player.playSound("random.levelup", { pitch: 0.5 })
+    })
+
     winningPlayers.forEach((player, i) => {
+        if (!player.isValid()) return
         player.teleport(winingPlayerLocation)
         player.sendMessage("§aCongratulations! You won!")
 
@@ -36,9 +50,10 @@ export function doWinningSequence() {
     })
 
     losingPlayers.forEach((player, i) => {
+        if (!player.isValid()) return
         const randomLoosingPlayerLocationIndex = loosingPlayerLocations[Math.floor(Math.random() * loosingPlayerLocations.length)]
         player.teleport(randomLoosingPlayerLocationIndex)
-        player.sendMessage("§6Nice Try")
+        player.sendMessage("§6Better luck next time!")
     })
 
     const winningInterval = system.runInterval(async () => {
@@ -50,7 +65,7 @@ export function doWinningSequence() {
                     y: 0,
                     z: Math.random() * 4 - 2
                 }
-                dim.spawnEntity("minecraft:firework_rocket", Vector3Utils.add(winingPlayerLocation, randomOffset))
+                dim.spawnEntity("minecraft:fireworks_rocket", Vector3Utils.add(winingPlayerLocation, randomOffset))
             }
             spawnFirework()
             const shouldShootAnother = Math.random() > 0.5
@@ -60,9 +75,11 @@ export function doWinningSequence() {
         } catch (error) {
             system.clearRun(winningInterval)
         }
-    }, 40)
+    }, 20)
 
     system.runTimeout(() => {
+        world.sendMessage(`§uMade by: §dPablo, Yassin and Dingsel`)
+        world.sendMessage(`§aThank you for playing!`)
         system.clearRun(winningInterval)
     }, 200)
 }
