@@ -1,9 +1,14 @@
 import { Vector3Utils } from "@minecraft/math"
 import { structure } from "../../utils"
 
+export const patternsToBuild = 1
+
 export const buildPattern = [
     structure`buildbattle_pattern_1`,
-    structure`buildbattle_pattern_2`
+    structure`buildbattle_pattern_2`,
+    structure`buildbattle_pattern_3`,
+    structure`buildbattle_pattern_4`,
+    structure`buildbattle_pattern_5`,
 ]
 
 export const buildBoxStructure = structure`build_box`

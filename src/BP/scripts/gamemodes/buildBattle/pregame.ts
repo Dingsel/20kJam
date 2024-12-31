@@ -3,7 +3,7 @@ import { dim } from "../../main";
 import { shuffleArr } from "../../utils";
 import { GameEventData } from "../gamemodeTypes";
 import { BlockVolume, Player, Structure, Vector3, world } from "@minecraft/server";
-import { buildBattleBasePos, buildbattleMaxPos, buildBoxStructure, buildPattern, buildPatternStartOffset, spawnLocationOffset, targetPatternStartOffset } from "./staticData";
+import { buildBattleBasePos, buildbattleMaxPos, buildBoxStructure, buildPattern, buildPatternStartOffset, patternsToBuild, spawnLocationOffset, targetPatternStartOffset } from "./staticData";
 
 export interface PlayerMapSettings {
     patternOrder: Structure[],
@@ -33,7 +33,7 @@ export async function generateMap(game: GameEventData): Promise<BuildBattlePrega
             z: col * 32
         })
 
-        const patternOrder = shuffleArr([...buildPattern])
+        const patternOrder = shuffleArr([...buildPattern]).slice(0, patternsToBuild)
 
         const buildPatternStart = Vector3Utils.add(buildAreaStart, buildPatternStartOffset)
         const buildPatternEnd = Vector3Utils.add(buildPatternStart, { x: 0, y: 4, z: 4 })
