@@ -3,7 +3,22 @@ import { useTypeWriter } from "./utils";
 
 const voiceLineInfo: { [key: string]: string[] } = {
     "rt:pirate": [],
-    "rt:mistercoconut": [],
+    "rt:mrcoconut": [
+        "let me sleep",
+        "get out of the sun",
+        "ZZZzzzz",
+        "*sleeping*",
+        "silence",
+        "you know coconuts are deadly",
+        "The most deadly",
+        "Coconuts kill over 150 people per year",
+        "Step back",
+        "i hate watermelons",
+        "im on vacation",
+        
+
+
+    ],
 }
 
 world.afterEvents.entityHitEntity.subscribe((event) => {
@@ -17,7 +32,7 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
 
     useTypeWriter(voiceLine, (str) => {
         switch (hitEntity.typeId) {
-            case "rt:mistercoconut":
+            case "rt:mrcoconut":
                 damagingEntity.playSound("rt:doung", { pitch: 1 + Math.random() * 0.6 - 0.3 })
                 damagingEntity.onScreenDisplay.setActionBar(`speach_coconut${str}`)
                 break
