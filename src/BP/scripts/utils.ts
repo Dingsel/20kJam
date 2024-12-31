@@ -119,16 +119,21 @@ export function sendError(player: Player, message: string): void {
 type TypeWriterOptions = {
     timeoutDuration?: number
     skippedCharacters?: string[]
+    onComplete?: () => any
     //holdingCharacters?: string[]
 }
 
 export async function useTypeWriter(textToType: string, onText: (str: string) => any, typeWriterOptions: TypeWriterOptions) {
+    let finalText = ""
     for (const char of textToType) {
+        finalText += char
         if (typeWriterOptions.skippedCharacters?.includes(char)) {
-            onText(char)
+            onText(finalText)
             continue
         }
-        onText(char)
+        onText(finalText)
         await system.waitTicks(typeWriterOptions.timeoutDuration || 1)
     }
+
+    typeWriterOptions?.onComplete?.()
 }
