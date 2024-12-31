@@ -31,7 +31,7 @@ world.afterEvents.entityHitEntity.subscribe(async (event) => {
     const entityVoiceLines = voiceLineInfo[hitEntity.typeId]
     if ((!entityVoiceLines && hitEntity.typeId !== "rt:pirate") || damagingEntity.inDialouge) return
 
-    const voiceLine = hitEntity.typeId === "rt:pirate" ? entityVoiceLines[Math.floor(Math.random() * entityVoiceLines.length)] : ""
+    const voiceLine = hitEntity.typeId === "rt:pirate" ? "" : entityVoiceLines[Math.floor(Math.random() * entityVoiceLines.length)]
     damagingEntity.inDialouge = true
 
     switch (hitEntity.typeId) {
