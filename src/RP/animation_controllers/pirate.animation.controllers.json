@@ -5,7 +5,8 @@
             "initial_state": "idle",
             "states": {
                 "idle": {
-                    "animations": ["idle"],
+                    "animations": ["idle", "hide"],
+                    "blend_via_shortest_path": true,
                     "transitions": [
                         {
                             "binoculars": "false"
@@ -13,7 +14,8 @@
                     ]
                 },
                 "binoculars": {
-                    "blend_transition": 1,
+                    "blend_transition": 1, 
+                    "blend_via_shortest_path": true,
                     "animations": ["idle", "binoculars"],
                     "transitions": [
                         {
