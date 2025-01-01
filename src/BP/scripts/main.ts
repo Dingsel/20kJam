@@ -142,7 +142,7 @@ system.afterEvents.scriptEventReceive.subscribe(async (event) => {
 
     const selectedGamemode = gameModes[gamemodeElementIndex]
     if (!selectedGamemode) return
-    if (activeGamemode) endRound([])
+    if (activeGamemode) await endRound([])
 
     //TODO: Only valid players
     const upcomingGamemode = await selectedGamemode({ players: world.getAllPlayers() })

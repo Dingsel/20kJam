@@ -1,0 +1,14 @@
+{
+	"version": "0.3.0",
+	"configurations": [
+		{
+			"type": "minecraft-js",
+			"request": "attach",
+			"name": "Debug with Minecraft",
+			"mode": "listen",
+			"localRoot": "${workspaceFolder}/src/BP/scripts/",
+			"generatedSourceRoot": "${workspaceFolder}/src",
+			"port": 19144
+		}
+	]
+}
