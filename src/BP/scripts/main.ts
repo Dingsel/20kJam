@@ -22,7 +22,7 @@ export let hostingPlayer: Player | null = null
 
 export type Gamemodes = ((eventData: GameEventData) => GamemodeExport | Promise<GamemodeExport>)[]
 export type GameRuleSettings = { [key in keyof typeof world.gameRules]?: typeof world.gameRules[key] }
-export const isDev: boolean = true;
+export const isDev: boolean = false;
 
 export const gameStarterItem = lockItem("rt:game_starter")
 let disHostSeeWarning: boolean = false;
